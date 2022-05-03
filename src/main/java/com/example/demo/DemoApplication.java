@@ -1,13 +1,13 @@
-package com.example.OlimpiadasUNAM;
+package com.example.demo;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class OlimpiadasUnamApplication {
+public class DemoApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(OlimpiadasUnamApplication.class, args);
+		SpringApplication.run(DemoApplication.class, args);
 	}
 
 }
