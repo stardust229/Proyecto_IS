@@ -7,6 +7,7 @@ import com.example.demo.Repositorio.DisciplinaRepositorio;
 import com.example.demo.Servicio.DisciplinaServicio;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,8 +30,9 @@ public class Controlador{
     */
 
     @GetMapping({"/disciplinaIH", "/"})
-    public String menuDisciplinas(Model modelo){
-        modelo.addAttribute("disciplina", disciplinaServicio.mostrarDisciplinas());
+    public String menuDisciplinas(Model modelo, @Param("busqueda") String busqueda){
+        modelo.addAttribute("disciplina", disciplinaServicio.mostrarDisciplinas(busqueda));
+        modelo.addAttribute("busqueda", busqueda);
         return "disciplinaIH";
     }
 
@@ -42,33 +44,21 @@ public class Controlador{
     }
 
     @GetMapping("/disciplinaIH/editar/{id}")
-    public String formularioEditar(@PathVariable String id, Model modelo){
+    public String formularioEditar(@PathVariable("id") Integer id, Model modelo){
         modelo.addAttribute("disciplina", disciplinaServicio.consultarDisciplina(id));
         return "formulario";
     }
 
-    
     @PostMapping("/disciplinaIH/{id}")
-    public String actualizarDisciplina(@PathVariable String id, @ModelAttribute("disciplina") Disciplina disciplina, Model modelo){
+    public String actualizarDisciplina(@PathVariable("id") Integer id, @ModelAttribute("disciplina") Disciplina disciplina, Model modelo){
         Disciplina original = disciplinaServicio.consultarDisciplina(id);
         original.setNombre(disciplina.getNombre());
         disciplinaServicio.editarDisciplina(original);
         return "redirect:/disciplinaIH";
     }
-    
-
-    /*
-    @PostMapping("/disciplinaIH/actualiza")
-	public String actualizaDisciplina(HttpServletRequest request) {
-		request.getParameter("disciplina");
-		Disciplina d = disciplinaServicio.consultarDisciplina(String.valueOf(request.getParameter("nombre")));
-        disciplinaServicio.editarDisciplina(d);
-        return "redirect:/disciplinaIH";
-	}
-    */
 
     @GetMapping("/disciplinaIH/{id}")
-    public String eliminarDisciplina(@PathVariable String id){
+    public String eliminarDisciplina(@PathVariable Integer id){
         disciplinaServicio.eliminarDisciplina(id);
         return "redirect:/disciplinaIH";
     }

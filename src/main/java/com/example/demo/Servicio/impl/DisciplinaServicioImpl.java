@@ -23,22 +23,27 @@ public class DisciplinaServicioImpl implements DisciplinaServicio {
     }
 
     @Override
-    public List<Disciplina> mostrarDisciplinas(){
+    public List<Disciplina> mostrarDisciplinas(String busqueda){
+        if(busqueda != null){
+            return disciplinaRepositorio.findAll(busqueda);
+        }
         return disciplinaRepositorio.findAll();
     }
 
     @Override
-    public Disciplina consultarDisciplina(String id) {
+    public Disciplina consultarDisciplina(Integer id) {
         return disciplinaRepositorio.getById(id);
     }
 
+    
+
     @Override
-    public Disciplina editarDisciplina(Disciplina datosNuevos) {
-        return disciplinaRepositorio.saveAndFlush(datosNuevos);
+    public Disciplina editarDisciplina(Disciplina disciplina) {
+        return disciplinaRepositorio.save(disciplina);
     }
 
     @Override
-    public void eliminarDisciplina(String id) {
+    public void eliminarDisciplina(Integer id) {
         disciplinaRepositorio.deleteById(id);
         
     }
