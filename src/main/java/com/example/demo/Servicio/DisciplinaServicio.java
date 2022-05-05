@@ -16,4 +16,6 @@ public interface DisciplinaServicio {
 
     public void eliminarDisciplina(Integer id);
 
+    public boolean existeDisciplina(String busqueda);
+
 }

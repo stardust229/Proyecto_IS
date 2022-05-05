@@ -30,12 +30,12 @@ public class DisciplinaServicioImpl implements DisciplinaServicio {
         return disciplinaRepositorio.findAll();
     }
 
+
     @Override
     public Disciplina consultarDisciplina(Integer id) {
         return disciplinaRepositorio.getById(id);
     }
 
-    
 
     @Override
     public Disciplina editarDisciplina(Disciplina disciplina) {
@@ -46,6 +46,14 @@ public class DisciplinaServicioImpl implements DisciplinaServicio {
     public void eliminarDisciplina(Integer id) {
         disciplinaRepositorio.deleteById(id);
         
+    }
+
+    @Override
+    public boolean existeDisciplina(String busqueda){
+        if(busqueda != ""){
+            busqueda = busqueda.substring(0,1).toUpperCase() + busqueda.substring(1).toLowerCase();
+        }
+        return disciplinaRepositorio.existsByName(busqueda);
     }
     
 }

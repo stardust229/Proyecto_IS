@@ -15,4 +15,7 @@ public interface DisciplinaRepositorio extends JpaRepository<Disciplina, Integer
     // @Query("SELECT d from Disciplina d WHERE LOWER(d.nombre) LIKE %:busqueda%")
     @Query("SELECT d from Disciplina d WHERE d.nombre LIKE %:busqueda%")
     public List<Disciplina> findAll(String busqueda);
+
+    @Query("SELECT CASE WHEN COUNT(d) > 0 THEN true ELSE false END FROM Disciplina d WHERE d.nombre = :busqueda")
+    boolean existsByName(String busqueda);
 }
