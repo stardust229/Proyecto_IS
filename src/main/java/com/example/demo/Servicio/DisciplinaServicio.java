@@ -8,12 +8,12 @@ public interface DisciplinaServicio {
     
     Disciplina agregaDisciplina(String nombre);
     
-    public List<Disciplina> mostrarDisciplinas();
+    public List<Disciplina> mostrarDisciplinas(String busqueda);
 
-    public Disciplina consultarDisciplina(String nombre);
+    public Disciplina consultarDisciplina(Integer id);
 
     public Disciplina editarDisciplina(Disciplina disciplina);
 
-    public void eliminarDisciplina(String nombre);
+    public void eliminarDisciplina(Integer id);
 
 }
