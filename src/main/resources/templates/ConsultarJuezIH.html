@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+    <style>
+        h1{
+            text-align: center;
+            font-family:'Courier New', monospace;
+        }
+        .button{
+            font-family:'Courier New', monospace;
+            background-color: lavender;
+            border: 1px solid slateblue;
+            border-radius: 5px;
+            padding: 15px;
+            box-shadow: 2px 2px lightgray;
+        }
+    </style>
+</head>
+
+<body>
+<h1>Disciplinas</h1>
+
+    <div class="row" style="margin-left: 360px;margin-right: 360px;">
+        <table class="table table-striped table-bordered table-hover">
+            <thead class="table-dark">
+            <tr>
+                <th>Num. de cuenta</th>
+                <th>Nombre</th>
+                <th>Apellido Paterno</th>
+                <th>Apellido Materno</th>
+                <th>Facultad</th>
+                <th>Correo</th>
+                <th>Disciplina</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="juez : ${jueces}">
+                <td th:text="${juez.numCuenta}">NumCuenta</td>
+                <td th:text="${juez.nombre}">Nombre</td>
+                <td th:text="${juez.apellidoPaterno}">ApellidoPaterno</td>
+                <td th:text="${juez.apellidoMaterno}">ApellidoMaterno</td>
+                <td th:text="${juez.facultad}">Facultad</td>
+                <td th:text="${juez.correo}">Correo</td>
+                <td th:text="${juez.disciplina}">Disciplina</td>
+                <td>
+                    <a th:href="@{/editarJuez} + ${{juez.numCuenta}}" class="btn btn-info">Editar</a>
+                </td>
+                <td>
+                    <a th:href="@{/eliminarJuez} + ${{juez.numCuenta}}" class="btn btn-danger">Eliminar</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+</body>
+</html>

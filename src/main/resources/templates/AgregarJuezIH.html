@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Bienvenida</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans&display=swap" rel="stylesheet">
+    <style>
+        .font_mich{
+            font-family: 'DM Sans', sans-serif;
+            color: #850091;
+        }
+    </style>
+</head>
+<body>
+<H1 class="font_mich">Agregar juez</H1>
+<form method="post" th:action="@{/agregarJuez}">
+    <label for="numCuenta">Número de cuenta:</label><br>
+    <input type="number" id="numCuenta" name="numCuenta"><br>
+    <label for="nombre">Nombre:</label><br>
+    <input type="text" id="nombre" name="nombre"><br>
+    <label for="apellidoPaterno">Apellido paterno:</label><br>
+    <input type="text" id="apellidoPaterno" name="apellidoPaterno"><br>
+    <label for="apellidoMaterno">Apellido materno:</label><br>
+    <input type="text" id="apellidoMaterno" name="apellidoMaterno"><br>
+    <label for="facultad">Facultad:</label><br>
+    <input type="text" id="facultad" name="facultad"><br>
+    <label for="correo">Correo electrónico:</label><br>
+    <input type="text" id="correo" name="correo"><br>
+    <label for="disciplina">Disciplina:</label><br>
+    <input type="text" id="disciplina" name="disciplina"><br>
+    <button class="font_mich" type="submit">Agregar</button>
+</form>
+<h2>Ya existía el número de cuenta:</h2>
+<h2 class="font_mich" th:text="${flagIDNoDisponible}"></h2>
+</body>
+</html>
