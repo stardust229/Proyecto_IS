@@ -1,10 +1,11 @@
-package com.example.demo.Repositorio;
+package com.example.OlimpiadasUNAM.Repositorio;
 
-import com.example.demo.Modelo.Usuario;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.NoRepositoryBean;
 
 import java.util.List;
+
+import com.example.OlimpiadasUNAM.Modelo.Usuario;
 
 @NoRepositoryBean
 public interface UsuarioRepositorio<T extends Usuario> extends JpaRepository<T, Integer> {

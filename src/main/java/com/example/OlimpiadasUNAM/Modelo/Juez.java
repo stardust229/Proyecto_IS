@@ -1,4 +1,4 @@
-package com.example.demo.Modelo;
+package com.example.OlimpiadasUNAM.Modelo;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;

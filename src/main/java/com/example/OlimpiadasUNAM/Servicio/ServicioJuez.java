@@ -1,13 +1,14 @@
-package com.example.demo.Servicio;
+package com.example.OlimpiadasUNAM.Servicio;
 
-import com.example.demo.Modelo.Juez;
-import com.example.demo.Repositorio.JuezRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
+import com.example.OlimpiadasUNAM.Modelo.Juez;
+import com.example.OlimpiadasUNAM.Repositorio.JuezRepositorio;
 
 @Service
 public class ServicioJuez {

@@ -1,10 +1,9 @@
-package com.example.demo.Controlador;
+package com.example.OlimpiadasUNAM.Controlador;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.example.demo.Modelo.Disciplina;
-import com.example.demo.Repositorio.DisciplinaRepositorio;
-import com.example.demo.Servicio.DisciplinaServicio;
+import com.example.OlimpiadasUNAM.Modelo.Disciplina;
+import com.example.OlimpiadasUNAM.Servicio.DisciplinaServicio;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
@@ -30,7 +28,7 @@ public class Controlador {
      * }
      */
 
-    @GetMapping({ "/disciplinaIH", "/" })
+    @GetMapping("/disciplinaIH")
     public String menuDisciplinas(Model modelo, @Param("busqueda") String busqueda) {
         modelo.addAttribute("disciplina", disciplinaServicio.mostrarDisciplinas(busqueda));
         modelo.addAttribute("busqueda", busqueda);

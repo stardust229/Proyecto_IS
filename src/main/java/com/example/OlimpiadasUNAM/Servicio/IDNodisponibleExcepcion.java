@@ -1,4 +1,4 @@
-package com.example.demo.Servicio;
+package com.example.OlimpiadasUNAM.Servicio;
 
 /**
  * Excepción para cuando se trata de agregar a una tabla un registro

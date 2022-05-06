@@ -1,10 +1,10 @@
-package com.example.demo.Servicio.impl;
+package com.example.OlimpiadasUNAM.Servicio.impl;
 
 import java.util.List;
 
-import com.example.demo.Modelo.Disciplina;
-import com.example.demo.Repositorio.DisciplinaRepositorio;
-import com.example.demo.Servicio.DisciplinaServicio;
+import com.example.OlimpiadasUNAM.Modelo.Disciplina;
+import com.example.OlimpiadasUNAM.Repositorio.DisciplinaRepositorio;
+import com.example.OlimpiadasUNAM.Servicio.DisciplinaServicio;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

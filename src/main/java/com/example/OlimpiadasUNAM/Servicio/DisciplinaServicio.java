@@ -1,8 +1,8 @@
-package com.example.demo.Servicio;
+package com.example.OlimpiadasUNAM.Servicio;
 
 import java.util.List;
 
-import com.example.demo.Modelo.Disciplina;
+import com.example.OlimpiadasUNAM.Modelo.Disciplina;
 
 public interface DisciplinaServicio {
     
