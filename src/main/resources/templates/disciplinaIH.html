@@ -97,7 +97,7 @@
                   <a class="nav-link" th:href="@{/consultarJuezIH}">Consultar juez</a>
                 </li>
               </ul>
-              <button class="btn btn-danger navbar-btn">Cerrar sesión</button>
+              <a class="btn btn-danger navbar-btn" th:href="@{/}">Cerrar sesión</a>
             </div>
           </div>
         </nav>
@@ -148,7 +148,7 @@
           </div>
 
           <div class="column">
-            <form th:action="@{/}">
+            <form th:action="@{/disciplinaIH}">
               <div class="input-group mb-3">
                 <input type="text" class="form-control" pattern="\s{0,1}[A-Za-záéíóú]+(\s[A-Za-záéíóú]+){0,3}\s{0,1}"
                   name="busqueda" oninvalid="VerificaBusqueda(this);" oninput="VerificaBusqueda(this);"

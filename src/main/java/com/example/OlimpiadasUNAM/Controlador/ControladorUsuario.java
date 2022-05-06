@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -49,6 +50,12 @@ public class ControladorUsuario {
             return "AdministradorLandingIH";
         }else
             return "ErrorIH";
+    }
+
+    @GetMapping("/cerrar_sesion")
+    public String cerrarSesion(){
+
+        return "iniciar_sesion";
     }
 
     /*

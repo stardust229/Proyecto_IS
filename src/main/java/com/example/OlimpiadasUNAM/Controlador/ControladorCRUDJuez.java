@@ -48,15 +48,19 @@ public class ControladorCRUDJuez {
         String correo = request.getParameter("correo");
         String disciplina = request.getParameter("disciplina");
 
-        String contrasenia = "thatthatilikethat"; // la contra se debe generar de forma random
-
+        String contrasenia = "random"; // la contra se debe generar de forma random
         Juez juez = new Juez(numCuenta,nombre,apellidoPaterno,apellidoMaterno,
                 facultad,correo,contrasenia,disciplina);
-        try {
-            servicioJuez.agregar(juez);
-            model.addAttribute("flagIDNoDisponible", false);
-        }catch(IDNodisponibleExcepcion e){
-            model.addAttribute("flagIDNoDisponible", true);
+        if(servicioJuez.buscarPorEmail(correo).size()>0){
+            model.addAttribute("flagEmailNoDisponible", true);
+        } else {
+            try {
+                servicioJuez.agregar(juez);
+                //model.addAttribute("flagIDNoDisponible", false);
+                model.addAttribute("exitoAgrega", true);
+            } catch (IDNodisponibleExcepcion e) {
+                model.addAttribute("flagIDNoDisponible", true);
+            }
         }
 
         return "AgregarJuezIH";
