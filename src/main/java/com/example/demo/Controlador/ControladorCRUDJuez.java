@@ -69,19 +69,17 @@ public class ControladorCRUDJuez {
     @GetMapping("/eliminarJuez/{id}")
     public String editar(@PathVariable("id") Integer id, Model model){
         servicioJuez.eliminar(id);
-        return "ConsultarJuezIH";
+        return "redirect:/consultarJuezIH";
     }
 
     @GetMapping({"/consultarJuezIH","/consultarJuez"})
     public String listarJueces(Model modelo, @Param("busqueda") String busqueda){
-        System.out.println(("AQUI"));
         modelo.addAttribute("jueces", getJuecesAMostrar(busqueda));
         return "ConsultarJuezIH";
     }
 
     // busca por nombre
     private List<Juez> getJuecesAMostrar(String busqueda){
-        System.out.println(("AQUIIIII"));
         if(busqueda != null){
             return servicioJuez.buscarPorNombre(busqueda);
         }

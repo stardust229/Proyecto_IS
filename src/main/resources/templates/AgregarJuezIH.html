@@ -100,18 +100,17 @@
                 </div>
             </form>
         </div>
-        <!-- <input hidden class="font_mich" th:value="${flagIDNoDisponible}" th:text="${flagIDNoDisponible}" id="flagIDNoDisponible" onchange="alertar(this);">-->
+       <script th:inline="javascript">
+        /*<![CDATA[*/
+            var idNoDisponible = /*[[${flagIDNoDisponible}]]*/ 'default';
+            if(idNoDisponible) alert("Número de cuenta ya registrado. Por favor utiliza un número distinto.");
+        /*]]>*/
+        </script>
     </div>
 
 
     <script>
         actualizarBotonSubmit();
-
-
-        /*function alertar(flag){
-            console.log("HEY");
-            console.log(flag.value);
-        }*/
 
         const numCuentaInput = document.getElementById('numCuenta');
         numCuentaInput.addEventListener('keydown', filterInputDigits);
