@@ -1,12 +1,9 @@
 package com.example.OlimpiadasUNAM.Servicio;
-import com.example.OlimpiadasUNAM.Modelo.ModeloUsuario;
-import com.example.OlimpiadasUNAM.Repositorio.UsuarioRepositorio;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ServicioUsuario {
+    /*
     @Autowired
     private UsuarioRepositorio usuarioRepositorio;
 
@@ -29,8 +26,11 @@ public class ServicioUsuario {
             return usuarioRepositorio.save(modeloUsuario);
         }
     }
+    */
 
+    /*
     public ModeloUsuario autenticar(String email, String password){
         return usuarioRepositorio.findByEmailAndPassword(email,password).orElse(null);
     }
+     */
 }

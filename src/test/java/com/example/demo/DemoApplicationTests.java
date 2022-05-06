@@ -1,10 +1,10 @@
-package com.example.OlimpiadasUNAM;
+package com.example.demo;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class OlimpiadasUNAMApplicationTests {
+class DemoApplicationTests {
 
 	@Test
 	void contextLoads() {

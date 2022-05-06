@@ -3,7 +3,6 @@ package com.example.OlimpiadasUNAM.Controlador;
 import javax.servlet.http.HttpServletRequest;
 
 import com.example.OlimpiadasUNAM.Modelo.Disciplina;
-import com.example.OlimpiadasUNAM.Repositorio.DisciplinaRepositorio;
 import com.example.OlimpiadasUNAM.Servicio.DisciplinaServicio;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
-public class ControladorDisciplina {
+public class Controlador {
 
     @Autowired
     private DisciplinaServicio disciplinaServicio;
@@ -97,12 +96,26 @@ public class ControladorDisciplina {
         }
     }
 
-    //
-    //
-    // Caso de Uso: Iniciar y cerrar sesión
-    //
-    //
+    //Métodos para menús
 
-    
+    @RequestMapping("/AdministradorLandingIH")
+    public String landingAdmin(){
+        return "AdministradorLandingIH";
+    }
+
+    @RequestMapping("/CompetidorLandingIH")
+    public String landingCompetidor(){
+        return "CompetidorLandingIH";
+    }
+
+    @RequestMapping("/EntrenadorLandingIH")
+    public String landingEntrenador(){
+        return "EntrenadorLandingIH";
+    }
+
+    @RequestMapping("/JuezLandingIH")
+    public String landingJuez(){
+        return "JuezLandingIH";
+    }
 
 }

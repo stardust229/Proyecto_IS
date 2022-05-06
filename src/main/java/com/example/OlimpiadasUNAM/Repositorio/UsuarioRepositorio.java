@@ -1,18 +1,17 @@
 package com.example.OlimpiadasUNAM.Repositorio;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.ui.Model;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.repository.NoRepositoryBean;
 
-import java.util.Optional;
+import java.util.List;
 
-import com.example.OlimpiadasUNAM.Modelo.ModeloUsuario;
+import com.example.OlimpiadasUNAM.Modelo.Usuario;
 
-@Repository
-public interface UsuarioRepositorio extends JpaRepository<ModeloUsuario, Integer> {
-
-    Optional<ModeloUsuario> findByEmailAndPassword(String email, String password);
-
-    Optional<ModeloUsuario> findFirstByEmail(String email);
-
+@NoRepositoryBean
+public interface UsuarioRepositorio<T extends Usuario> extends JpaRepository<T, Integer> {
+    List<T> findByNombre(String nombre);
+    List<T> findByApellidoPaterno(String apellido);
+    List<T> findByApellidoMaterno(String apellido);
+    List<T> findByCorreo(String correo);
+    List<T> findByFacultad(String facultad);
 }

@@ -78,14 +78,23 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarExample01">
               <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                  <a class="nav-link" aria-current="page" th:href="@{/AdministradorLandingIH}">Menú</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Entrenadores</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Competidores</a>
+                </li>
                 <li class="nav-item active">
-                  <a class="nav-link" aria-current="page" href="#">Disciplinas</a>
+                  <a class="nav-link" href="#">Disciplinas</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="#">Ranking</a>
+                  <a class="nav-link" th:href="@{/agregarJuezIH}">Agregar juez</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="#">Jueces</a>
+                  <a class="nav-link" th:href="@{/consultarJuezIH}">Consultar juez</a>
                 </li>
               </ul>
               <button class="btn btn-danger navbar-btn">Cerrar sesión</button>
@@ -103,7 +112,8 @@
           <strong>¡Error!</strong> Ya existe esa disciplina.
         </div>
 
-        <div class="precaucion" id="errorElimina" th:if="${errorElimina}" style="margin-left:120px; margin-right:120px;">
+        <div class="precaucion" id="errorElimina" th:if="${errorElimina}"
+          style="margin-left:120px; margin-right:120px;">
           <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
           <strong>¡Error!</strong> La disciplina a eliminar no existe.
         </div>
