@@ -18,6 +18,42 @@
       display: table;
       clear: both;
     }
+
+    .precaucion {
+      padding: 20px;
+      background-color: #ffa92a;
+      color: white;
+      margin-bottom: 15px;
+    }
+
+    .exito {
+      padding: 20px;
+      background-color: #2eb885;
+      color: white;
+      margin-bottom: 15px;
+    }
+
+    .closebtn {
+      margin-left: 15px;
+      color: white;
+      font-weight: bold;
+      float: right;
+      font-size: 22px;
+      line-height: 20px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .closebtn:hover {
+      color: black;
+    }
+
+    .footer {
+      background-color: #343a40;
+      width: 100%;
+      height: 70px;
+      padding: 20px;
+    }
   </style>
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
@@ -25,96 +61,131 @@
 </head>
 
 <body>
+  <div style="min-height:100vh; display:flex; flex-direction:column; justify-content:space-between;">
 
-  <header>
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <a class="navbar-brand" href="#">Olimpiadas Universitarias</a>
-        </div>
-        <button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#navbarExample01"
-          aria-controls="navbarExample01" aria-expanded="false" aria-label="Toggle navigation">
-          <i class="fas fa-bars"></i>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarExample01">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item active">
-              <a class="nav-link" aria-current="page" href="#">Disciplinas</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Ranking</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Jueces</a>
-            </li>
-          </ul>
-          <button class="btn btn-danger navbar-btn">Cerrar sesión</button>
-        </div>
-      </div>
-    </nav>
-    <!-- Navbar -->
-  </header>
-  <br>
+    <div>
 
-  <div style="text-align: center;">
-
-    <div class="row" style="margin-left:120px; margin-right:120px;">
-      <div class="column">
-        <form method="post" th:action="@{/agregar}">
-          <div class="input-group mb-3">
-            <input type="text" class="form-control" name="disciplina" oninvalid="Verifica(this);"
-              oninput="Verifica(this);" required pattern="^[A-Za-z]+(\s[A-Za-z]+){0,2}$"
-              placeholder="Disciplina nueva" />
-            <button class="btn btn-primary" type="submit" data-mdb-ripple-color="dark">
-              Agregar
+      <header>
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+          <div class="container-fluid">
+            <div class="navbar-header">
+              <a class="navbar-brand" href="#">Olimpiadas Universitarias</a>
+            </div>
+            <button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#navbarExample01"
+              aria-controls="navbarExample01" aria-expanded="false" aria-label="Toggle navigation">
+              <i class="fas fa-bars"></i>
             </button>
+            <div class="collapse navbar-collapse" id="navbarExample01">
+              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item active">
+                  <a class="nav-link" aria-current="page" href="#">Disciplinas</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Ranking</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Jueces</a>
+                </li>
+              </ul>
+              <button class="btn btn-danger navbar-btn">Cerrar sesión</button>
+            </div>
           </div>
-        </form>
+        </nav>
+        <!-- Navbar -->
+      </header>
+      <br>
+
+      <div style="text-align: center;">
+
+        <div class="precaucion" id="error" th:if="${error}" style="margin-left:120px; margin-right:120px;">
+          <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+          <strong>¡Error!</strong> Ya existe esa disciplina.
+        </div>
+
+        <div class="precaucion" id="errorElimina" th:if="${errorElimina}" style="margin-left:120px; margin-right:120px;">
+          <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+          <strong>¡Error!</strong> La disciplina a eliminar no existe.
+        </div>
+
+        <div class="exito" id="exitoAgrega" th:if="${exitoAgrega}" style="margin-left:120px; margin-right:120px;">
+          <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+          <strong>¡Éxito!</strong> Disciplina agregada correctamente.
+        </div>
+
+        <div class="exito" id="exitoActualiza" th:if="${exitoActualiza}" style="margin-left:120px; margin-right:120px;">
+          <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+          <strong>¡Éxito!</strong> Disciplina actualizada correctamente.
+        </div>
+
+        <div class="exito" id="exitoElimina" th:if="${exitoElimina}" style="margin-left:120px; margin-right:120px;">
+          <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+          <strong>¡Éxito!</strong> Disciplina eliminada correctamente.
+        </div>
+
+        <div class="row" style="margin-left:120px; margin-right:120px;">
+          <div class="column">
+            <form method="post" th:action="@{/agregar}">
+              <div class="input-group mb-3">
+                <input type="text" class="form-control" name="disciplina" oninvalid="Verifica(this);"
+                  oninput="Verifica(this);" required pattern="^[A-Za-záéíóú]+(\s[A-Za-záéíóú]+){0,3}$"
+                  placeholder="Disciplina nueva" />
+                <button class="btn btn-primary" type="submit" data-mdb-ripple-color="dark">
+                  Agregar
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <div class="column">
+            <form th:action="@{/}">
+              <div class="input-group mb-3">
+                <input type="text" class="form-control" pattern="\s{0,1}[A-Za-záéíóú]+(\s[A-Za-záéíóú]+){0,3}\s{0,1}"
+                  name="busqueda" oninvalid="VerificaBusqueda(this);" oninput="VerificaBusqueda(this);"
+                  placeholder="Palabra clave" th:value="${busqueda}" id="busqueda" />
+                <button class="btn btn-primary" type="submit" data-mdb-ripple-color="dark">
+                  Buscar
+                </button>
+              </div>
+          </div>
+        </div>
+
+        <div class="row" style="margin-left: 120px;margin-right: 120px;">
+          <table id="tablaUsuarios" class="table table-striped table-bordered table-hover">
+            <thead class="table-dark">
+              <tr>
+                <th>Nombre</th>
+                <th colspan="2">Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr th:each="disciplina : ${disciplina}">
+                <td th:text="${disciplina.nombre}">Nombre</td>
+
+                <td>
+                  <a th:href="@{/disciplinaIH/editar/} + ${disciplina.id}" class="btn btn-success">Editar</a>
+                </td>
+
+
+                <td>
+                  <a th:href="@{/disciplinaIH/} + ${disciplina.id}" class="btn btn-danger">Eliminar</a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
       </div>
 
-
-
-      <div class="column">
-        <form th:action="@{/}">
-          <div class="input-group mb-3">
-            <input type="text" class="form-control" pattern="\s{0,1}[A-Za-z]+(\s[A-Za-z]+){0,3}\s{0,1}" name="busqueda"
-              oninvalid="VerificaBusqueda(this);" oninput="VerificaBusqueda(this);" placeholder="Palabra clave"
-              th:value="${busqueda}" id="busqueda" />
-            <button class="btn btn-primary" type="submit" data-mdb-ripple-color="dark">
-              Buscar
-            </button>
-          </div>
-      </div>
     </div>
 
-    <div class="row" style="margin-left: 120px;margin-right: 120px;">
-      <table id="tablaUsuarios" class="table table-striped table-bordered table-hover">
-        <thead class="table-dark">
-          <tr>
-            <th>Nombre</th>
-            <th colspan="2">Acciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr th:each="disciplina : ${disciplina}">
-            <td th:text="${disciplina.nombre}">Nombre</td>
-
-            <td>
-              <a th:href="@{/disciplinaIH/editar/} + ${disciplina.id}" class="btn btn-success">Editar</a>
-            </td>
-
-
-            <td>
-              <a th:href="@{/disciplinaIH/} + ${disciplina.id}" class="btn btn-danger">Eliminar</a>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+    <footer class="bg-dark text-center text-white">
+      <div class="footer">
+        Hecho con &#128150; por Opal Software Solutions
+      </div>
+    </footer>
 
   </div>
-
 
   <script>
     function Verifica(textbox) {
