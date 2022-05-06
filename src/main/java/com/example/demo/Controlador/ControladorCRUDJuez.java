@@ -4,6 +4,7 @@ import com.example.demo.Modelo.Juez;
 import com.example.demo.Servicio.IDNodisponibleExcepcion;
 import com.example.demo.Servicio.ServicioJuez;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @Controller
 public class ControladorCRUDJuez {
@@ -57,28 +59,32 @@ public class ControladorCRUDJuez {
 
         return "AgregarJuezIH";
     }
-
-    @GetMapping("consultarJuez/editarJuez/{id}")
-    public String editar(@PathVariable String id, Model model){
-        int numCuenta = Integer.parseInt(id);
-        model.addAttribute("sss", numCuenta);
-        System.out.println(numCuenta);
+    /*
+    @GetMapping("/editarJuez/{id}")
+    public String editar(@PathVariable("id") Integer id, Model model){
+        model.addAttribute("juez", servicioJuez.buscarPorCuenta(id));
         return "AgregarJuezIH";
-    }
-/*
-    @PostMapping("/consultarJuez")
-    public void buscar(HttpServletRequest request, Model model){
-        String campo = request.getParameter("campo");
-        String valor = request.getParameter("valor");
-        switch (campo){
-            case "numCuenta":
-                servicioJuez.buscarPorCuenta(Integer.parseInt(valor));
-        }
     }*/
 
-    @GetMapping("/consultarJuez")
-    public String listarJueces(Model modelo){
-        modelo.addAttribute("jueces", servicioJuez.obtenerTodos());
+    @GetMapping("/eliminarJuez/{id}")
+    public String editar(@PathVariable("id") Integer id, Model model){
+        servicioJuez.eliminar(id);
         return "ConsultarJuezIH";
+    }
+
+    @GetMapping({"/consultarJuezIH","/consultarJuez"})
+    public String listarJueces(Model modelo, @Param("busqueda") String busqueda){
+        System.out.println(("AQUI"));
+        modelo.addAttribute("jueces", getJuecesAMostrar(busqueda));
+        return "ConsultarJuezIH";
+    }
+
+    // busca por nombre
+    private List<Juez> getJuecesAMostrar(String busqueda){
+        System.out.println(("AQUIIIII"));
+        if(busqueda != null){
+            return servicioJuez.buscarPorNombre(busqueda);
+        }
+        return servicioJuez.obtenerTodos();
     }
 }
