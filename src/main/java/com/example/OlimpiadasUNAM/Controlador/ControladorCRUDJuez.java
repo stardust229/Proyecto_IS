@@ -1,5 +1,6 @@
 package com.example.OlimpiadasUNAM.Controlador;
 
+import com.example.OlimpiadasUNAM.Servicio.DisciplinaServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
@@ -22,6 +23,8 @@ public class ControladorCRUDJuez {
 
     @Autowired
     private ServicioJuez servicioJuez;
+    @Autowired
+    private DisciplinaServicio disciplinaServicio;
 
     @RequestMapping("/agregarJuezIH")
     public String agregarJuezIH(){
@@ -51,8 +54,10 @@ public class ControladorCRUDJuez {
         String contrasenia = "random"; // la contra se debe generar de forma random
         Juez juez = new Juez(numCuenta,nombre,apellidoPaterno,apellidoMaterno,
                 facultad,correo,contrasenia,disciplina);
-        if(servicioJuez.buscarPorEmail(correo).size()>0){
+        if(servicioJuez.buscarPorEmail(correo).size()>0) {
             model.addAttribute("flagEmailNoDisponible", true);
+        } else if(!disciplinaServicio.existeDisciplina(disciplina)){
+            model.addAttribute("flagDisciplinaNoExiste", true);
         } else {
             try {
                 servicioJuez.agregar(juez);
