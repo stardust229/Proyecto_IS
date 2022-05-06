@@ -1,8 +1,8 @@
-package com.example.demo.Repositorio;
+package com.example.OlimpiadasUNAM.Repositorio;
 
 import java.util.List;
 
-import com.example.demo.Modelo.Disciplina;
+import com.example.OlimpiadasUNAM.Modelo.Disciplina;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
