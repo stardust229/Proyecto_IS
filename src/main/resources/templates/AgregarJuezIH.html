@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- <meta charset="UTF-8"> -->
+    <title>Agregar Juez</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <style>
+        .column {
+            float: left;
+            width: 50%;
+            padding: 20px;
+        }
+
+        .row:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+        .precaucion {
+          padding: 20px;
+          background-color: #ffa92a;
+          color: white;
+          margin-bottom: 15px;
+        }
+
+        .exito {
+          padding: 20px;
+          background-color: #2eb885;
+          color: white;
+          margin-bottom: 15px;
+        }
+
+        .closebtn {
+          margin-left: 15px;
+          color: white;
+          font-weight: bold;
+          float: right;
+          font-size: 22px;
+          line-height: 20px;
+          cursor: pointer;
+          transition: 0.3s;
+        }
+
+        .closebtn:hover {
+          color: black;
+        }
+
+        .footer {
+            background-color: #343a40;
+            width: 100%;
+            height: 70px;
+            padding: 20px;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+
+<body>
+    <div style="min-height:100vh; display:flex; flex-direction:column; justify-content:space-between;">
+        <div>
+            <header>
+                <!-- Navbar -->
+                <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                    <div class="container-fluid">
+                        <div class="navbar-header">
+                            <a class="navbar-brand" href="#">Olimpiadas Universitarias</a>
+                        </div>
+                        <button class="navbar-toggler" type="button" data-mdb-toggle="collapse"
+                            data-mdb-target="#navbarExample01" aria-controls="navbarExample01" aria-expanded="false"
+                            aria-label="Toggle navigation">
+                            <i class="fas fa-bars"></i>
+                        </button>
+                        <div class="collapse navbar-collapse" id="navbarExample01">
+                            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                                <li class="nav-item">
+                                    <a class="nav-link" th:href="@{/AdministradorLandingIH}">Menú</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">Entrenadores</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">Competidores</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" th:href="@{/disciplinaIH}">Disciplinas</a>
+                                </li>
+                                <li class="nav-item active">
+                                    <a class="nav-link" aria-current="page" href="#">Agregar juez</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" th:href="@{/consultarJuezIH}">Consultar juez</a>
+                                </li>
+                            </ul>
+                            <a class="btn btn-danger navbar-btn" th:href="@{/}">Cerrar sesión</a>
+                        </div>
+                    </div>
+                </nav>
+                <!-- Navbar -->
+            </header>
+            <br>
+
+            <div style="text-align: left;">
+
+                <div class="precaucion" id="errorIDNoDisponible" th:if="${flagIDNoDisponible}" style="margin-left:120px; margin-right:120px;">
+                    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                    <strong>¡Error!</strong> Ya existe un juez con ese número de cuenta.
+                </div>
+
+                <div class="precaucion" id="errorEmailNoDisponible" th:if="${flagEmailNoDisponible}" style="margin-left:120px; margin-right:120px;">
+                    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                    <strong>¡Error!</strong> Ya existe un juez con ese correo.
+                </div>
+
+                <div class="precaucion" id="errorDisciplinaNoExiste" th:if="${flagDisciplinaNoExiste}" style="margin-left:120px; margin-right:120px;">
+                    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                    <strong>¡Error!</strong> Registro fallido. La disciplina que se ingresó no está registrada.
+                </div>
+
+                <div class="exito" id="exitoAgrega" th:if="${exitoAgrega}" style="margin-left:120px; margin-right:120px;">
+                    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                    <strong>¡Éxito!</strong> Juez agregado correctamente.
+                </div>
+
+                <div class="row" style="margin-left:120px; margin-right:120px;">
+
+                    <form id="formAgregar" method="post" th:action="@{/agregarJuez}">
+                        <div class="column">
+                            <div class="form-group">
+                                <label for="numCuenta">Número de cuenta:</label>
+                                <input class="form-control" type="text" id="numCuenta" name="numCuenta"
+                                    placeholder="Número de cuenta" onchange="verificaEnteros(this);" pattern="[0-9]+"
+                                    maxlength="9" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="nombre">Nombre:</label>
+                                <input class="form-control" type="text" id="nombre" name="nombre" placeholder="Nombre"
+                                    onchange="verifica(this);" pattern="^[A-Za-záéíóúÁÉÍÓÚü]+(\s[A-Za-záéíóúÁÉÍÓÚü]+){0,3}$" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="apellidoPaterno">Apellido paterno:</label>
+                                <input class="form-control" type="text" id="apellidoPaterno" name="apellidoPaterno"
+                                    placeholder="Apellido paterno" onchange="verifica(this);"
+                                    pattern="^[A-Za-záéíóúÁÉÍÓÚü]+(\s[A-Za-záéíóúÁÉÍÓÚü]+){0,3}$" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="apellidoMaterno">Apellido materno:</label>
+                                <input class="form-control" type="text" id="apellidoMaterno" name="apellidoMaterno"
+                                    placeholder="Apellido materno" onchange="verifica(this);"
+                                    pattern="^[A-Za-záéíóúÁÉÍÓÚü]+(\s[A-Za-záéíóúÁÉÍÓÚü]+){0,3}$" required>
+                            </div>
+                        </div>
+                        <div class="column">
+                            <div class="form-group">
+                                <label for="facultad">Facultad:</label>
+                                <input class="form-control" type="text" id="facultad" name="facultad"
+                                    placeholder="Facultad" onchange="verifica(this);"
+                                    pattern="^[A-Za-záéíóúÁÉÍÓÚü]+(\s[A-Za-záéíóúÁÉÍÓÚü]+){0,3}$" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="correo">Correo electrónico:</label>
+                                <input class="form-control" type="email" id="correo" name="correo"
+                                    placeholder="Correo electrónico" onchange="verificaEmail(this);" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="disciplina">Disciplina:</label>
+                                <input class="form-control" type="text" id="disciplina" name="disciplina"
+                                    placeholder="Disciplina" onchange="verifica(this);"
+                                    pattern="^[A-Za-záéíóúÁÉÍÓÚü]+(\s[A-Za-záéíóúÁÉÍÓÚü]+){0,3}$" required>
+                            </div>
+                            <button class="btn btn-primary" type="submit" id="botonAgregar"
+                                data-mdb-ripple-color="dark">Agregar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <footer class="bg-dark text-center text-white">
+            <div class="footer">
+                Hecho con &#128150; por Opal Software Solutions
+            </div>
+        </footer>
+    </div>
+    <!--
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        var idNoDisponible = /*[[${flagIDNoDisponible}]]*/ 'default';
+        if (idNoDisponible) alert("Número de cuenta ya registrado. Por favor utiliza un número distinto.");
+        /*]]>*/
+    </script>-->
+
+
+
+    <script>
+        actualizarBotonSubmit();
+
+        const numCuentaInput = document.getElementById('numCuenta');
+        numCuentaInput.addEventListener('keydown', filterInputDigits);
+
+        /**
+         * Sólo permite que en el elemento al que se le asignó este listener se ingresen dígitos.
+         */
+        function filterInputDigits(event) {
+            // console.log(event.target.value);
+            // console.log(event.key);
+            if (event.key.match("[0-9]") === null && event.key.length < 2) event.preventDefault();
+        }
+
+        function verifica(textbox) {
+            if (textbox.value === '') {
+                textbox.setCustomValidity
+                    ('Inserta un nuevo nombre');
+            } else if (textbox.validity.patternMismatch) {
+                textbox.setCustomValidity
+                    ('No debe de tener espacios ni al inicio ni al final. Debe tener un único espacio entre palabras. Solo letras.');
+            } else {
+                textbox.setCustomValidity('');
+            }
+            textbox.reportValidity();
+            actualizarBotonSubmit();
+        }
+
+        function verificaEnteros(textbox) {
+            if (textbox.value === '') {
+                textbox.setCustomValidity
+                    ('Inserta un nuevo número de cuenta');
+            } else if (textbox.validity.patternMismatch) {
+                textbox.setCustomValidity
+                    ('Sólo puedes ingresar dígitos. No más de 9.');
+            } else {
+                textbox.setCustomValidity('');
+            }
+            textbox.reportValidity();
+            actualizarBotonSubmit();
+        }
+
+        function verificaEmail(textbox) {
+            textbox.reportValidity();
+            actualizarBotonSubmit();
+        }
+
+        function actualizarBotonSubmit() {
+            boton = document.getElementById("botonAgregar");
+            if (validarTodo()) {
+                boton.disabled = false;
+            } else {
+                boton.disabled = true;
+            }
+        }
+
+        function validarTodo() {
+            var form, inputs, index;
+            form = document.getElementById('formAgregar');
+            inputs = form.getElementsByTagName('input');
+            for (index = 0; index < inputs.length; ++index) {
+                if (!inputs[index].checkValidity()) return false;
+            }
+            return true;
+        }
+    </script>
+
+</body>
+
+</html>
