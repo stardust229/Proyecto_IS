@@ -1,4 +1,4 @@
-package com.example.OlimpiadasUNAM.modelo;
+package com.example.OlimpiadasUNAM.Modelo;
 
 import javax.persistence.*;
 import java.util.Objects;
