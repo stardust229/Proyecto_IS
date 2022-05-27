@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.example.OlimpiadasUNAM.Modelo.Disciplina;
 import com.example.OlimpiadasUNAM.Servicio.DisciplinaServicio;
+import com.example.OlimpiadasUNAM.Servicio.ServicioEvento;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
@@ -21,13 +22,15 @@ public class Controlador {
 
     @Autowired
     private DisciplinaServicio disciplinaServicio;
+    @Autowired
+    private ServicioEvento eventoServicio;
 
     /*
      * @RequestMapping("/")
      * public String disciplinaIH(){
      * return "disciplinaIH";
      * }
-     */
+     */ 
 
     @GetMapping("/disciplinaIH")
     public String menuDisciplinas(Model modelo, @Param("busqueda") String busqueda) {
@@ -91,8 +94,15 @@ public class Controlador {
         } else {
             modelo.addAttribute("errorElimina", true);
             return "disciplinaIH";
-            //No pasaría nunca por aquí por error en el mapping. :>
         }
+    }
+
+    @GetMapping("/disciplinaIH/eventoIH/{id}")
+    public String menuEventos(Model modelo, @PathVariable Integer id) {
+        Disciplina disciplina = disciplinaServicio.consultarDisciplina(id);
+        modelo.addAttribute("evento", eventoServicio.mostrarEventos(disciplina.getNombre()));
+        modelo.addAttribute("busqueda", disciplina.getNombre());
+        return "eventoIH";
     }
 
     //Métodos para menús

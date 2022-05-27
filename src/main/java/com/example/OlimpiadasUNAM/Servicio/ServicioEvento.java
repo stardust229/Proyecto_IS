@@ -8,5 +8,5 @@ import com.example.OlimpiadasUNAM.Modelo.Evento;
 public interface ServicioEvento {
     Evento agregaEvento(String disciplina, String nombre, String descripcion, Date fecha);
     
-    List<Evento> mostrarEventos(String disciplina);
+    List<Evento> mostrarEventos(String disciplina); 
 }
