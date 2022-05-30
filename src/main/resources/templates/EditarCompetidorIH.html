@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Olimpiadas Universitarias</title>
+</head>
+<body>
+Agregar Competidor</br>
+Ingresar # cuenta y busca para recibir el competidor a editar</br>
+<form th:action="@{/editarCompetidor}" method="post">
+  <p>Numero de Cuenta: <input type="text" id="numCuenta" name="numCuenta" th:value="${competidor?.numCuenta}"/></p>
+  <p>Nombres: <input type="text" id="nombre" name="nombre" th:value="${competidor?.nombre}"/></p>
+  <p>Apellido Paterno: <input type="text" id="apellidoP" name="apellidoP" th:value="${competidor?.apellidoP}"/></p>
+  <p>Apellido Materno: <input type="text" id="apellidoM" name="apellidoM" th:value="${competidor?.apellidoM}"/></p>
+  <p>Institución: <input type="text" id="institucion" name="institucion" th:value="${competidor?.institucion}"/></p>
+  <p>Correo: <input type="text" id="correo" name="correo" th:value="${competidor?.correo}"/></p>
+  <p>Contrasena: <input type="password" id="contrasena" name="contrasena" th:value="${competidor?.contrasena}"/></p>
+  <p>Confirmar contrasena: <input type="password" id="confirmarContrasena" name="confirmarContrasena" th:value="${competidor?.contrasena}"/></p>
+  <input type="submit" id="Buscar" name="Buscar" value="Buscar"/>
+  <input type="submit" id="Editar" name="Editar" value="Editar"/>
+</form>
+</body>
+
+</html>

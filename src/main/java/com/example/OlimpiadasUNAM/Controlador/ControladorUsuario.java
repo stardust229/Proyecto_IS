@@ -1,8 +1,10 @@
 package com.example.OlimpiadasUNAM.Controlador;
 
 import com.example.OlimpiadasUNAM.Modelo.Administrador;
+import com.example.OlimpiadasUNAM.Modelo.Entrenador;
 import com.example.OlimpiadasUNAM.Modelo.ModeloUsuario;
 import com.example.OlimpiadasUNAM.Servicio.ServicioAdministrador;
+import com.example.OlimpiadasUNAM.Servicio.ServicioEntrenador;
 import com.example.OlimpiadasUNAM.Servicio.ServicioJuez;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,8 @@ public class ControladorUsuario {
     private final ServicioJuez servicioJuez;
     @Autowired
     private final ServicioAdministrador servicioAdministrador;
+    @Autowired
+    private ServicioEntrenador servicioEntrenador;
 
     public ControladorUsuario(ServicioJuez servicioJuez, ServicioAdministrador servicioAdministrador) {
         this.servicioJuez = servicioJuez;
@@ -45,11 +49,25 @@ public class ControladorUsuario {
         String email = request.getParameter("email");
         String contra = request.getParameter("password");
         String tipoUsuario = request.getParameter("tipoUsuario");
-        if(autenticarAdmin(email,contra)){
-            model.addAttribute("iniciarSesionUsuario", email);
-            return "AdministradorLandingIH";
-        }else
-            return "ErrorIH";
+        switch(tipoUsuario) {
+            case "1":
+                if (autenticarAdmin(email, contra)) {
+                    model.addAttribute("iniciarSesionUsuario", email);
+                    return "AdministradorLandingIH";
+                }else {
+                    return "ErrorIH";
+                }
+            case "3":
+                if(autenticarEntrenador(email,contra)){
+                    model.addAttribute("iniciarSesionUsuario", email);
+                    System.out.println("Email: " + email);
+                    return "redirect:/entrenador";
+                }else{
+                    return "ErrorIH";
+                }
+            default:
+                return "ErrorIH";
+        }
     }
 
     @GetMapping("/cerrar_sesion")
@@ -73,5 +91,10 @@ public class ControladorUsuario {
         return false;
     }
 
-
+    private boolean autenticarEntrenador(String email, String contra){
+        Entrenador entrenador = servicioEntrenador.buscarPorEmail(email);
+        if(entrenador == null) return false;
+        if(entrenador.getContrasenia().equals(contra)) return true;
+        return false;
+    }
 }

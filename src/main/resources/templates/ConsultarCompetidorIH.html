@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://ww.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Olimpiadas Universitarias</title>
+</head>
+<body>
+Consultar Competidor
+  <div th:unless="${competidores.empty}">
+    <table>
+      <tr>
+        <th>Número de Cuenta</th>
+        <th>Nombres</th>
+        <th>Apellido paterno</th>
+        <th>Apellido materno</th>
+        <th>Institución</th>
+        <th>Correo</th>
+        <th>Contrasena</th>
+        <th>Disciplina</th>
+        <th>Entrenador</th>
+      </tr>
+      <tr th:each="competidor : ${competidores}">
+        <td th:text="${competidor.numCuenta}"></td>
+        <td th:text="${competidor.nombre}"></td>
+        <td th:text="${competidor.apellidoP}"></td>
+        <td th:text="${competidor.apellidoM}"></td>
+        <td th:text="${competidor.institucion}"></td>
+        <td th:text="${competidor.correo}"></td>
+        <td th:text="${competidor.contrasena}"></td>
+        <td th:text="${competidor.disciplina}"></td>
+        <td th:text="${competidor.numCuentaEntrenador}"></td>
+      </tr>
+    </table>
+    </div>
+</body>
+</html>
