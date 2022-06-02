@@ -116,5 +116,11 @@ public class Controlador {
     public String landingJuez(){
         return "JuezLandingIH";
     }
+    
+    //Acciones Juez
+    @RequestMapping("/calificarCompetidorIH")
+    public String calificar(){
+        return "calificarCompetidorIH";
+    }
 
 }
