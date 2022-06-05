@@ -1,32 +1,23 @@
+
 package com.example.OlimpiadasUNAM.Modelo;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Table;
 
 @Entity
-@Table
 public class Entrenador extends Usuario{
-    @Column(name = "disciplina")
-    private String disciplina;
+    String disciplina = null;
 
-
-    public Entrenador(int numCuenta, String nombre, String apellidoPaterno, String apellidoMaterno, String facultad, String correo, String contrasenia, String disciplina) {
-        super(numCuenta, nombre, apellidoPaterno, apellidoMaterno, facultad, correo, contrasenia);
+    public Entrenador(){}
+    public Entrenador(int numCuenta, String nombre, String apellidoP, String apellidoM, String institucion, String correo, String contrasena, String disciplina){
+        super(numCuenta ,nombre ,apellidoP ,apellidoM , institucion, correo ,contrasena);
         this.disciplina = disciplina;
     }
 
-    public Entrenador(){
-        super();
-    }
-    public String getDisciplina() {
-        return disciplina;
-    }
-
     public void setDisciplina(String disciplina) {
-        disciplina = disciplina;
+        this.disciplina = disciplina;
     }
 
-
-
+    public String getDisciplina(){
+        return this.disciplina;
+    }
 }

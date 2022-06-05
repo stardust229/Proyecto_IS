@@ -7,7 +7,7 @@ import javax.persistence.MappedSuperclass;
 public class Usuario {
     @Id
     @Column(name = "numcuenta")
-    private int numCuenta;
+    private int numcuenta;
     private String nombre;
     private String apellidoPaterno;
     private String apellidoMaterno;
@@ -15,14 +15,14 @@ public class Usuario {
     private String correo;
     private String contrasenia;
 
-    public Usuario(int numCuenta,
+    public Usuario(int numcuenta,
                    String nombre,
                    String apellidoPaterno,
                    String apellidoMaterno,
                    String facultad,
                    String correo,
                    String contrasenia) {
-        this.numCuenta = numCuenta;
+        this.numcuenta = numcuenta;
         this.nombre = nombre;
         this.apellidoPaterno = apellidoPaterno;
         this.apellidoMaterno = apellidoMaterno;
@@ -37,11 +37,11 @@ public class Usuario {
 
     public int getNumCuenta() {
 
-        return numCuenta;
+        return numcuenta;
     }
 
     public void setNumCuenta(int numCuenta) {
-        this.numCuenta = numCuenta;
+        this.numcuenta = numCuenta;
     }
 
     public String getNombre() {
@@ -95,7 +95,7 @@ public class Usuario {
     @Override
     public String toString() {
         return "Usuario{" +
-                "numCuenta=" + numCuenta +
+                "numCuenta=" + numcuenta +
                 ", nombre='" + nombre + '\'' +
                 ", apellidoPaterno='" + apellidoPaterno + '\'' +
                 ", apellidoMaterno='" + apellidoMaterno + '\'' +
