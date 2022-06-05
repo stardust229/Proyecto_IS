@@ -8,7 +8,7 @@ public class Entrenador extends Usuario{
 
     public Entrenador(){}
     public Entrenador(int numCuenta, String nombre, String apellidoP, String apellidoM, String institucion, String correo, String contrasena, String disciplina){
-        super(numCuenta ,nombre ,apellidoP ,apellidoM , institucion, correo ,contrasena);
+        super(numCuenta ,nombre ,apellidoP ,apellidoM , institucion, correo ,contrasena, "ENTRENADOR");
         this.disciplina = disciplina;
     }
 

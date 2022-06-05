@@ -14,13 +14,17 @@ public class Usuario {
     private String correo;
     private String contrasenia;
 
+    private String rol;
+
+    private boolean enabled;
+
     public Usuario(int numCuenta,
                    String nombre,
                    String apellidoPaterno,
                    String apellidoMaterno,
                    String facultad,
                    String correo,
-                   String contrasenia) {
+                   String contrasenia, String rol) {
         this.numCuenta = numCuenta;
         this.nombre = nombre;
         this.apellidoPaterno = apellidoPaterno;
@@ -28,6 +32,8 @@ public class Usuario {
         this.facultad = facultad;
         this.correo = correo;
         this.contrasenia = contrasenia;
+        this.enabled = true;
+        this.rol = rol;
     }
 
     public Usuario(){

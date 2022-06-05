@@ -1,8 +1,10 @@
 package com.example.OlimpiadasUNAM.Modelo;
 
 import javax.persistence.Entity;
+import javax.persistence.Table;
 
 @Entity
+@Table
 public class Competidor extends Usuario{
     String disciplina = null;
     int numCuentaEntrenador = 0;
@@ -11,7 +13,7 @@ public class Competidor extends Usuario{
 
     public Competidor(int numCuenta, String nombre, String apellidoP, String apellidoM, String institucion,
                       String correo, String contrasena, String disciplina, int numCuentaEntrenador){
-        super(numCuenta ,nombre ,apellidoP ,apellidoM , institucion, correo ,contrasena);
+        super(numCuenta ,nombre ,apellidoP ,apellidoM , institucion, correo ,contrasena, "COMPETIDOR");
         this.disciplina = disciplina;
         this.numCuentaEntrenador = numCuentaEntrenador;
     }

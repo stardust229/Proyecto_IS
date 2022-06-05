@@ -118,7 +118,7 @@ public class Controlador {
     }
     
     //Acciones Juez
-    @RequestMapping("/calificarCompetidorIH")
+    @RequestMapping("/calificarCompetidorIH.html")
     public String calificar(){
         return "calificarCompetidorIH";
     }

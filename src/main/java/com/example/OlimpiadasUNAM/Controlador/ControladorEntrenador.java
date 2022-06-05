@@ -5,12 +5,11 @@ import com.example.OlimpiadasUNAM.Modelo.Entrenador;
 import com.example.OlimpiadasUNAM.Servicio.ServicioCompetidor;
 import com.example.OlimpiadasUNAM.Servicio.ServicioEntrenador;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -24,37 +23,35 @@ public class ControladorEntrenador {
     ServicioEntrenador servEnt;
     Entrenador entrenador;
 
-    @GetMapping("/entrenador")
-    public String inicioEntrenador(Model model){
-
-        //correo sale como null, problema sacando el correo del modelo.
-        String correo = (String)model.asMap().get("iniciarSesionUsuario");
+    @RequestMapping("/entrenador/dashboard")
+    public String getEntrenadorDashboard() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String correo = auth.getName();
+        System.out.println("HEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEY");
         System.out.println("Correo de usuario: " + correo);
         this.entrenador = servEnt.buscarPorEmail(correo);
-        System.out.println("Usuario: "+entrenador.getNumCuenta());
-        return "DashboardEntrenadorIH";
+        return "EntrenadorLandingIH";
     }
 
-
-    @GetMapping("/agregar")
+    @RequestMapping("/entrenador/agregarCompetidor")
     public String agregar(){
         return "AgregarCompetidorIH";
     }
-    @GetMapping("/eliminar")
+    @RequestMapping("/entrenador/eliminarCompetidor")
     public String eliminar(){
         return "EliminarCompetidorIH";
     }
-    @GetMapping("/editar")
+    @RequestMapping("/entrenador/editarCompetidor")
     public String editar(){
         return "EditarCompetidorIH";
     }
 
-    @PostMapping("/agregarCompetidor")
+    @PostMapping("/entrenador/agregarCompetidor")
     public String agregar(HttpServletRequest request){
         Integer numCuenta = Integer.parseInt(request.getParameter("numCuenta"));
         String nombre = request.getParameter("nombre");
-        String apellidoP = request.getParameter("apellidoP");
-        String apellidoM = request.getParameter("apellidoM");
+        String apellidoP = request.getParameter("apellidoPaterno");
+        String apellidoM = request.getParameter("apellidoMaterno");
         String institucion = request.getParameter("institucion");
         String correo = request.getParameter("correo");
         String contrasena = request.getParameter("contrasena");
@@ -63,7 +60,7 @@ public class ControladorEntrenador {
         return "AgregarCompetidorIH";
         }
 
-    @RequestMapping("/consultar")
+    @RequestMapping("/entrenador/consultarCompetidor")
     public String listaCompetidores(Model model, HttpSession session){
         model.addAttribute("competidores",serv.consultarCompetidor(entrenador));
         session.setAttribute("competidores",serv.consultarCompetidor(entrenador));

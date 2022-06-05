@@ -14,7 +14,7 @@ public class Juez extends Usuario{
 
 
     public Juez(int numCuenta, String nombre, String apellidoPaterno, String apellidoMaterno, String facultad, String correo, String contrasenia, Disciplina disciplina) {
-        super(numCuenta, nombre, apellidoPaterno, apellidoMaterno, facultad, correo, contrasenia);
+        super(numCuenta, nombre, apellidoPaterno, apellidoMaterno, facultad, correo, contrasenia, "JUEZ");
         this.disciplina = disciplina;
     }
 

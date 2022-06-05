@@ -61,7 +61,7 @@ public class ControladorUsuario {
                 if(autenticarEntrenador(email,contra)){
                     model.addAttribute("iniciarSesionUsuario", email);
                     System.out.println("Email: " + email);
-                    return "redirect:/entrenador";
+                    return "redirect:/DashboardEntrenadorIH";
                 }else{
                     return "ErrorIH";
                 }
@@ -73,7 +73,7 @@ public class ControladorUsuario {
     @GetMapping("/cerrar_sesion")
     public String cerrarSesion(){
 
-        return "iniciar_sesion";
+        return "redirect:/logout";
     }
 
     /*
