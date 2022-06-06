@@ -1,5 +1,5 @@
 package com.example.OlimpiadasUNAM.Modelo;
-import java.sql.Date;
+import java.util.Date;
 import javax.persistence.*;
 import org.springframework.format.annotation.DateTimeFormat;
 import lombok.*;
@@ -8,7 +8,6 @@ import lombok.*;
 @Entity
 @Table
 public class Evento {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="idevento")
@@ -17,17 +16,15 @@ public class Evento {
     @Column
     private String nombre;
 
-    @DateTimeFormat(pattern = "yyyy-DD-MM")
+    @DateTimeFormat(pattern = "yyyy-mm-dd")
     @Column
     private Date fecha;
 
     @Column
     private String descripcion;
 
-    @Column(name = "iddisciplina")
-    private Integer idDisciplina;
-
-    @ManyToOne(targetEntity = Disciplina.class)
-    @JoinColumn(name = "disciplina", referencedColumnName = "iddisciplina", nullable = false, insertable = false, updatable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(foreignKey = @ForeignKey(name="disciplina_id"), name="disciplina_id")
     private Disciplina disciplina;
+    
 }

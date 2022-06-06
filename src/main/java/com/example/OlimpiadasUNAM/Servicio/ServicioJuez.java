@@ -1,5 +1,6 @@
 package com.example.OlimpiadasUNAM.Servicio;
 
+import com.example.OlimpiadasUNAM.Modelo.Disciplina;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,10 +15,12 @@ import com.example.OlimpiadasUNAM.Repositorio.JuezRepositorio;
 public class ServicioJuez {
 
     private final JuezRepositorio juezRepositorio;
+    private DisciplinaServicio disciplinaServicio;
 
     @Autowired
-    public ServicioJuez(JuezRepositorio juezRepositorio) {
+    public ServicioJuez(JuezRepositorio juezRepositorio, DisciplinaServicio disciplinaServicio) {
         this.juezRepositorio = juezRepositorio;
+        this.disciplinaServicio = disciplinaServicio;
     }
 
     public void agregar(Juez juez) throws IDNodisponibleExcepcion {
@@ -53,8 +56,13 @@ public class ServicioJuez {
     }
 
     public List<Juez> buscarPorDisciplina(String disciplina){
-        List<Juez> juezResultado = juezRepositorio.findByDisciplina(disciplina);
-        return juezResultado;
+        List<Disciplina> disciplinaList = disciplinaServicio.mostrarDisciplinas(disciplina);
+        if(disciplinaList.size() <1) { //la disciplina no existe
+            return new ArrayList<Juez>();
+        }else {
+            List<Juez> juezResultado = juezRepositorio.findByDisciplina(disciplinaList.get(0));
+            return juezResultado;
+        }
     }
 
     public List<Juez> buscarPorFacultad(String facultad){
@@ -72,10 +80,6 @@ public class ServicioJuez {
 
     // Pasar el número de cuenta es inecesario
     public void editar(Juez juezNuevo){
-        Optional<Juez> juezOptional = juezRepositorio.findById(juezNuevo.getNumCuenta());
-        if(juezOptional.isPresent()){
-            throw new IllegalStateException("Se trató de agregar a un juez que ya estaba registrado.");
-        }
         juezRepositorio.save(juezNuevo);
     }
 }

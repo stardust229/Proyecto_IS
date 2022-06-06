@@ -69,13 +69,11 @@
                                     <a class="nav-link" aria-current="page" href="#">Menú</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">Calificar</a>
+                                    <a class="nav-link" th:href="@{/calificarCompetidorIH}">Calificar y comentar</a>
                                 </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#">Comentar</a>
-                                </li>
+
                             </ul>
-                            <a class="btn btn-danger navbar-btn" th:href="@{/}">Cerrar sesión</a>
+                            <a class="btn btn-danger navbar-btn" th:href="@{/logout}">Cerrar sesión</a>
                         </div>
                     </div>
                 </nav>
@@ -84,7 +82,7 @@
 
             <div style="margin-left:20px; margin-right:20px">
                 <div class="jumbotron">
-                    <h1 class="display-4">Hola, *usuario</h1>
+                    <h1 class="display-4">Hola, Juez</h1>
                     <p class="lead">¿Qué deseas hacer hoy?</p>
                 </div>
 
@@ -95,20 +93,11 @@
                                 <h5 class="card-title">Añade calificaciones a los competidores</h5>
                                 <p class="card-text">Después de cada evento hay que asignarle una calificación
                                     cumulativa al competidor.</p>
-                                <a href="#" class="btn btn-primary">Calificar</a>
+                                <a th:href="@{/calificarCompetidorIH}" class="btn btn-primary">Calificar y comentar</a>
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-6">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">Añade comentarios a los competidores</h5>
-                                <p class="card-text">Después de cada evento hay que darle retroalimentación al
-                                    competidor.</p>
-                                <a href="#" class="btn btn-primary">Comentar</a>
-                            </div>
-                        </div>
-                    </div>
+
                 </div>
             </div>
             <!--Antes del footer.-->

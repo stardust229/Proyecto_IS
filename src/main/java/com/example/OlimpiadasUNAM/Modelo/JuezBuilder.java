@@ -1,11 +1,9 @@
 package com.example.OlimpiadasUNAM.Modelo;
 
-import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
+import javax.persistence.ManyToOne;
 
-@MappedSuperclass
-public class Usuario {
-    @Id
+public class JuezBuilder {
+    private String disciplina;
     private int numCuenta;
     private String nombre;
     private String apellidoPaterno;
@@ -14,17 +12,9 @@ public class Usuario {
     private String correo;
     private String contrasenia;
 
-    private String rol;
-
-    private boolean enabled;
-
-    public Usuario(int numCuenta,
-                   String nombre,
-                   String apellidoPaterno,
-                   String apellidoMaterno,
-                   String facultad,
-                   String correo,
-                   String contrasenia, String rol) {
+    public JuezBuilder(String disciplina, int numCuenta, String nombre, String apellidoPaterno,
+                       String apellidoMaterno, String facultad, String correo, String contrasenia) {
+        this.disciplina = disciplina;
         this.numCuenta = numCuenta;
         this.nombre = nombre;
         this.apellidoPaterno = apellidoPaterno;
@@ -32,74 +22,77 @@ public class Usuario {
         this.facultad = facultad;
         this.correo = correo;
         this.contrasenia = contrasenia;
-        this.enabled = true;
-        this.rol = rol;
     }
 
-    public Usuario(){
-        return;
-    }
-
-    public int getNumCuenta() {
-        return numCuenta;
+    public void setDisciplina(String disciplina) {
+        this.disciplina = disciplina;
     }
 
     public void setNumCuenta(int numCuenta) {
         this.numCuenta = numCuenta;
     }
 
-    public String getNombre() {
-        return nombre;
-    }
-
     public void setNombre(String nombre) {
         this.nombre = nombre;
-    }
-
-    public String getApellidoPaterno() {
-        return apellidoPaterno;
     }
 
     public void setApellidoPaterno(String apellidoPaterno) {
         this.apellidoPaterno = apellidoPaterno;
     }
 
-    public String getApellidoMaterno() {
-        return apellidoMaterno;
-    }
-
     public void setApellidoMaterno(String apellidoMaterno) {
         this.apellidoMaterno = apellidoMaterno;
-    }
-
-    public String getFacultad() {
-        return facultad;
     }
 
     public void setFacultad(String facultad) {
         this.facultad = facultad;
     }
 
-    public String getCorreo() {
-        return correo;
-    }
-
     public void setCorreo(String correo) {
         this.correo = correo;
-    }
-
-    public String getContrasenia() {
-        return contrasenia;
     }
 
     public void setContrasenia(String contrasenia) {
         this.contrasenia = contrasenia;
     }
 
+    public String getDisciplina() {
+        return disciplina;
+    }
+
+    public int getNumCuenta() {
+        return numCuenta;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public String getApellidoPaterno() {
+        return apellidoPaterno;
+    }
+
+    public String getApellidoMaterno() {
+        return apellidoMaterno;
+    }
+
+    public String getFacultad() {
+        return facultad;
+    }
+
+    public String getCorreo() {
+        return correo;
+    }
+
+    public String getContrasenia() {
+        return contrasenia;
+    }
+
     @Override
     public String toString() {
-        return "Usuario{" +
-                "numCuenta=" + numCuenta +
+        return "JuezBuilder{" +
+                "disciplina='" + disciplina + '\'' +
+                ", numCuenta=" + numCuenta +
                 ", nombre='" + nombre + '\'' +
                 ", apellidoPaterno='" + apellidoPaterno + '\'' +
                 ", apellidoMaterno='" + apellidoMaterno + '\'' +

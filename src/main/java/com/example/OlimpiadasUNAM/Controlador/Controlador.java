@@ -1,11 +1,8 @@
 package com.example.OlimpiadasUNAM.Controlador;
-
 import javax.servlet.http.HttpServletRequest;
-
 import com.example.OlimpiadasUNAM.Modelo.Disciplina;
 import com.example.OlimpiadasUNAM.Servicio.DisciplinaServicio;
 import com.example.OlimpiadasUNAM.Servicio.ServicioEvento;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
@@ -22,15 +19,13 @@ public class Controlador {
 
     @Autowired
     private DisciplinaServicio disciplinaServicio;
-    @Autowired
-    private ServicioEvento eventoServicio;
 
     /*
      * @RequestMapping("/")
      * public String disciplinaIH(){
      * return "disciplinaIH";
      * }
-     */ 
+     */
 
     @GetMapping("/disciplinaIH")
     public String menuDisciplinas(Model modelo, @Param("busqueda") String busqueda) {
@@ -42,17 +37,18 @@ public class Controlador {
     @PostMapping("/agregar")
     public String procesa(HttpServletRequest request, Model modelo, RedirectAttributes redirectAttributes) {
         Disciplina disciplina = new Disciplina();
-        disciplina.setNombre(request.getParameter("disciplina"));
+        String nombreD = request.getParameter("disciplina".toLowerCase());
+        disciplina.setNombre(nombreD);
         if (disciplinaServicio.existeDisciplina(disciplina.getNombre())) {
             modelo.addAttribute("error", true);
             modelo.addAttribute("disciplina", disciplinaServicio.mostrarDisciplinas(""));
             return "disciplinaIH";
         } else {
-            String auxiliar = disciplina.getNombre();
-            auxiliar.trim();
-            auxiliar = auxiliar.substring(0, 1).toUpperCase() + auxiliar.substring(1).toLowerCase();
-            disciplinaServicio.agregaDisciplina(auxiliar);
-            modelo.addAttribute("disciplina", auxiliar);
+            //String auxiliar = disciplina.getNombre();
+            //auxiliar.trim();
+            //auxiliar = auxiliar.substring(0, 1).toUpperCase() + auxiliar.substring(1).toLowerCase();
+            disciplinaServicio.agregaDisciplina(nombreD);
+            modelo.addAttribute("disciplina", nombreD);
             redirectAttributes.addFlashAttribute("exitoAgrega", true);
             return "redirect:/disciplinaIH";
         }
@@ -63,7 +59,7 @@ public class Controlador {
         modelo.addAttribute("disciplina", disciplinaServicio.consultarDisciplina(id));
         return "formulario";
     }
-
+ 
     @PostMapping("/disciplinaIH/{id}")
     public String actualizarDisciplina(@PathVariable("id") Integer id,
             @ModelAttribute("disciplina") Disciplina disciplina, Model modelo, RedirectAttributes redirectAttributes) {
@@ -74,11 +70,11 @@ public class Controlador {
             modelo.addAttribute("disciplina", disciplinaServicio.mostrarDisciplinas(""));
             return "disciplinaIH";
         } else {
-            String auxiliar = disciplina.getNombre();
-            auxiliar.trim();
-            auxiliar.toLowerCase();
-            auxiliar = auxiliar.substring(0, 1).toUpperCase() + auxiliar.substring(1);
-            original.setNombre(auxiliar);
+            //String auxiliar = disciplina.getNombre();
+            //auxiliar.trim();
+            //auxiliar.toLowerCase();
+            //auxiliar = auxiliar.substring(0, 1).toUpperCase() + auxiliar.substring(1);
+            original.setNombre(disciplina.getNombre().toLowerCase());
             disciplinaServicio.editarDisciplina(original);
             redirectAttributes.addFlashAttribute("exitoActualiza", true);
             return "redirect:/disciplinaIH";
@@ -94,15 +90,8 @@ public class Controlador {
         } else {
             modelo.addAttribute("errorElimina", true);
             return "disciplinaIH";
+            //No pasaría nunca por aquí por error en el mapping. :>
         }
-    }
-
-    @GetMapping("/disciplinaIH/eventoIH/{id}")
-    public String menuEventos(Model modelo, @PathVariable Integer id) {
-        Disciplina disciplina = disciplinaServicio.consultarDisciplina(id);
-        modelo.addAttribute("evento", eventoServicio.mostrarEventos(disciplina.getNombre()));
-        modelo.addAttribute("busqueda", disciplina.getNombre());
-        return "eventoIH";
     }
 
     //Métodos para menús
@@ -125,6 +114,12 @@ public class Controlador {
     @RequestMapping("/JuezLandingIH")
     public String landingJuez(){
         return "JuezLandingIH";
+    }
+    
+    //Acciones Juez
+    @RequestMapping("/calificarCompetidorIH")
+    public String calificar(){
+        return "calificarCompetidorIH";
     }
 
 }

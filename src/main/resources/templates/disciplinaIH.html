@@ -97,7 +97,7 @@
                   <a class="nav-link" th:href="@{/consultarJuezIH}">Consultar juez</a>
                 </li>
               </ul>
-              <a class="btn btn-danger navbar-btn" th:href="@{/}">Cerrar sesión</a>
+              <a class="btn btn-danger navbar-btn" th:href="@{/logout}">Cerrar sesión</a>
             </div>
           </div>
         </nav>
@@ -170,7 +170,7 @@
             </thead>
             <tbody>
               <tr th:each="disciplina : ${disciplina}">
-                <td th:text="${disciplina.nombre}">Nombre</td>
+                <td th:text="${#strings.capitalize(disciplina.nombre)}">Nombre</td>
 
                 <td>
                   <a th:href="@{/disciplinaIH/editar/} + ${disciplina.id}" class="btn btn-success">Editar</a>
@@ -182,9 +182,9 @@
                 </td>
 
                 <td>
-                  <a th:href="@{/disciplinaIH/eventoIH/} + ${disciplina.id}" class="btn btn-info">Eventos</a>
+                  <a th:href="@{/disciplinaIH/{id}/EventoIH (id=${disciplina.id})}" class="btn btn-info">Detalles</a>
                 </td>
-              </tr>
+              </tr>  
             </tbody>
           </table>
         </div>

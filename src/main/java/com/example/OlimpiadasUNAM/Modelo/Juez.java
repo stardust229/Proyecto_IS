@@ -1,17 +1,20 @@
 package com.example.OlimpiadasUNAM.Modelo;
 
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table
 public class Juez extends Usuario{
 
-    private String disciplina;
+    @ManyToOne
+    private Disciplina disciplina;
 
 
-    public Juez(int numCuenta, String nombre, String apellidoPaterno, String apellidoMaterno, String facultad, String correo, String contrasenia, String disciplina) {
-        super(numCuenta, nombre, apellidoPaterno, apellidoMaterno, facultad, correo, contrasenia);
+    public Juez(int numCuenta, String nombre, String apellidoPaterno, String apellidoMaterno, String facultad, String correo, String contrasenia, Disciplina disciplina) {
+        super(numCuenta, nombre, apellidoPaterno, apellidoMaterno, facultad, correo, contrasenia, "JUEZ");
         this.disciplina = disciplina;
     }
 
@@ -19,11 +22,11 @@ public class Juez extends Usuario{
         super();
     }
 
-    public String getDisciplina() {
+    public Disciplina getDisciplina() {
         return disciplina;
     }
 
-    public void setDisciplina(String disciplina) {
+    public void setDisciplina(Disciplina disciplina) {
         this.disciplina = disciplina;
     }
 }

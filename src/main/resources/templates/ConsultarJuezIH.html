@@ -67,7 +67,7 @@
                                     <a class="nav-link" aria-current="page" href="#">Consultar juez</a>
                                 </li>
                             </ul>
-                            <a class="btn btn-danger navbar-btn" th:href="@{/}">Cerrar sesión</a>
+                            <a class="btn btn-danger navbar-btn" th:href="@{/logout}">Cerrar sesión</a>
                         </div>
                     </div>
                 </nav>
@@ -114,9 +114,10 @@
                                 <td th:text="${juez.apellidoMaterno}">ApellidoMaterno</td>
                                 <td th:text="${juez.facultad}">Facultad</td>
                                 <td th:text="${juez.correo}">Correo</td>
-                                <td th:text="${juez.disciplina}">Disciplina</td>
+                                <td th:text="${juez.disciplina.nombre}">Disciplina</td>
                                 <td>
-                                    <a class="btn btn-info">Editar</a>
+                                    <a th:href="@{/editarJuez/} + ${{juez.numCuenta}}"
+                                       class="btn btn-info">Editar</a>
                                 </td>
                                 <td>
                                     <a th:href="@{/eliminarJuez/} + ${{juez.numCuenta}}"
