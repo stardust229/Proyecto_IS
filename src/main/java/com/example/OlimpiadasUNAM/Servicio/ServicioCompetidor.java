@@ -18,12 +18,12 @@ public class ServicioCompetidor {
     public void agregarUsuario(Entrenador entrenador,int numCuenta, String nombre, String apellidoP, String apellidoM, String institucion,
                                String correo, String contrasena){
             Competidor competidor = new Competidor(numCuenta ,nombre ,apellidoP ,apellidoM ,institucion ,
-                    correo ,contrasena , entrenador.getDisciplina() , entrenador.getNumCuenta());
+                    correo ,contrasena , entrenador.getDisciplina() , entrenador);
             repositorioCompetidor.save(competidor);
     }
 
     public List<Competidor> consultarCompetidor(Entrenador entrenador){
-        return repositorioCompetidor.findByDisciplina(entrenador.getDisciplina());
+        return repositorioCompetidor.findByEntrenador(entrenador);
     }
 
     public Competidor buscarCompetidor(int numCuenta){
@@ -32,7 +32,7 @@ public class ServicioCompetidor {
 
     public boolean eliminarCompetidor(Entrenador entrenador, int numCuenta){
         Competidor competidor = buscarCompetidor(numCuenta);
-        if(competidor.getNumCuentaEntrenador() == entrenador.getNumCuenta()){
+        if(entrenador.equals(competidor.getEntrenador())){
             repositorioCompetidor.delete(competidor);
             return true;
         }else{
@@ -43,7 +43,7 @@ public class ServicioCompetidor {
     public boolean actualizarCompetidor(Entrenador entrenador,int numCuenta, String nombre, String apellidoP, String apellidoM, String institucion,
                                      String correo, String contrasena){
         Competidor competidor = buscarCompetidor(numCuenta);
-        if(competidor.getNumCuentaEntrenador() == entrenador.getNumCuenta()){
+        if(entrenador.equals(competidor.getEntrenador())){
             competidor.setNombre(nombre);
             competidor.setApellidoPaterno(apellidoP);
             competidor.setApellidoMaterno(apellidoM);
