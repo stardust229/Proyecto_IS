@@ -69,9 +69,11 @@
                                     <a class="nav-link" aria-current="page" href="#">Menú</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" th:href="@{/calificarCompetidorIH}">Calificar y comentar</a>
+                                    <a class="nav-link" th:href="@{/agregarCalificacion}">Calificar y Comentar</a>
                                 </li>
-
+                                <li class="nav-item">
+                                    <a class="nav-link" th:href="@{/tablaCalificaciones}">Visualizar Calificaciones</a>
+                                </li>
                             </ul>
                             <a class="btn btn-danger navbar-btn" th:href="@{/logout}">Cerrar sesión</a>
                         </div>
@@ -90,14 +92,22 @@
                     <div class="col-sm-6">
                         <div class="card">
                             <div class="card-body">
-                                <h5 class="card-title">Añade calificaciones a los competidores</h5>
-                                <p class="card-text">Después de cada evento hay que asignarle una calificación
-                                    cumulativa al competidor.</p>
-                                <a th:href="@{/calificarCompetidorIH}" class="btn btn-primary">Calificar y comentar</a>
+                                <h5 class="card-title">Añade calificaciones y comentarios a los competidores</h5>
+                                <p class="card-text">Después de cada evento hay que asignarle una calificación y retroalimentación
+                                    al competidor.</p>
+                                <a th:href="@{/agregarCalificacion}" class="btn btn-primary">Calificar y Comentar</a>
                             </div>
                         </div>
                     </div>
-
+                    <div class="col-sm-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Visualiza las calificaciones y comentarios de los competidores</h5>
+                                <p class="card-text">Tabla de calificaciones y comentarios de los competidores.</p>
+                                <a th:href="@{/tablaCalificaciones}" class="btn btn-primary">Visualizar Calificaciones</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <!--Antes del footer.-->

@@ -27,8 +27,6 @@ public class ControladorEntrenador {
     public String getEntrenadorDashboard() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String correo = auth.getName();
-        System.out.println("HEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEY");
-        System.out.println("Correo de usuario: " + correo);
         this.entrenador = servEnt.buscarPorEmail(correo);
         return "EntrenadorLandingIH";
     }
@@ -67,14 +65,14 @@ public class ControladorEntrenador {
         return "ConsultarCompetidorIH";
     }
 
-    @PostMapping("/eliminarCompetidor")
+    @PostMapping("/entrenador/eliminarCompetidor")
     public String eliminar(HttpServletRequest request){
-        Integer numCuenta = Integer.parseInt(request.getParameter("cuenta"));
+        Integer numCuenta = Integer.parseInt(request.getParameter("numCuenta"));
         serv.eliminarCompetidor(entrenador, numCuenta);
         return "EliminarCompetidorIH";
     }
 
-    @RequestMapping(value="/editarCompetidor",method= RequestMethod.POST, params="Buscar")
+    @RequestMapping(value="/entrenador/editarCompetidor",method= RequestMethod.POST, params="botonBuscar")
     public String buscarEditar(HttpServletRequest request, Model model){
         Integer numCuenta = Integer.parseInt(request.getParameter("numCuenta"));
         Competidor competidor = serv.buscarCompetidor(numCuenta);
@@ -82,12 +80,12 @@ public class ControladorEntrenador {
         return "EditarCompetidorIH";
     }
 
-    @RequestMapping(value="/editarCompetidor",method=RequestMethod.POST, params="Editar")
+    @RequestMapping(value="/entrenador/editarCompetidor",method=RequestMethod.POST, params="botonEditar")
     public String Editar(HttpServletRequest request){
         Integer numCuenta = Integer.parseInt(request.getParameter("numCuenta"));
         String nombre = request.getParameter("nombre");
-        String apellidoP = request.getParameter("apellidoP");
-        String apellidoM = request.getParameter("apellidoM");
+        String apellidoP = request.getParameter("apellidoPaterno");
+        String apellidoM = request.getParameter("apellidoMaterno");
         String institucion = request.getParameter("institucion");
         String correo = request.getParameter("correo");
         String contrasena = request.getParameter("contrasena");
