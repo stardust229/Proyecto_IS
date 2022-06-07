@@ -18,4 +18,9 @@ public class Disciplina {
 
     @OneToMany(mappedBy = "disciplina", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Evento> eventos;
+
+    @Override
+    public String toString() {
+        return nombre;
+    }
 }

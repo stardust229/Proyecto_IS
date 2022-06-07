@@ -3,6 +3,9 @@ package com.example.OlimpiadasUNAM.Servicio.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.example.OlimpiadasUNAM.Modelo.Competidor;
+import com.example.OlimpiadasUNAM.Modelo.Competir;
+import com.example.OlimpiadasUNAM.Servicio.ServicioBoleta;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +22,9 @@ public class ServicioEventoImpl implements ServicioEvento {
     private DisciplinaRepositorio disciplinaRepositorio;
     @Autowired
     private EventoRepositorio eventoRepositorio;
+
+    @Autowired
+    private ServicioBoleta servicioBoleta;
     
     public List<Evento> getAllEventos(){
         return eventoRepositorio.findAll();        
@@ -66,6 +72,19 @@ public class ServicioEventoImpl implements ServicioEvento {
             }
             return false;
         }
+    }
+
+    /**
+     * @param evento
+     * @return Una lista con los competidores que participaron en el evento
+     */
+    public List<Competidor> getCompetidores(Evento evento){
+        List<Competir> boletas =  servicioBoleta.getTodosPorEvento(evento);
+        ArrayList<Competidor> arr = new ArrayList<Competidor>();
+        for (Competir boleta :boletas) {
+            arr.add(boleta.getCompetidor());
+        }
+        return arr;
     }
    
 }

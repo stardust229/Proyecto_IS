@@ -100,21 +100,13 @@
  <div align="center">
       <br/>
         <div class="col-sm-4" align="left">
-            <form action="#" th:action="@{/guardar}" th:object="${student}" method="post">
+            <form th:action="@{/guardar}" method="post">
+                <input hidden type="number" name="idEvento" th:value="${idEvento}">
                 <div alight="left">
                     <tr>
-                        <label class="form-label" >Nombre Competidor</label>
+                        <label class="form-label" >Número de cuenta del competidor:</label>
                         <td>
-                            <input type="hidden" th:field="*{id}" />
-                            <input type="text" th:field="*{competidor}" class="form-control" placeholder="Nombre Competidor" required/>
-                        </td>
-                    </tr>
-                </div>
-                <div alight="left">
-                    <tr>
-                        <label class="form-label" >Disciplina</label>
-                        <td>
-                            <input type="text" th:field="*{disciplina}" class="form-control" placeholder="Disciplina" required/>
+                            <input type="number" name="numCuenta" th:value="${numCuenta}" class="form-control" readonly required/>
                         </td>
                     </tr>
                 </div>
@@ -122,7 +114,7 @@
                      <tr>
                         <label class="form-label" >Calificación</label>
                         <td>
-                            <input type="text" th:field="*{calificacion}" class="form-control" placeholder="Calificación"
+                            <input type="number" name="puntaje" th:value="${puntaje}" class="form-control" placeholder="Puntaje"
                                    pattern="[0-9]+" maxlength="3" title="Ingresa calificación de 3 dígitos numéricos" required/>
                         </td>
                      </tr>
@@ -131,7 +123,7 @@
                      <tr>
                         <label class="form-label" >Comentario</label>
                         <td>
-                            <input type="text" th:field="*{comentario}" class="form-control" placeholder="Comentario" required/>
+                            <input type="text" name="comentarios" th:value="${comentarios}" class="form-control" placeholder="Comentarios" required/>
                         </td>
                      </tr>
                 </div>

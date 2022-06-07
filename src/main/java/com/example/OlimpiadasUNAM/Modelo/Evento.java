@@ -26,5 +26,6 @@ public class Evento {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(foreignKey = @ForeignKey(name="disciplina_id"), name="disciplina_id")
     private Disciplina disciplina;
-    
+
+
 }
