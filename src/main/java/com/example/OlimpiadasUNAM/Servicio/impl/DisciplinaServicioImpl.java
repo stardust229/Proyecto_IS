@@ -51,7 +51,7 @@ public class DisciplinaServicioImpl implements DisciplinaServicio {
     @Override
     public boolean existeDisciplina(String busqueda){
         if(busqueda != ""){
-            busqueda = busqueda.substring(0,1).toUpperCase() + busqueda.substring(1).toLowerCase();
+            busqueda = busqueda.toLowerCase();
         }
         return disciplinaRepositorio.existsByName(busqueda);
     }
