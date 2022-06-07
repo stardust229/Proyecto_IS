@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-public class ControladorEntrenadorAdmi {
+public class ADMINControladorEntrenador {
     @Autowired
     private ServicioEntrenadorAdmi servicioEntrenador;
 

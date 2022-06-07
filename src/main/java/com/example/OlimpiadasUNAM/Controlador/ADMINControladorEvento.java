@@ -17,14 +17,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
-public class ControladorEvento {
+public class ADMINControladorEvento {
 
     @Autowired
     private ServicioEvento eventoServicio;
     @Autowired
     private DisciplinaServicio disciplinaServicio;
 
-    @GetMapping("/disciplinaIH/{id}/EventoIH")
+    @GetMapping("/admin/disciplinaIH/{id}/EventoIH")
     public String verEventos(@PathVariable("id") Integer id, Model modelo) {
         modelo.addAttribute("evento", eventoServicio.mostrarEventos(id));
         modelo.addAttribute("disciplinaOriginal", disciplinaServicio.consultarDisciplina(id).getId());
@@ -32,7 +32,7 @@ public class ControladorEvento {
         return "EventoIH";
     }
 
-    @PostMapping("/agregarEvento/{id}")
+    @PostMapping("/admin/agregarEvento/{id}")
     public String agregarEvento(@PathVariable("id") Integer id, HttpServletRequest request, Model modelo,
             RedirectAttributes redirectAttributes) throws ParseException {
         Evento evento = new Evento();
@@ -42,7 +42,7 @@ public class ControladorEvento {
                                                                    // evento.getDisciplina())
             redirectAttributes.addFlashAttribute("error", true);
             redirectAttributes.addFlashAttribute("evento", eventoServicio.mostrarEventos(id));
-            return "redirect:/disciplinaIH/" + id + "/EventoIH";
+            return "redirect:/admin/disciplinaIH/" + id + "/EventoIH";
         } else {
             evento.setDescripcion(request.getParameter("descripcion").toLowerCase());
             DateFormat formato = new SimpleDateFormat("yyyy-mm-dd");
@@ -51,11 +51,11 @@ public class ControladorEvento {
             eventoServicio.agregarEvento(evento);
             modelo.addAttribute("evento", evento);
             redirectAttributes.addFlashAttribute("exitoAgrega", true);
-            return "redirect:/disciplinaIH/" + id + "/EventoIH";
+            return "redirect:/admin/disciplinaIH/" + id + "/EventoIH";
         }
     }
 
-    @GetMapping("/disciplinaIH/{idDisciplina}/EventoIH/{id}")
+    @GetMapping("/admin/disciplinaIH/{idDisciplina}/EventoIH/{id}")
     public String eliminarEvento(@PathVariable("id") Integer id, @PathVariable("idDisciplina") Integer idDisciplina,
             RedirectAttributes redirectAttributes, Model modelo) {
         modelo.addAttribute("disciplinaOriginal", disciplinaServicio.consultarDisciplina(idDisciplina).getId());
@@ -63,14 +63,14 @@ public class ControladorEvento {
         if (eventoServicio.consultarEvento(idEvento) != null) {
             eventoServicio.eliminarEvento(idEvento);
             redirectAttributes.addFlashAttribute("exitoElimina", true);
-            return "redirect:/disciplinaIH/" + idDisciplina + "/EventoIH";
+            return "redirect:/admin/disciplinaIH/" + idDisciplina + "/EventoIH";
         } else {
             modelo.addAttribute("errorElimina", true);
-            return "disciplinaIH/" + idDisciplina + "/EventoIH";
+            return "admin/disciplinaIH/" + idDisciplina + "/EventoIH";
         }
     }
 
-    @GetMapping("/disciplinaIH/{idDisciplina}/EventoIH/editar/{id}")
+    @GetMapping("/admin/disciplinaIH/{idDisciplina}/EventoIH/editar/{id}")
     public String formularioEditarEvento(@PathVariable("id") Integer id, @PathVariable("idDisciplina") Integer idDisciplina, Model modelo) {
         modelo.addAttribute("evento", eventoServicio.consultarEvento(id));
         modelo.addAttribute("disciplinaOriginal", eventoServicio.consultarEvento(id).getDisciplina().getId());
@@ -78,7 +78,7 @@ public class ControladorEvento {
         return "FormularioEvento";
     }
 
-    @PostMapping("/editar/{idDisciplina}/{id}")
+    @PostMapping("/admin/editar/{idDisciplina}/{id}")
     public String editarEvento(@PathVariable("id") Integer id, @ModelAttribute("disciplina") Evento evento, Model modelo,
             RedirectAttributes redirectAttributes, @PathVariable("idDisciplina") Integer idDisciplina) throws ParseException {
         Evento original = eventoServicio.consultarEvento(id);
@@ -88,14 +88,14 @@ public class ControladorEvento {
         if (eventoServicio.existeEvento(nombre, idDisciplina) && !nombre.equalsIgnoreCase(original.getNombre())) {
             redirectAttributes.addFlashAttribute("error", true);
             redirectAttributes.addFlashAttribute("evento", eventoServicio.mostrarEventos(idDisciplina));
-            return "redirect:/disciplinaIH/" + idDisciplina + "/EventoIH";
+            return "redirect:/admin/disciplinaIH/" + idDisciplina + "/EventoIH";
         } else {
             original.setNombre(nombre.toLowerCase());
             original.setDescripcion(descripcion.toLowerCase());
             original.setFecha(fecha);
             eventoServicio.editaEvento(original); 
             redirectAttributes.addFlashAttribute("exitoActualiza", true);
-            return "redirect:/disciplinaIH/" + idDisciplina + "/EventoIH";
+            return "redirect:/admin/disciplinaIH/" + idDisciplina + "/EventoIH";
         }
     }
 }

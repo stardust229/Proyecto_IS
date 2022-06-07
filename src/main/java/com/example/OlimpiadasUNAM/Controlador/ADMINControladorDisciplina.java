@@ -2,7 +2,6 @@ package com.example.OlimpiadasUNAM.Controlador;
 import javax.servlet.http.HttpServletRequest;
 import com.example.OlimpiadasUNAM.Modelo.Disciplina;
 import com.example.OlimpiadasUNAM.Servicio.DisciplinaServicio;
-import com.example.OlimpiadasUNAM.Servicio.ServicioEvento;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
@@ -15,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
-public class Controlador {
+public class ADMINControladorDisciplina {
 
     @Autowired
     private DisciplinaServicio disciplinaServicio;
@@ -99,21 +98,6 @@ public class Controlador {
     @RequestMapping("/AdministradorLandingIH")
     public String landingAdmin(){
         return "AdministradorLandingIH";
-    }
-
-    @RequestMapping("/CompetidorLandingIH")
-    public String landingCompetidor(){
-        return "CompetidorLandingIH";
-    }
-
-    @RequestMapping("/EntrenadorLandingIH")
-    public String landingEntrenador(){
-        return "EntrenadorLandingIH";
-    }
-
-    @RequestMapping("/JuezLandingIH")
-    public String landingJuez(){
-        return "JuezLandingIH";
     }
 
 }

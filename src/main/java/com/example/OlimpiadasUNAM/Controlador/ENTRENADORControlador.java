@@ -16,7 +16,7 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
-public class ControladorEntrenador {
+public class ENTRENADORControlador {
     @Autowired
     ServicioCompetidor serv;
     @Autowired
@@ -91,6 +91,11 @@ public class ControladorEntrenador {
         String contrasena = request.getParameter("contrasena");
         serv.actualizarCompetidor(entrenador, numCuenta, nombre, apellidoP, apellidoM, institucion, correo, contrasena);
         return "EditarCompetidorIH";
+    }
+
+    @RequestMapping("/EntrenadorLandingIH")
+    public String landingEntrenador(){
+        return "EntrenadorLandingIH";
     }
 
 }

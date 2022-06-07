@@ -174,12 +174,12 @@
                 <td th:text="${#strings.capitalize(evento.descripcion)}">Descripción</td>
 
                 <td>
-                  <a th:href="@{/disciplinaIH/{id}/EventoIH/editar/{idEvento} (id=${disciplinaOriginal}, idEvento=${evento.idEvento})}"
+                  <a th:href="@{/admin/disciplinaIH/{id}/EventoIH/editar/{idEvento} (id=${disciplinaOriginal}, idEvento=${evento.idEvento})}"
                     class="btn btn-success">Editar</a>
                 </td>
 
                 <td>
-                  <a th:href="@{/disciplinaIH/{id}/EventoIH/{idEvento} (id=${disciplinaOriginal}, idEvento= ${evento.idEvento})}"
+                  <a th:href="@{/admin/disciplinaIH/{id}/EventoIH/{idEvento} (id=${disciplinaOriginal}, idEvento= ${evento.idEvento})}"
                     class="btn btn-danger">Eliminar</a>
                 </td>
               </tr>
@@ -204,7 +204,7 @@
             <div class="modal-body">
 
               <!-- Form -->
-              <form method="post" th:action="@{/agregarEvento/} + ${disciplinaOriginal}">
+              <form method="post" th:action="@{/admin/agregarEvento/} + ${disciplinaOriginal}">
                 <div class="form-group row">
                   <label for="inputNombre" class="col-sm-2 col-form-label">Nombre:</label>
                   <div class="col-sm-10">

@@ -173,16 +173,16 @@
                 <td th:text="${#strings.capitalize(disciplina.nombre)}">Nombre</td>
 
                 <td>
-                  <a th:href="@{/disciplinaIH/editar/} + ${disciplina.id}" class="btn btn-success">Editar</a>
+                  <a th:href="@{/admin/disciplinaIH/editar/} + ${disciplina.id}" class="btn btn-success">Editar</a>
                 </td>
 
 
                 <td>
-                  <a th:href="@{/disciplinaIH/} + ${disciplina.id}" class="btn btn-danger">Eliminar</a>
+                  <a th:href="@{/admin/disciplinaIH/} + ${disciplina.id}" class="btn btn-danger">Eliminar</a>
                 </td>
 
                 <td>
-                  <a th:href="@{/disciplinaIH/{id}/EventoIH (id=${disciplina.id})}" class="btn btn-info">Detalles</a>
+                  <a th:href="@{/admin/disciplinaIH/{id}/EventoIH (id=${disciplina.id})}" class="btn btn-info">Detalles</a>
                 </td>
               </tr>  
             </tbody>

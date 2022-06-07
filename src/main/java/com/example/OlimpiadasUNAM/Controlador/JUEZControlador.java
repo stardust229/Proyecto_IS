@@ -17,7 +17,7 @@ import com.example.OlimpiadasUNAM.Modelo.Boleta;
 import com.example.OlimpiadasUNAM.Servicio.ServicioBoleta;
 
 @Controller
-public class ControladorBoleta {
+public class JUEZControlador {
 
 	 @Autowired
 	    private ServicioBoleta service;
@@ -54,4 +54,9 @@ public class ControladorBoleta {
 	        service.delete(id);
 	        return "redirect:/tablaCalificaciones";
 	    }
+
+		@RequestMapping("/JuezLandingIH")
+		public String landingJuez(){
+			return "JuezLandingIH";
+		}
 }

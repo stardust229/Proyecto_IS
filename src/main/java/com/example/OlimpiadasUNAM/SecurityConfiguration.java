@@ -22,55 +22,20 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
     DataSource dataSource;
-    /*
-    private final PasswordEncoder passwordEncoder;
-
-    @Autowired
-    public SecurityConfiguration(PasswordEncoder passwordEncoder){
-        this.passwordEncoder = passwordEncoder;
-    }*/
-
-    /*
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication()
-                .withUser("blah")
-                .password("blah")
-                .roles("ENTRENADOR")
-                .and()
-                .withUser("foo")
-                .password("foo")
-                .roles("ADMIN");
-    }*/
-
-/*
-    @Override
-    @Bean
-    protected UserDetailsService userDetailsService() {
-        UserDetails user1 = User.builder()
-                .username("erwinsmith")
-                .password("levi")
-                .roles("ENTRENADOR")
-                .build();
-
-        UserDetails user2 = User.builder()
-                .username("minyoongi")
-                .password("yanaega")
-                .roles("ADMIN")
-                .build();
-
-        return new InMemoryUserDetailsManager(
-                user1, user2
-        );
-    }*/
 
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.jdbcAuthentication()
                 .dataSource((javax.sql.DataSource) dataSource)
-                .usersByUsernameQuery("SELECT correo as username, contrasenia as password, enabled FROM (SELECT correo, contrasenia, enabled "
-                        + "FROM administrador UNION SELECT correo, contrasenia, enabled FROM entrenador) as foo WHERE correo=?")
-                .authoritiesByUsernameQuery("SELECT foo.correo as username, foo.rol as authority FROM (SELECT correo, rol "
-                        + "FROM administrador UNION SELECT correo, rol FROM entrenador) as foo WHERE foo.correo = ?");
+                .usersByUsernameQuery("SELECT correo as username, contrasenia as password, enabled FROM " +
+                        "(SELECT correo, contrasenia, enabled FROM administrador UNION " +
+                        " SELECT correo, contrasenia, enabled FROM entrenador UNION " +
+                        " SELECT correo, contrasenia, enabled FROM juez UNION" +
+                        " SELECT correo, contrasenia, enabled FROM competidor) as foo WHERE correo=?")
+                .authoritiesByUsernameQuery(" SELECT foo.correo as username, foo.rol as authority FROM " +
+                        " (SELECT correo, rol FROM administrador UNION" +
+                        "  SELECT correo, rol FROM entrenador UNION" +
+                        "  SELECT correo, rol FROM juez UNION" +
+                        "  SELECT correo, rol FROM competidor) as foo WHERE foo.correo = ?");
     }
 
     @Override
