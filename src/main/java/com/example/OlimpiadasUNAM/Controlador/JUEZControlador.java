@@ -59,10 +59,18 @@ public class JUEZControlador {
 			String comentarios = request.getParameter("comentarios");
 			Evento evento = servicioEvento.consultarEvento(idEvento);
 			Competidor competidor = servicioCompetidor.buscarCompetidor(numCuenta);
-			Competir boleta = new Competir(evento, competidor, puntaje, comentarios);
-			// el problema está aquí:
-	        service.save(boleta);
-	        return "redirect:/tablaCalificaciones";
+			Optional<Competir> boletaOpcional = service.get(evento,competidor);
+			if(boletaOpcional.isPresent()) {
+				Competir boleta = boletaOpcional.get();
+				boleta.setPuntaje(puntaje);
+				boleta.setComentarios(comentarios);
+				service.save(boleta);
+				//return "redirect:/tablaCalificaciones";
+			} else {
+				// Mostrar algún error
+			}
+			modelo.addAttribute("listaEventos", servicioEvento.getAllEventos());
+			return "ConsultarCompetidoresJuezIH";
 	    }
 
 
@@ -83,7 +91,7 @@ public class JUEZControlador {
 	    }
 
 		@RequestMapping("/juez/ConsultarCompetidoresJuezIH")
-		public String getConsultarComeptidoresJuez(Model modelo){
+		public String getConsultarCompetidoresJuez(Model modelo){
 			modelo.addAttribute("listaEventos", servicioEvento.getAllEventos());
 			return "ConsultarCompetidoresJuezIH";
 		}

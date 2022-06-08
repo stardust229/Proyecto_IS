@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Optional;
 
 import com.example.OlimpiadasUNAM.Modelo.Competidor;
-import com.example.OlimpiadasUNAM.Modelo.CompetirId;
 import com.example.OlimpiadasUNAM.Modelo.Evento;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,12 +20,9 @@ public class ServicioBoleta {
         return repo.findAll();
     }
 
-    public void save(Competir std) {
-        repo.save(std);
-    }
 
     public Optional<Competir> get(Evento evento, Competidor competidor) {
-        return repo.findById(new CompetirId(evento, competidor));
+        return repo.findByEventoAndCompetidor(evento, competidor);
     }
 
     /*
@@ -38,4 +34,7 @@ public class ServicioBoleta {
         return repo.findAllByEvento(evento);
     }
 
+    public void save(Competir boleta) {
+        repo.save(boleta);
+    }
 }

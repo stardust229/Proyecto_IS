@@ -6,13 +6,13 @@ import javax.persistence.*;
  * Esta clase modela la relación Competir, que espeficica en qué evento participó cada competidor.
  */
 @Entity
-@IdClass(CompetirId.class)
 public class Competir {
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer idCompetir;
 	@ManyToOne
 	private Evento evento;
-	@Id
 	@ManyToOne
 	private Competidor competidor;
     private int puntaje;
@@ -26,6 +26,14 @@ public class Competir {
 		this.competidor = competidor;
 		this.puntaje = puntaje;
 		this.comentarios = comentarios;
+	}
+
+	public Integer getIdCompetir() {
+		return idCompetir;
+	}
+
+	public void setIdCompetir(Integer idCompetir) {
+		this.idCompetir = idCompetir;
 	}
 
 	public Evento getEvento() {
