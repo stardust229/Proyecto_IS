@@ -99,36 +99,28 @@
 
 		 <div align="center">
 			<tr>
-				<div class="col-sm-5" align = "center">
-						 <div class="panel-body" align = "center" >
-							 <table class="table" align = "center">
-								 <thead class="thead-dark" align = "center">
-										<tr>
-											<th>Puntaje</th>
-                                            <th>Comentario</th>
-                                            <th colspan="2">Acciones</th>
+                <div class="row" style="margin-left: 120px;margin-right: 120px;" align = "center" >
+                    <table id="tablaCalificaciones" class="table table-striped table-bordered table-hover">
+                        <thead class="thead-dark" align = "center">
+                            <tr>
+                                <th>Num. de cuenta</th>
+                                <th>Evento</th>
+                                <th>Calificación</th>
+                                <th>Comentario</th>
+                            </tr>
+                        </thead>
 
+                        <tbody align = "center">
+                            <tr  th:each="boleta: ${liststudent}">
+                                <td th:text="${boleta.competidor.numCuenta}">NumCuenta</td>
+                                <td th:text="${boleta.evento.nombre}">Evento</td>
+                                <td th:text="${boleta.puntaje}">Calificacion</td>
+                                <td th:text="${boleta.comentarios}">Comentario</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
 
-										</tr>
-								 </thead>
-									<tbody>
-										<tr  th:each="boleta: ${liststudent}">
-
-
-                                            <td th:text="${boleta.puntaje}">Puntaje</td>
-                                            <td th:text="${boleta.comentarios}">Comentario</td>
-
-											<td>
-												<a th:href="@{'/editar/' + ${boleta.evento}}">Editar</a>
-											</td>
-											<td>
-												<a th:href="@{'/eliminar/' + ${boleta.evento}}">Eliminar</a>
-											</td>
-										</tr>
-									</tbody>
-							</table>
-						 </div>
-				</div>
 			</tr>
 		</div>
 
