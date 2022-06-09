@@ -89,17 +89,17 @@
         <div style="text-align: left;">
             <div class="precaucion" id="errorIDNoDisponible" th:if="${flagIDNoDisponibleRE}" style="margin-left:120px; margin-right:120px;">
                 <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-                <strong>¡Error!</strong> Ya existe un competidor con ese número de cuenta.
+                <strong>¡Error!</strong> Ya existe un usuario con ese número de cuenta.
             </div>
 
             <div class="precaucion" id="errorEmailNoDisponible" th:if="${flagEmailNoDisponibleRE}" style="margin-left:120px; margin-right:120px;">
                 <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-                <strong>¡Error!</strong> Ya existe un competidor con ese correo.
+                <strong>¡Error!</strong> Ya existe un usuario con ese correo.
             </div>
 
             <div class="exito" id="exitoAgrega" th:if="${exitoAgregaRE}" style="margin-left:120px; margin-right:120px;">
                 <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-                <strong>¡Éxito!</strong> Competidor agregado correctamente.
+                <strong>¡Éxito!</strong> Entrenador registrado correctamente.
             </div>
             <div class="row" style="margin-left:120px; margin-right:120px;">
                 <form id="registrarEntrenador"  method="post" th:action="@{/registroEntrenador}">

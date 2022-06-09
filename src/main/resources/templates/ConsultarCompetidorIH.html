@@ -55,7 +55,7 @@
                 <a class="nav-link" th:href="@{/entrenador/agregarCompetidor}">Agregar Competidor</a>
               </li>
               <li class="nav-item active">
-                <a class="nav-link" href="#">Consultar Competidor</a>
+                <a class="nav-link" href="#">Consultar Competidores</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" th:href="@{/entrenador/editarCompetidor}">Editar Competidor</a>
@@ -74,7 +74,7 @@
       <!-- Navbar -->
     </header>
     <br>
-
+    <h3 style="margin-left:120px">Mis competidores: </h3>
     <div style="text-align: center;">
 
       <div  th:unless="${competidores.empty}" class="row" style="margin-left: 120px;margin-right: 120px;">
