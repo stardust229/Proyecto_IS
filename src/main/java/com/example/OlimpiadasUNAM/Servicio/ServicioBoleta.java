@@ -37,4 +37,9 @@ public class ServicioBoleta {
     public void save(Competir boleta) {
         repo.save(boleta);
     }
+
+    public List<Competir> getNoCalificadosPorEvento(Evento evento) {
+        List<Competir> a = repo.findAllByEventoAndPuntajeIsNull(evento);
+        return a;
+    }
 }

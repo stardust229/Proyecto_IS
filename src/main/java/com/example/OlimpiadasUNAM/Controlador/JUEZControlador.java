@@ -118,12 +118,16 @@ public class JUEZControlador {
 		}
 
 		@GetMapping("/juez/consultarCompetidores")
-		public String listarCompetidores(Model modelo, @Param("id_evento") Integer id_evento){
+		public String listarCompetidores(Model modelo, @Param("id_evento") Integer id_evento, @Param("solo_no_calificados") Boolean solo_no_calificados){
 			if (id_evento==null) return "ConsultarCompetidoresJuezIH";
 			Evento evento = servicioEvento.consultarEvento(id_evento);
 			modelo.addAttribute("evento", evento);
-			modelo.addAttribute("competidores", servicioEvento.getCompetidores(evento));
 			modelo.addAttribute("listaEventos", servicioEvento.getAllEventos(juez.getDisciplina()));
+			if (solo_no_calificados) {
+				modelo.addAttribute("boletas", service.getNoCalificadosPorEvento(evento));
+			} else {
+				modelo.addAttribute("boletas", service.getTodosPorEvento(evento));
+			}
 			return "ConsultarCompetidoresJuezIH";
 		}
 
