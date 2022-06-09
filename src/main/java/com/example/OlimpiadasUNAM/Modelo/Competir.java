@@ -15,13 +15,16 @@ public class Competir {
 	private Evento evento;
 	@ManyToOne
 	private Competidor competidor;
-    private int puntaje;
+
+	@Column(nullable = true)
+    private Integer puntaje;
+	@Column(nullable = true)
 	private String comentarios;
 
 	public Competir() {
 
 	}
-	public Competir(Evento evento, Competidor competidor, int puntaje, String comentarios) {
+	public Competir(Evento evento, Competidor competidor, Integer puntaje, String comentarios) {
 		this.evento = evento;
 		this.competidor = competidor;
 		this.puntaje = puntaje;
@@ -52,11 +55,11 @@ public class Competir {
 		this.competidor = competidor;
 	}
 
-	public int getPuntaje() {
+	public Integer getPuntaje() {
 		return puntaje;
 	}
 
-	public void setPuntaje(int puntaje) {
+	public void setPuntaje(Integer puntaje) {
 		this.puntaje = puntaje;
 	}
 

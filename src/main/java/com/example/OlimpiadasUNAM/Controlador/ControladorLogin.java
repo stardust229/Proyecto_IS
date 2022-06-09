@@ -52,20 +52,8 @@ public class ControladorLogin {
     @RequestMapping("/admin/dashboard")
     public String getAdminDashboard() { return "AdministradorLandingIH"; }
 
-    @RequestMapping("/juez/dashboard")
-    public String getJuezDashboard() { return "JuezLandingIH"; }
 
     @RequestMapping("/competidor/dashboard")
     public String getCompetidorDashboard() { return "CompetidorLandingIH"; }
 
-
-
-
-
-    // ESTE SE USA?
-    @GetMapping("/registrar")
-    public String getRegisterPage(Model model){
-        model.addAttribute("registrarRequest", new ModeloUsuario());
-        return "registrar_page";
-    }
 }

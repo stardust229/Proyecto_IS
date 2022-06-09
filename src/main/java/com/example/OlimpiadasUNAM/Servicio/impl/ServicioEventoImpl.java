@@ -86,5 +86,9 @@ public class ServicioEventoImpl implements ServicioEvento {
         }
         return arr;
     }
-   
+
+    @Override
+    public List<Evento> getAllEventos(Disciplina disciplina) {
+        return eventoRepositorio.findAllByDisciplina(disciplina);
+    }
 }
