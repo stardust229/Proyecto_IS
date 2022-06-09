@@ -46,7 +46,7 @@ public class JUEZControlador {
 		return "JuezLandingIH";
 	}
 
-	    @GetMapping("/tablaCalificaciones")
+	    @GetMapping("/juez/tablaCalificaciones")
 	    public String viewHomePage(Model model) {
 	        List<Competir> liststudent = service.listAll();
 	        model.addAttribute("liststudent", liststudent);
@@ -67,7 +67,7 @@ public class JUEZControlador {
 			}
 	    }
 
-	    @RequestMapping("/guardar")
+	    @RequestMapping("/juez/guardarCalificacion")
 	    public String saveStudent(Model modelo, HttpServletRequest request) {
 			Integer idEvento = Integer.valueOf(request.getParameter("idEvento"));
 			Integer numCuenta = Integer.valueOf(request.getParameter("numCuenta"));
@@ -83,7 +83,7 @@ public class JUEZControlador {
 				boleta.setPuntaje(puntaje);
 				boleta.setComentarios(comentarios);
 				service.save(boleta);
-				return "redirect:/tablaCalificaciones";
+				return "redirect:/juez/tablaCalificaciones";
 				//return "TablaCalificacionesIH";
 			} else {
 				// Mostrar algún error
@@ -93,22 +93,23 @@ public class JUEZControlador {
 			//return "TablaCalificacionesIH";
 	    }
 
-
+		/*
 	    @RequestMapping("/editar/{id}")
 	    public ModelAndView showEditStudentPage(@PathVariable(name = "id") int id) {
 	        ModelAndView mav = new ModelAndView("CalificarCompetidoresIH");
 	        /*
 	        Competir std = service.get(id_____);
 	        mav.addObject("student", std);
-	        */
+	        *//*
 	        return mav;
 
-	    }
+	    }*/
+		/*
 	    @RequestMapping("/eliminar/{id}")
 	    public String deletestudent(@PathVariable(name = "id") int id) {
 	       // service.delete(id);
 	        return "redirect:/tablaCalificaciones";
-	    }
+	    }*/
 
 		@RequestMapping("/juez/ConsultarCompetidoresJuezIH")
 		public String getConsultarCompetidoresJuez(Model modelo){
@@ -126,7 +127,7 @@ public class JUEZControlador {
 			return "ConsultarCompetidoresJuezIH";
 		}
 
-		@RequestMapping("/JuezLandingIH")
+		@RequestMapping("/juez/menu")
 		public String landingJuez(){
 			return "JuezLandingIH";
 		}
