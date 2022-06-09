@@ -28,7 +28,7 @@ import javax.servlet.http.HttpServletRequest;
 public class JUEZControlador {
 
 	 @Autowired
-	    private ServicioBoleta service;
+	 private ServicioBoleta service;
 	 @Autowired
 	 private ServicioEvento servicioEvento;
 	 @Autowired
@@ -43,7 +43,7 @@ public class JUEZControlador {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String correo = auth.getName();
 		this.juez = servicioJuez.buscarPorEmail(correo).get(0);
-		return "EntrenadorLandingIH";
+		return "JuezLandingIH";
 	}
 
 	    @GetMapping("/tablaCalificaciones")
@@ -78,6 +78,8 @@ public class JUEZControlador {
 			Optional<Competir> boletaOpcional = service.get(evento,competidor);
 			if(boletaOpcional.isPresent()) {
 				Competir boleta = boletaOpcional.get();
+				boleta.setCompetidor(competidor);
+				boleta.setEvento(evento);
 				boleta.setPuntaje(puntaje);
 				boleta.setComentarios(comentarios);
 				service.save(boleta);
