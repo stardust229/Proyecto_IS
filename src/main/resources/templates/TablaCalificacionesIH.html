@@ -104,25 +104,25 @@
 							 <table class="table" align = "center">
 								 <thead class="thead-dark" align = "center">
 										<tr>
-											<th>Nombre Competidor</th>
-											<th>Disciplina</th>
-											<th>Calificación</th>
+											<th>Puntaje</th>
                                             <th>Comentario</th>
-											<th>Editar</th>
-											<th>Eliminar</th>
+                                            <th colspan="2">Acciones</th>
+
+
 										</tr>
 								 </thead>
 									<tbody>
-										<tr  th:each="student : ${liststudent}">
-											<td th:text="${student.competidor}">Competidor</td>
-											<td th:text="${student.disciplina}">Disciplina</td>
-											<td th:text="${student.calificacion}">Calificación</td>
-                                            <td th:text="${student.comentario}">Comentario</td>
+										<tr  th:each="boleta: ${liststudent}">
+
+
+                                            <td th:text="${boleta.puntaje}">Puntaje</td>
+                                            <td th:text="${boleta.comentarios}">Comentario</td>
+
 											<td>
-												<a th:href="@{'/editar/' + ${student.id}}">Editar</a>
+												<a th:href="@{'/editar/' + ${boleta.evento}}">Editar</a>
 											</td>
 											<td>
-												<a th:href="@{'/eliminar/' + ${student.id}}">Eliminar</a>
+												<a th:href="@{'/eliminar/' + ${boleta.evento}}">Eliminar</a>
 											</td>
 										</tr>
 									</tbody>

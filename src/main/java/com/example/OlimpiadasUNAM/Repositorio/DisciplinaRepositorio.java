@@ -17,4 +17,6 @@ public interface DisciplinaRepositorio extends JpaRepository<Disciplina, Integer
 
     @Query("SELECT CASE WHEN COUNT(d) > 0 THEN true ELSE false END FROM Disciplina d WHERE d.nombre = :busqueda")
     boolean existsByName(String busqueda);
+
+    public List<Disciplina> findAll();
 }
