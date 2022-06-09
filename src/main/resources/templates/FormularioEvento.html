@@ -112,7 +112,7 @@
 
 
             <div style="text-align: center;">
-                <form method="post" th:action="@{/editar/{idDisciplina}/{idEvento} (idDisciplina=${disciplinaOriginal}, idEvento=${evento.idEvento})}" th:object="${evento}">
+                <form method="post" th:action="@{/admin/editar/{idDisciplina}/{idEvento} (idDisciplina=${disciplinaOriginal}, idEvento=${evento.idEvento})}" th:object="${evento}">
                     <h3 hidden th:value="${disciplinaOriginal}" name="disciplinaOriginal"></h3>
                     <input type="text" name="nombre" placeholder="Nombre nuevo :D" th:field="*{nombre}"
                         oninvalid="Verifica(this);" oninput="Verifica(this);" required

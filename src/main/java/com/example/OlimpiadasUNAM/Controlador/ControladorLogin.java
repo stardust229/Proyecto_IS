@@ -34,7 +34,7 @@ public class ControladorLogin {
     @Autowired
     private DisciplinaServicioImpl servicioDisciplina;
 
-    @GetMapping("/login")
+    @GetMapping({"/login", "/"})
     public String getLogin() {
         return "login";
     }
