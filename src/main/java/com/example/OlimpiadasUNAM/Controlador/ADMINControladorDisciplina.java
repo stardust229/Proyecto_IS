@@ -19,55 +19,58 @@ public class ADMINControladorDisciplina {
     @Autowired
     private DisciplinaServicio disciplinaServicio;
 
-    /*
-     * @RequestMapping("/")
-     * public String disciplinaIH(){
-     * return "disciplinaIH";
-     * }
-     */
 
-    @GetMapping("/disciplinaIH")
+    @RequestMapping("/admin/disciplinaIH")
+    public String disciplinaIH(Model modelo, @Param("busqueda") String busqueda){
+        //modelo.addAttribute("disciplina", disciplinaServicio.mostrarDisciplinas(busqueda));
+        //modelo.addAttribute("busqueda", busqueda);
+        return "disciplinaIH";
+    }
+    
+    @GetMapping("/admin/disciplinaIH")
     public String menuDisciplinas(Model modelo, @Param("busqueda") String busqueda) {
         modelo.addAttribute("disciplina", disciplinaServicio.mostrarDisciplinas(busqueda));
         modelo.addAttribute("busqueda", busqueda);
         return "disciplinaIH";
     }
 
-    @PostMapping("/agregar")
+
+    @PostMapping("/admin/agregar")
     public String procesa(HttpServletRequest request, Model modelo, RedirectAttributes redirectAttributes) {
         Disciplina disciplina = new Disciplina();
         String nombreD = request.getParameter("disciplina".toLowerCase());
         disciplina.setNombre(nombreD);
         if (disciplinaServicio.existeDisciplina(disciplina.getNombre())) {
-            modelo.addAttribute("error", true);
-            modelo.addAttribute("disciplina", disciplinaServicio.mostrarDisciplinas(""));
-            return "disciplinaIH";
+            redirectAttributes.addFlashAttribute("error", true);
+            redirectAttributes.addFlashAttribute("disciplina", disciplinaServicio.mostrarDisciplinas(""));
+            //redirectAttributes.addibute("disciplina", disciplinaServicio.mostrarDisciplinas(""));
+            return "redirect:/admin/disciplinaIH";
         } else {
             //String auxiliar = disciplina.getNombre();
             //auxiliar.trim();
             //auxiliar = auxiliar.substring(0, 1).toUpperCase() + auxiliar.substring(1).toLowerCase();
             disciplinaServicio.agregaDisciplina(nombreD);
-            modelo.addAttribute("disciplina", nombreD);
+            redirectAttributes.addFlashAttribute("disciplina", nombreD);
             redirectAttributes.addFlashAttribute("exitoAgrega", true);
-            return "redirect:/disciplinaIH";
+            return "redirect:/admin/disciplinaIH";
         }
     }
 
-    @GetMapping("/disciplinaIH/editar/{id}")
+    @GetMapping("/admin/disciplinaIH/editar/{id}")
     public String formularioEditar(@PathVariable("id") Integer id, Model modelo) {
         modelo.addAttribute("disciplina", disciplinaServicio.consultarDisciplina(id));
         return "formulario";
     }
  
-    @PostMapping("/disciplinaIH/{id}")
+    @PostMapping("/admin/disciplinaIH/{id}")
     public String actualizarDisciplina(@PathVariable("id") Integer id,
             @ModelAttribute("disciplina") Disciplina disciplina, Model modelo, RedirectAttributes redirectAttributes) {
         Disciplina original = disciplinaServicio.consultarDisciplina(id);
         String nombreOriginal = disciplina.getNombre();
         if (disciplinaServicio.existeDisciplina(nombreOriginal)) {
-            modelo.addAttribute("error", true);
-            modelo.addAttribute("disciplina", disciplinaServicio.mostrarDisciplinas(""));
-            return "disciplinaIH";
+            redirectAttributes.addFlashAttribute("error", true);
+            redirectAttributes.addFlashAttribute("disciplina", disciplinaServicio.mostrarDisciplinas(""));
+            return "redirect:/admin/disciplinaIH";
         } else {
             //String auxiliar = disciplina.getNombre();
             //auxiliar.trim();
@@ -76,19 +79,19 @@ public class ADMINControladorDisciplina {
             original.setNombre(disciplina.getNombre().toLowerCase());
             disciplinaServicio.editarDisciplina(original);
             redirectAttributes.addFlashAttribute("exitoActualiza", true);
-            return "redirect:/disciplinaIH";
+            return "redirect:/admin/disciplinaIH";
         }
     }
 
-    @GetMapping("/disciplinaIH/{id}")
+    @GetMapping("/admin/disciplinaIH/{id}")
     public String eliminarDisciplina(@PathVariable Integer id, RedirectAttributes redirectAttributes, Model modelo) {
         if (disciplinaServicio.existeDisciplina(disciplinaServicio.consultarDisciplina(id).getNombre())) {
             disciplinaServicio.eliminarDisciplina(id);
             redirectAttributes.addFlashAttribute("exitoElimina", true);
-            return "redirect:/disciplinaIH";
+            return "redirect:/admin/disciplinaIH";
         } else {
             modelo.addAttribute("errorElimina", true);
-            return "disciplinaIH";
+            return "/admin/disciplinaIH";
             //No pasaría nunca por aquí por error en el mapping. :>
         }
     }

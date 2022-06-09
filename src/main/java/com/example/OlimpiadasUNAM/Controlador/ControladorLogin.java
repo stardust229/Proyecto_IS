@@ -30,7 +30,7 @@ public class ControladorLogin {
     @Autowired
     private ServicioEntrenador servicioEntrenador;
 
-    @GetMapping("/login")
+    @GetMapping({"/login", "/"})
     public String getLogin() {
         return "login";
     }
@@ -57,8 +57,6 @@ public class ControladorLogin {
 
     @RequestMapping("/competidor/dashboard")
     public String getCompetidorDashboard() { return "CompetidorLandingIH"; }
-
-
 
 
 
