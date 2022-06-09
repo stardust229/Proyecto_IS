@@ -55,5 +55,9 @@ public class DisciplinaServicioImpl implements DisciplinaServicio {
         }
         return disciplinaRepositorio.existsByName(busqueda);
     }
+
+    public List<Disciplina> findAllDisciplinas(){
+        return disciplinaRepositorio.findAll();
+    }
     
 }
