@@ -7,8 +7,7 @@ INSERT INTO entrenador VALUES(318987033,'de Jesús','Salgado','contrasena','IJS@
 INSERT INTO entrenador VALUES(318987032,'Aragón','Ibargüengoitia','contrasena2','JAI@outlook.com','t','Facultad de Arquitectura','Luis','ENTRENADOR',1);
 INSERT INTO competidor VALUES(879130497,'dificil','nombres es',1234,'pnd@hotmail.es','t','Zootecnia','pensar en','COMPETIDOR',1,318987032);
 INSERT INTO competidor VALUES(879130498,'dificilx2','nombres esx2','1234','pnd@hotmail.esx2','t','Zootecnia','pensar enx2','COMPETIDOR',1,318987032);
-INSERT INTO competir VALUES(1,'muy bien', 9, 879130497, 2);
-INSERT INTO competir VALUES(2,'muy mal', 0, 879130498,1);
+INSERT INTO competir(comentarios, competidor_num_cuenta, evento_idevento) VALUES('-', 879130498, 1);
 INSERT INTO juez VALUES(123456,'juez','de juez','juez','juez@juez.com','t','Facultad de Derecho','juez','JUEZ',1);
 
 

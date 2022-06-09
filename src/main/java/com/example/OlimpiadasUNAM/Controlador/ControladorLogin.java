@@ -4,6 +4,7 @@ import com.example.OlimpiadasUNAM.Modelo.*;
 import com.example.OlimpiadasUNAM.Servicio.ServicioAdministrador;
 import com.example.OlimpiadasUNAM.Servicio.ServicioEntrenador;
 import com.example.OlimpiadasUNAM.Servicio.ServicioJuez;
+import com.example.OlimpiadasUNAM.Servicio.ServicioUsuarios;
 import com.example.OlimpiadasUNAM.Servicio.impl.DisciplinaServicioImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -33,6 +34,9 @@ public class ControladorLogin {
 
     @Autowired
     private DisciplinaServicioImpl servicioDisciplina;
+
+    @Autowired
+    private ServicioUsuarios servicioUsuarios;
 
     @GetMapping({"/login", "/"})
     public String getLogin() {
@@ -65,13 +69,12 @@ public class ControladorLogin {
 
     @RequestMapping("/registroEntrenador")
     public String getRegisterPage(Model model) {
-        List<Disciplina> disciplinas = servicioDisciplina.findAllDisciplinas();
-        model.addAttribute("disciplinas", disciplinas);
+        cargarDisciplinas(model);
         return "RegistroEntrenadorIH";
     }
 
     @PostMapping("/registroEntrenador")
-    public String registrarEntrenador(HttpServletRequest request) {
+    public String registrarEntrenador(HttpServletRequest request, Model modelo) {
         Integer numCuenta = Integer.parseInt(request.getParameter("numCuenta"));
         String nombre = request.getParameter("nombre");
         String apellidoP = request.getParameter("apellidoPaterno");
@@ -81,7 +84,22 @@ public class ControladorLogin {
         String contrasenia = request.getParameter("contrasenia");
         Integer disciplina = Integer.parseInt(request.getParameter("disciplina"));
         Disciplina dis = servicioDisciplina.consultarDisciplina(disciplina);
+        cargarDisciplinas(modelo);
+        if (servicioUsuarios.existeUsuario(numCuenta)) {
+            modelo.addAttribute("flagIDNoDisponibleRE", true);
+            return "RegistroEntrenadorIH";
+        } else if (servicioUsuarios.existeUsuario(correo)) {
+            modelo.addAttribute("flagEmailNoDisponibleRE", true);
+            return "RegistroEntrenadorIH";
+        }
         servicioEntrenador.agregarEntrenador(numCuenta, nombre, apellidoP, apellidoM, facultad, correo, contrasenia,dis);
-        return "redirect:/login";
+        modelo.addAttribute("exitoAgregaRE", true);
+        return "RegistroEntrenadorIH";
     }
+
+    public void cargarDisciplinas(Model model){
+        List<Disciplina> disciplinas = servicioDisciplina.findAllDisciplinas();
+        model.addAttribute("disciplinas",disciplinas);
+    }
+
 }
