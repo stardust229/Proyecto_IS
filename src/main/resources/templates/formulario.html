@@ -78,7 +78,7 @@
                                     <a class="nav-link" href="#">Competidores</a>
                                 </li>
                                 <li class="nav-item active">
-                                    <a class="nav-link" th:href="@{/disciplinaIH}">Disciplinas</a>
+                                    <a class="nav-link" th:href="@{/admin/disciplinaIH}">Disciplinas</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" th:href="@{/agregarJuezIH}">Agregar juez</a>
@@ -97,7 +97,7 @@
 
 
             <div style="text-align: center;">
-                <form method="post" th:action="@{/disciplinaIH/}+${{disciplina.id}}" th:object="${disciplina}">
+                <form method="post" th:action="@{/admin/disciplinaIH/}+${{disciplina.id}}" th:object="${disciplina}">
                     <input type="text" name="disciplina" placeholder="Nombre nuevo :D" th:field="*{nombre}"
                         oninvalid="Verifica(this);" oninput="Verifica(this);" required
                         pattern="^[A-Za-záéíóú]+(\s[A-Za-záéíóú]+){0,3}$" />
@@ -113,7 +113,7 @@
 
                 <div class="regresar">
                     <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-                    ¿Cancelar? Click <a th:href="@{/disciplinaIH}" style="color:#ffffff;">aquí</a> para regresar sin
+                    ¿Cancelar? Click <a th:href="@{/admin/disciplinaIH}" style="color:#ffffff;">aquí</a> para regresar sin
                     guardar.
                 </div>
             </div>

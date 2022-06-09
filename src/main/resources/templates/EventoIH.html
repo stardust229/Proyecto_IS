@@ -103,7 +103,7 @@
                   <a class="nav-link" href="#">Competidores</a>
                 </li>
                 <li class="nav-item active">
-                  <a class="nav-link" href="#">Disciplinas</a>
+                  <a class="nav-link" th:href="@{/admin/disciplinaIH}">Disciplinas</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" th:href="@{/agregarJuezIH}">Agregar juez</a>
@@ -228,9 +228,9 @@
                 <div class="form-group row">
                   <label for="inputFecha" class="col-sm-2 col-form-label">Fecha:</label>
                   <div class="col-sm-10">
-                    <input type="text" class="form-control" name="fecha" id="picker" oninvalid="VerificaFecha(this);"
-                      oninput="VerificaFecha(this);" placeholder="Fecha del evento" required
-                      pattern="\d{1,2}/\d{1,2}/\d{4}" readonly>
+                    <input type="text" class="form-control" value="2022-01-01" name="fecha" id="picker" oninvalid="VerificaFecha(this);"
+                      oninput="VerificaFecha(this);" placeholder="Fecha del evento" required pattern="\d{4}-\d{1,2}-\d{1,2}"
+                       readonly> 
                   </div>
                 </div>
                 <!--Form -->
@@ -310,6 +310,7 @@
     $('#picker').datepicker({
       format: "yyyy-mm-dd",
       autoclose: true,
+      //defaultDate: new Date(),
       todayHighlight: true
     });
   </script>

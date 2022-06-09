@@ -3,6 +3,7 @@ package com.example.OlimpiadasUNAM.Controlador;
 import com.example.OlimpiadasUNAM.Modelo.Disciplina;
 import com.example.OlimpiadasUNAM.Modelo.JuezBuilder;
 import com.example.OlimpiadasUNAM.Servicio.DisciplinaServicio;
+import com.example.OlimpiadasUNAM.Servicio.ServicioUsuarios;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
@@ -25,6 +26,8 @@ public class ADMINControladorJuez {
     private ServicioJuez servicioJuez;
     @Autowired
     private DisciplinaServicio disciplinaServicio;
+    @Autowired
+    private ServicioUsuarios servicioUsuarios;
 
     @RequestMapping("/agregarJuezIH")
     public String agregarJuezIH(){
@@ -36,7 +39,6 @@ public class ADMINControladorJuez {
         return "ConsultarJuezIH";
     }
 
-    // http://localhost:8000/agregarJuez
     /*
      * en el modelo que regresa, flagIDNoDisponible es true si ya había un juez
      * con el número de cuenta que se ingresó, false si no.
@@ -53,25 +55,28 @@ public class ADMINControladorJuez {
 
         String contrasenia = "random"; // la contra se debe generar de forma random
 
-        if(servicioJuez.buscarPorEmail(correo).size()>0) {
+        if(servicioUsuarios.existeUsuario(numCuenta)){
+            model.addAttribute("flagIDNoDisponible", true);
+            return "AgregarJuezIH";
+        }
+        if(servicioUsuarios.existeUsuario(correo)) {
             model.addAttribute("flagEmailNoDisponible", true);
-        } else {
-            List<Disciplina> disciplinaList = disciplinaServicio.mostrarDisciplinas(disciplina_nombre);
-            if(disciplinaList.size() <1){ //la disciplina no existe
-                model.addAttribute("flagDisciplinaNoExiste", true);
-            }else {
-                Disciplina disciplina = disciplinaList.get(0);
-                Juez juez = new Juez(numCuenta,nombre,apellidoPaterno,apellidoMaterno,
-                        facultad,correo,contrasenia,disciplina);
-                try {
-                    servicioJuez.agregar(juez);
-                    model.addAttribute("exitoAgrega", true);
-                } catch (IDNodisponibleExcepcion e) {
-                    model.addAttribute("flagIDNoDisponible", true);
-                }
+            return "AgregarJuezIH";
+        }
+        List<Disciplina> disciplinaList = disciplinaServicio.mostrarDisciplinas(disciplina_nombre);
+        if(disciplinaList.size() <1){ //la disciplina no existe
+            model.addAttribute("flagDisciplinaNoExiste", true);
+        }else {
+            Disciplina disciplina = disciplinaList.get(0);
+            Juez juez = new Juez(numCuenta,nombre,apellidoPaterno,apellidoMaterno,
+                    facultad,correo,contrasenia,disciplina);
+            try {
+                servicioJuez.agregar(juez);
+                model.addAttribute("exitoAgrega", true);
+            } catch (IDNodisponibleExcepcion e) {
+                model.addAttribute("flagIDNoDisponible", true);
             }
         }
-
         return "AgregarJuezIH";
     }
 
@@ -104,7 +109,7 @@ public class ADMINControladorJuez {
         }
         Juez juez = juezOriginal.get();
 
-        if(!juez.getCorreo().equals(correo) && servicioJuez.buscarPorEmail(correo).size()>0) {
+        if(!juez.getCorreo().equals(correo) &&  servicioUsuarios.existeUsuario(correo)) {
             modelo.addAttribute("flagEmailNoDisponible", true);
         } else {
             if(disciplinaList.size() <1){ //la disciplina no existe
@@ -125,7 +130,6 @@ public class ADMINControladorJuez {
                 }catch(Exception e){
                     modelo.addAttribute("error", true);
                 }
-
             }
         }
         return "EditarJuezIH";

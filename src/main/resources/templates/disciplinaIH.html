@@ -135,7 +135,7 @@
 
         <div class="row" style="margin-left:120px; margin-right:120px;">
           <div class="column">
-            <form method="post" th:action="@{/agregar}">
+            <form method="post" th:action="@{/admin/agregar}">
               <div class="input-group mb-3">
                 <input type="text" class="form-control" name="disciplina" oninvalid="Verifica(this);"
                   oninput="Verifica(this);" required pattern="^[A-Za-záéíóú]+(\s[A-Za-záéíóú]+){0,3}$"
@@ -148,7 +148,7 @@
           </div>
 
           <div class="column">
-            <form th:action="@{/disciplinaIH}">
+            <form th:action="@{/admin/disciplinaIH}">
               <div class="input-group mb-3">
                 <input type="text" class="form-control" pattern="\s{0,1}[A-Za-záéíóú]+(\s[A-Za-záéíóú]+){0,3}\s{0,1}"
                   name="busqueda" oninvalid="VerificaBusqueda(this);" oninput="VerificaBusqueda(this);"

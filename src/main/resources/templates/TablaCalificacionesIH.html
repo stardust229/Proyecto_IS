@@ -78,15 +78,15 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarExample01">
               <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                  <a class="nav-link" aria-current="page" th:href="@{/JuezLandingIH}">Menú</a>
-                </li>
-                <li class="nav-item active">
-                  <a class="nav-link" th:href="@{/juez/ConsultarCompetidoresJuezIH}">Calificar y Comentar</a>
-                </li>
-                <li class="nav-item active">
-                  <a class="nav-link" href="#">Visualizar Calificaciones</a>
-                </li>
+                  <li class="nav-item">
+                      <a class="nav-link" aria-current="page" th:href="@{/juez/menu}">Menú</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" th:href="@{/juez/ConsultarCompetidoresJuezIH}">Calificar y Comentar</a>
+                  </li>
+                  <li class="nav-item active">
+                      <a class="nav-link" href="#">Visualizar Calificaciones</a>
+                  </li>
               </ul>
               <a class="btn btn-danger navbar-btn" th:href="@{/logout}">Cerrar sesión</a>
             </div>
@@ -99,36 +99,28 @@
 
 		 <div align="center">
 			<tr>
-				<div class="col-sm-5" align = "center">
-						 <div class="panel-body" align = "center" >
-							 <table class="table" align = "center">
-								 <thead class="thead-dark" align = "center">
-										<tr>
-											<th>Nombre Competidor</th>
-											<th>Disciplina</th>
-											<th>Calificación</th>
-                                            <th>Comentario</th>
-											<th>Editar</th>
-											<th>Eliminar</th>
-										</tr>
-								 </thead>
-									<tbody>
-										<tr  th:each="student : ${liststudent}">
-											<td th:text="${student.competidor}">Competidor</td>
-											<td th:text="${student.disciplina}">Disciplina</td>
-											<td th:text="${student.calificacion}">Calificación</td>
-                                            <td th:text="${student.comentario}">Comentario</td>
-											<td>
-												<a th:href="@{'/editar/' + ${student.id}}">Editar</a>
-											</td>
-											<td>
-												<a th:href="@{'/eliminar/' + ${student.id}}">Eliminar</a>
-											</td>
-										</tr>
-									</tbody>
-							</table>
-						 </div>
-				</div>
+                <div class="row" style="margin-left: 120px;margin-right: 120px;" align = "center" >
+                    <table id="tablaCalificaciones" class="table table-striped table-bordered table-hover">
+                        <thead class="thead-dark" align = "center">
+                            <tr>
+                                <th>Num. de cuenta</th>
+                                <th>Evento</th>
+                                <th>Calificación</th>
+                                <th>Comentario</th>
+                            </tr>
+                        </thead>
+
+                        <tbody align = "center">
+                            <tr  th:each="boleta: ${liststudent}">
+                                <td th:text="${boleta.competidor.numCuenta}">NumCuenta</td>
+                                <td th:text="${boleta.evento.nombre}">Evento</td>
+                                <td th:text="${boleta.puntaje}">Calificacion</td>
+                                <td th:text="${boleta.comentarios}">Comentario</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
 			</tr>
 		</div>
 

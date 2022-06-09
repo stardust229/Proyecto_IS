@@ -1,9 +1,10 @@
 package com.example.OlimpiadasUNAM.Controlador;
 
 import com.example.OlimpiadasUNAM.Modelo.Competidor;
+import com.example.OlimpiadasUNAM.Modelo.Competir;
 import com.example.OlimpiadasUNAM.Modelo.Entrenador;
-import com.example.OlimpiadasUNAM.Servicio.ServicioCompetidor;
-import com.example.OlimpiadasUNAM.Servicio.ServicioEntrenador;
+import com.example.OlimpiadasUNAM.Modelo.Evento;
+import com.example.OlimpiadasUNAM.Servicio.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -21,6 +22,12 @@ public class ENTRENADORControlador {
     ServicioCompetidor serv;
     @Autowired
     ServicioEntrenador servEnt;
+    @Autowired
+    ServicioEvento servicioEvento;
+    @Autowired
+    ServicioBoleta servicioBoleta;
+    @Autowired
+    ServicioUsuarios servicioUsuarios;
     Entrenador entrenador;
 
     @RequestMapping("/entrenador/dashboard")
@@ -32,7 +39,8 @@ public class ENTRENADORControlador {
     }
 
     @RequestMapping("/entrenador/agregarCompetidor")
-    public String agregar(){
+    public String agregar(Model modelo){
+        modelo.addAttribute("listaEventos", servicioEvento.getAllEventos(entrenador.getDisciplina()));
         return "AgregarCompetidorIH";
     }
     @RequestMapping("/entrenador/eliminarCompetidor")
@@ -45,7 +53,7 @@ public class ENTRENADORControlador {
     }
 
     @PostMapping("/entrenador/agregarCompetidor")
-    public String agregar(HttpServletRequest request){
+    public String agregar(Model modelo, HttpServletRequest request){
         Integer numCuenta = Integer.parseInt(request.getParameter("numCuenta"));
         String nombre = request.getParameter("nombre");
         String apellidoP = request.getParameter("apellidoPaterno");
@@ -53,10 +61,63 @@ public class ENTRENADORControlador {
         String institucion = request.getParameter("institucion");
         String correo = request.getParameter("correo");
         String contrasena = request.getParameter("contrasena");
-        serv.agregarUsuario(entrenador, numCuenta, nombre, apellidoP, apellidoM, institucion, correo, contrasena);
-        List<Competidor> it = serv.consultarCompetidor(entrenador);
-        return "AgregarCompetidorIH";
+
+        if (servicioUsuarios.existeUsuario(numCuenta)) {
+            modelo.addAttribute("flagIDNoDisponible", true);
+            return "AgregarCompetidorIH";
+        } else if (servicioUsuarios.existeUsuario(correo)) {
+            modelo.addAttribute("flagEmailNoDisponible", true);
+            return "AgregarCompetidorIH";
         }
+
+        Competidor competidor = new Competidor(numCuenta, nombre, apellidoP, apellidoM, institucion,
+                correo, contrasena, entrenador.getDisciplina(), entrenador);
+        modelo.addAttribute(competidor);
+
+        modelo.addAttribute("listaEventos", servicioEvento.getAllEventos(entrenador.getDisciplina()));
+        return "RegistroCompetidorAEvento";
+    }
+
+    @PostMapping("/entrenador/registrarCompetidorAEvento")
+    public String registrarCompetidorAEvento(Model modelo, @RequestParam(value = "id_eventos") int[] id_eventos,
+                                             @RequestParam(value = "numCuenta") int numCuenta,
+                                             @RequestParam(value = "nombre") String nombre,
+                                             @RequestParam(value = "apellidoPaterno") String apellidoPaterno,
+                                             @RequestParam(value = "apellidoMaterno") String apellidoMaterno,
+                                             @RequestParam(value = "facultad") String facultad,
+                                             @RequestParam(value = "correo") String correo,
+                                             @RequestParam(value = "contrasenia") String contrasenia,
+                                             @RequestParam(value = "id_disciplina") int id_disciplina,
+                                             @RequestParam(value = "id_entrenador") int id_entrenador){
+        if (servicioUsuarios.existeUsuario(numCuenta)) {
+            modelo.addAttribute("flagIDNoDisponible", true);
+            return "AgregarCompetidorIH";
+        } else if (servicioUsuarios.existeUsuario(correo)) {
+            modelo.addAttribute("flagEmailNoDisponible", true);
+            return "AgregarCompetidorIH";
+        }
+        serv.agregarUsuario(entrenador, numCuenta, nombre, apellidoPaterno, apellidoMaterno, facultad, correo, contrasenia);
+        Competidor competidor = serv.buscarCompetidor(numCuenta);
+        for (Integer id: id_eventos) {
+            Evento evento = servicioEvento.consultarEvento(id);
+            agregarCompetidorAEvento(competidor,evento);
+        }
+        modelo.addAttribute("exitoAgrega", true);
+        return "AgregarCompetidorIH";
+    }
+
+    @GetMapping("/entrenador/registrarCompetidorAEvento/{id}")
+    public String getRegistrarCompetidoresAEvento(@PathVariable("id") Integer id, Model modelo){
+        modelo.addAttribute("listaEventos", servicioEvento.getAllEventos(entrenador.getDisciplina()));
+        modelo.addAttribute("numCuentaCompetidor", id);
+        return "RegistroCompetidorAEvento";
+    }
+
+
+    private void agregarCompetidorAEvento(Competidor competidor, Evento evento){
+        Competir boleta = new Competir(evento, competidor, null, null);
+        servicioBoleta.save(boleta);
+    }
 
     @RequestMapping("/entrenador/consultarCompetidor")
     public String listaCompetidores(Model model, HttpSession session){
@@ -96,6 +157,13 @@ public class ENTRENADORControlador {
     @RequestMapping("/EntrenadorLandingIH")
     public String landingEntrenador(){
         return "EntrenadorLandingIH";
+    }
+    
+    @GetMapping("/entrenador/calificacionesEntrenador")
+    public String viewHomePage(Model model) {
+	    List<Competir> liststudent = servicioBoleta.listAll();
+	    model.addAttribute("liststudent", liststudent);
+	    return "ConsultarCalificacionesEntrenadorIH";
     }
 
 }

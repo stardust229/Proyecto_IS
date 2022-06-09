@@ -11,10 +11,10 @@ import lombok.*;
 public class Disciplina {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private @Getter Integer id;
 
     @Column(unique=true)
-    private String nombre;
+    private @Getter String nombre;
 
     @OneToMany(mappedBy = "disciplina", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Evento> eventos;

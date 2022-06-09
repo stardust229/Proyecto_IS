@@ -20,4 +20,6 @@ public interface BoletaRepositorio extends JpaRepository<Competir, Integer> {
     Optional<Competir> findById(Integer id);
 
     Optional<Competir> findByEventoAndCompetidor(Evento evento, Competidor competidor);
+
+    List<Competir> findAllByEventoAndPuntajeIsNull(Evento evento);
 }
