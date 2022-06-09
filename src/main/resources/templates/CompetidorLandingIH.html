@@ -72,7 +72,7 @@
                                     <a class="nav-link" href="#">Retroalimentación</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">Tabla de posiciones</a>
+                                    <a class="nav-link" th:href=@{/tablaCalificaciones}>Tabla de posiciones</a>
                                 </li>
                             </ul>
                             <a class="btn btn-danger navbar-btn" th:href="@{/logout}">Cerrar sesión</a>
@@ -94,7 +94,7 @@
                             <div class="card-body">
                                 <h5 class="card-title">Consultar retroalimentación</h5>
                                 <p class="card-text">Aquí puedes ver tus calificaciones y los comentarios que te han dejado.</p>
-                                <a href="#" class="btn btn-primary">Retroalimentación</a>
+                                <a th:href="@{/retroalimentacion}" class="btn btn-primary">Retroalimentación</a>
                             </div>
                         </div>
                     </div>
@@ -103,7 +103,7 @@
                             <div class="card-body">
                                 <h5 class="card-title">Tabla de posiciones</h5>
                                 <p class="card-text">Puedes consultar la tabla general de calificaciones.</p>
-                                <a href="#" class="btn btn-primary">Posiciones</a>
+                                <a th:href="@{/posiciones}" class="btn btn-primary">Posiciones</a>
                             </div>
                         </div>
                     </div>

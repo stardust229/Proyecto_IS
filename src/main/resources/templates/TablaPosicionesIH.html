@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Tabla posiciones</title>
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+    <style>
+        .column {
+            float: left;
+            width: 50%;
+        }
+
+        .row:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+        .footer {
+            background-color: #343a40;
+            width: 100%;
+            height: 70px;
+            padding: 20px;
+        }
+    </style>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+
+<body>
+<div style="min-height:100vh; display:flex; flex-direction:column; justify-content:space-between;">
+    <div>
+        <header>
+            <!-- Navbar -->
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <a class="navbar-brand" href="#">Olimpiadas Universitarias</a>
+                    </div>
+                    <button class="navbar-toggler" type="button" data-mdb-toggle="collapse"
+                            data-mdb-target="#navbarExample01" aria-controls="navbarExample01" aria-expanded="false"
+                            aria-label="Toggle navigation">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarExample01">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li class="nav-item">
+                                <a class="nav-link" th:href="@{/CompetidorLandingIH}">Menú</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link"  href="#">Retroalimentación</a>
+                        </ul>
+                        <a class="btn btn-danger navbar-btn" th:href="@{/logout}">Cerrar sesión</a>
+                    </div>
+                </div>
+            </nav>
+            <!-- Navbar -->
+        </header>
+        <br>
+
+
+            <div class="row" style="margin-left: 120px;margin-right: 120px;">
+                <table id="tablaCompetidores" class="table table-striped table-bordered table-hover">
+                    <thead class="table-dark">
+                    <tr>
+                        <th>Id</th>
+                        <th>Evento</th>
+                        <th>Competidor</th>
+                        <th>Puntaje</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="liststudent : ${liststudent}">
+                        <td th:text="${liststudent.idCompetir}">Id</td>
+                        <td th:text="${liststudent.evento.nombre}">Evento</td>
+                        <td th:text="${liststudent.competidor.nombre}">Competidor</td>
+                        <td th:text="${liststudent.puntaje}">Puntaje</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+    <footer class="bg-dark text-center text-white">
+        <div class="footer">
+            Hecho con &#128150; por Opal Software Solutions
+        </div>
+    </footer>
+</div>
+
+
+
+</body>
+
+</html>
