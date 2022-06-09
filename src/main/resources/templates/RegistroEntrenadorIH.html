@@ -87,6 +87,20 @@
         <br>
 
         <div style="text-align: left;">
+            <div class="precaucion" id="errorIDNoDisponible" th:if="${flagIDNoDisponibleRE}" style="margin-left:120px; margin-right:120px;">
+                <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                <strong>¡Error!</strong> Ya existe un usuario con ese número de cuenta.
+            </div>
+
+            <div class="precaucion" id="errorEmailNoDisponible" th:if="${flagEmailNoDisponibleRE}" style="margin-left:120px; margin-right:120px;">
+                <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                <strong>¡Error!</strong> Ya existe un usuario con ese correo.
+            </div>
+
+            <div class="exito" id="exitoAgrega" th:if="${exitoAgregaRE}" style="margin-left:120px; margin-right:120px;">
+                <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                <strong>¡Éxito!</strong> Entrenador registrado correctamente.
+            </div>
             <div class="row" style="margin-left:120px; margin-right:120px;">
                 <form id="registrarEntrenador"  method="post" th:action="@{/registroEntrenador}">
                 <div class="column">
@@ -125,19 +139,19 @@
                     <div class="form-group">
                         <label for="contrasenia">Contraseña:</label>
                         <input class="form-control" type="password" id="contrasenia" name="contrasenia" placeholder="Contraseña"
-                               minlength="5" required>
+                               minlength="5" oninput="igualContrasena(this, 'ccontrasenia')" required>
                     </div>
                     <div class="form-group">
                         <label for="ccontrasenia">Confirmar Contraseña:</label>
                         <input class="form-control" type="password" id="ccontrasenia" name="ccontrasenia" placeholder="Confirmar Contraseña" minlength="5"
-                               required>
+                               oninput="igualContrasena(this, 'contrasenia')" required>
                     </div>
                 </div>
                     <div style="margin: auto 20px;">
                     <div class="form-group" >
                         <label for="disciplina">Disciplina:</label>
                         <select class="form-control" id="disciplina" name="disciplina" required>
-                            <option value="-1" selected disabled>Elija una opción</option>
+                            <option value="" selected disabled>Elija una disciplina</option>
                             <option th:each="disciplina : ${disciplinas}" th:value="${disciplina.getId()}" th:text="${disciplina.getNombre()}"></option>
                         </select>
                     </div>
@@ -176,5 +190,18 @@
         }
         textbox.reportValidity();
     }
+
+    function igualContrasena(textbox, element){
+        confirmar = document.getElementById(element);
+        if(! (textbox.value == confirmar.value)) {
+            textbox.setCustomValidity("Las contraseñas no coinciden");
+            confirmar.setCustomValidity("Las contraseñas no coinciden");
+        }else{
+            textbox.setCustomValidity('');
+            confirmar.setCustomValidity('');
+        }
+        textbox.reportValidity();
+    }
+
 </script>
 </html>

@@ -1,5 +1,3 @@
-
-
 insert into disciplina (nombre) values ('Atletismo');
 insert into disciplina (nombre) values ('Natación');
 insert into disciplina (nombre) values ('Gimnasia');
@@ -132,7 +130,6 @@ insert into competir (comentarios, puntaje, competidor_num_cuenta, evento_ideven
 insert into competir (comentarios, puntaje, competidor_num_cuenta, evento_idevento) values ('-', null, 181213433, 7);
 insert into competir (comentarios, puntaje, competidor_num_cuenta, evento_idevento) values ('-', null, 247814269, 7);
 insert into competir (comentarios, puntaje, competidor_num_cuenta, evento_idevento) values ('-', null, 125780869, 7);
-
 
 
 

@@ -158,5 +158,12 @@ public class ENTRENADORControlador {
     public String landingEntrenador(){
         return "EntrenadorLandingIH";
     }
+    
+    @GetMapping("/entrenador/calificacionesEntrenador")
+    public String viewHomePage(Model model) {
+	    List<Competir> liststudent = servicioBoleta.listAll();
+	    model.addAttribute("liststudent", liststudent);
+	    return "ConsultarCalificacionesEntrenadorIH";
+    }
 
 }

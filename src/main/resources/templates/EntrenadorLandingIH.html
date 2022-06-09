@@ -81,7 +81,7 @@
                                     <a class="nav-link" th:href="@{/entrenador/eliminarCompetidor}">Eliminar Competidor</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">Calificaciones</a>
+                                    <a class="nav-link" th:href="@{/entrenador/calificacionesEntrenador}">Calificaciones</a>
                                 </li>
                             </ul>
                             <a class="btn btn-danger navbar-btn" th:href="@{/logout}">Cerrar sesión</a>
@@ -93,7 +93,7 @@
 
             <div style="margin-left:20px; margin-right:20px">
                 <div class="jumbotron">
-                    <h1 class="display-4">Hola, *usuario</h1>
+                    <h1 class="display-4">Hola, entrenador*</h1>
                     <p class="lead">¿Qué deseas hacer hoy?</p>
                 </div>
 
@@ -112,7 +112,7 @@
                             <div class="card-body">
                                 <h5 class="card-title">Consultar calificaciones</h5>
                                 <p class="card-text">Para revisar las calificaciones.</p>
-                                <a href="#" class="btn btn-primary">Calificaciones</a>
+                                <a th:href="@{/entrenador/calificacionesEntrenador}" class="btn btn-primary">Calificaciones</a>
                             </div>
                         </div>
                     </div>

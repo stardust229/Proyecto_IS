@@ -84,7 +84,7 @@
                                 <a class="nav-link" href="#">Agregar Competidor</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" th:href="@{/entrenador/consultarCompetidor}">Consultar Competidor</a>
+                                <a class="nav-link" th:href="@{/entrenador/consultarCompetidor}">Consultar Competidores</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" th:href="@{/entrenador/editarCompetidor}">Editar Competidor</a>
@@ -108,12 +108,12 @@
 
             <div class="precaucion" id="errorIDNoDisponible" th:if="${flagIDNoDisponible}" style="margin-left:120px; margin-right:120px;">
                 <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-                <strong>¡Error!</strong> Ya existe un competidor con ese número de cuenta.
+                <strong>¡Error!</strong> Ya existe un usuario con ese número de cuenta.
             </div>
 
             <div class="precaucion" id="errorEmailNoDisponible" th:if="${flagEmailNoDisponible}" style="margin-left:120px; margin-right:120px;">
                 <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-                <strong>¡Error!</strong> Ya existe un competidor con ese correo.
+                <strong>¡Error!</strong> Ya existe un usuario con ese correo.
             </div>
 
             <div class="exito" id="exitoAgrega" th:if="${exitoAgrega}" style="margin-left:120px; margin-right:120px;">
