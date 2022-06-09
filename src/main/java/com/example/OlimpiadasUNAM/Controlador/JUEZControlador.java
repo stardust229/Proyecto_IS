@@ -51,7 +51,7 @@ public class JUEZControlador {
 			}
 	    }
 
-	    @PostMapping("/guardar")
+	    @RequestMapping("/guardar")
 	    public String saveStudent(Model modelo, HttpServletRequest request) {
 			Integer idEvento = Integer.valueOf(request.getParameter("idEvento"));
 			Integer numCuenta = Integer.valueOf(request.getParameter("numCuenta"));
@@ -65,12 +65,14 @@ public class JUEZControlador {
 				boleta.setPuntaje(puntaje);
 				boleta.setComentarios(comentarios);
 				service.save(boleta);
-				//return "redirect:/tablaCalificaciones";
+				return "redirect:/tablaCalificaciones";
+				//return "TablaCalificacionesIH";
 			} else {
 				// Mostrar algún error
 			}
 			modelo.addAttribute("listaEventos", servicioEvento.getAllEventos());
 			return "ConsultarCompetidoresJuezIH";
+			//return "TablaCalificacionesIH";
 	    }
 
 
@@ -98,7 +100,7 @@ public class JUEZControlador {
 
 		@GetMapping("/juez/consultarCompetidores")
 		public String listarCompetidores(Model modelo, @Param("id_evento") Integer id_evento){
-			if (id_evento==null) return "ConsultarJuezIH";
+			if (id_evento==null) return "ConsultarCompetidoresJuezIH";
 			Evento evento = servicioEvento.consultarEvento(id_evento);
 			modelo.addAttribute("evento", evento);
 			modelo.addAttribute("competidores", servicioEvento.getCompetidores(evento));
