@@ -144,6 +144,7 @@ public class ENTRENADORControlador {
                 servicioCompetir.eliminarCompetir(x);
             }
             serv.eliminarCompetidor(entrenador, numCuenta);
+            model.addAttribute("exitoElimina",true);
         }else{
             model.addAttribute("numCuentaNotFound",true);
         }
@@ -181,6 +182,7 @@ public class ENTRENADORControlador {
             model.addAttribute("flagEmailNoDisponible",true);
         }else {
             serv.actualizarCompetidor(entrenador, numCuenta, nombre, apellidoP, apellidoM, institucion, correo, contrasena);
+            model.addAttribute("exitoEdita",true);
         }
         return "EditarCompetidorIH";
     }

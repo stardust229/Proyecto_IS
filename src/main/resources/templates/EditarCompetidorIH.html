@@ -125,9 +125,9 @@
         <strong>¡Error!</strong> Ya existe un competidor con ese correo.
       </div>
 
-      <div class="exito" id="exitoAgrega" th:if="${exitoAgrega}" style="margin-left:120px; margin-right:120px;">
+      <div class="exito" id="exitoEdita" th:if="${exitoEdita}" style="margin-left:120px; margin-right:120px;">
         <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-        <strong>¡Éxito!</strong> Competidor agregado correctamente.
+        <strong>¡Éxito!</strong> Competidor actualizado correctamente.
       </div>
 
       <div class="row" style="margin-left:120px; margin-right:120px;">
@@ -137,7 +137,7 @@
             <div class="form-group">
               <label for="numCuenta">Número de cuenta:</label>
               <input class="form-control" type="text" id="numCuenta" name="numCuenta" th:value="${competidor?.getNumCuenta()}"
-                     placeholder="Número de cuenta" oninput="verificaEnteros(this);" pattern="[0-9]+"
+                     placeholder="Número de cuenta" oninput="verificaEnteros(this);actualizarBotonBusqueda(this);" pattern="[0-9]+"
                      maxlength="9" required>
             </div>
             <div class="form-group">
@@ -168,17 +168,17 @@
             <div class="form-group">
               <label for="correo">Correo electrónico:</label>
               <input class="form-control" type="email" id="correo" name="correo" th:value="${competidor?.getCorreo()}"
-                     placeholder="Correo electrónico" oninput="verificaEmail(this);" required>
+                     placeholder="Correo electrónico" required>
             </div>
             <div class="form-group">
               <label for="contrasena">Contraseña:</label>
               <input class="form-control" type="password" id="contrasena" name="contrasena" th:value="${competidor?.getContrasenia()}"
-                     placeholder="Contraseña" oninput="actualizarBotonSubmit();" required/>
+                     placeholder="Contraseña" oninput="igualContrasena(this,'confirmarContrasena');" required/>
             </div>
             <div class="form-group">
               <label for="confirmarContrasena">Confirmar contraseña:</label>
               <input class="form-control" type="password" id="confirmarContrasena" th:value="${competidor?.getContrasenia()}"
-                     placeholder="Confirmar contraseña" oninput="actualizarBotonSubmit();" name="confirmarContrasena" required/>
+                     placeholder="Confirmar contraseña" oninput="igualContrasena(this,'contrasena');" name="confirmarContrasena" required/>
             </div>
             <div style="display: inline-block;" onmouseover="checarBusqueda()">
             <button class="btn btn-secondary" type="submit" id="botonBuscar" name="botonBuscar"
@@ -205,26 +205,24 @@
 </div>
 
 <script th:inline="javascript">
-  actualizarBotonBusqueda();
-  actualizarBotonSubmit();
   var successfulSearch = [[${searchSuccess}]] == null ? false : [[${searchSuccess}]];
   var botonBuscar = document.getElementById('botonBuscar');
+  var botonEditar = document.getElementById('botonEditar');
   const numCuentaInput = document.getElementById('numCuenta');
+  botonBuscar.disabled = true;
   numCuentaInput.addEventListener('keydown', filterInputDigits);
-  numCuentaInput.addEventListener('input', actualizarBotonBusqueda);
   numCuentaInput.disabled = successfulSearch;
-  botonBuscar.disabled = successfulSearch;
+  botonEditar.disabled = !successfulSearch;
 
   function reactivarNumCuenta(){
     var numCuentaInput = document.getElementById('numCuenta');
     numCuentaInput.disabled = false;
   }
 
-  function actualizarBotonBusqueda(event){
-    var numCuenta=document.getElementById('numCuenta');
-    var boton = document.getElementById('botonBuscar');
-    if(numCuenta.value === ''){
-      boton.disabled=true;
+  function actualizarBotonBusqueda(textbox){
+    const boton = document.getElementById('botonBuscar');
+    if(textbox.value === "" || successfulSearch){
+      boton.disabled = true;
     }else{
       boton.disabled = false;
     }
@@ -255,16 +253,13 @@
 
   function verifica(textbox) {
     if (textbox.value === '') {
-      textbox.setCustomValidity
-      ('Inserta un nuevo nombre');
+      textbox.setCustomValidity('Inserta un nuevo nombre');
     } else if (textbox.validity.patternMismatch) {
-      textbox.setCustomValidity
-      ('No debe de tener espacios ni al inicio ni al final. Debe tener un único espacio entre palabras. Solo letras.');
+      textbox.setCustomValidity('No debe de tener espacios ni al inicio ni al final. Debe tener un único espacio entre palabras. Solo letras.');
     } else {
       textbox.setCustomValidity('');
     }
     textbox.reportValidity();
-    actualizarBotonSubmit();
   }
 
   function verificaEnteros(textbox) {
@@ -278,31 +273,18 @@
       textbox.setCustomValidity('');
     }
     textbox.reportValidity();
-    actualizarBotonSubmit();
   }
 
-  function verificaEmail(textbox) {
+  function igualContrasena(textbox, element){
+    const confirmar = document.getElementById(element);
+    if(! (textbox.value === confirmar.value)) {
+      textbox.setCustomValidity("Las contraseñas no coinciden");
+      confirmar.setCustomValidity("Las contraseñas no coinciden");
+    }else{
+      textbox.setCustomValidity('');
+      confirmar.setCustomValidity('');
+    }
     textbox.reportValidity();
-    actualizarBotonSubmit();
-  }
-
-  function actualizarBotonSubmit() {
-    boton = document.getElementById("botonEditar");
-    if (validarTodo() && [[${searchSuccess}]]) {
-      boton.disabled = false;
-    } else {
-      boton.disabled = true;
-    }
-  }
-
-  function validarTodo() {
-    var form, inputs, index;
-    form = document.getElementById('formEditar');
-    inputs = form.getElementsByTagName('input');
-    for (index = 0; index < inputs.length; ++index) {
-      if (!inputs[index].checkValidity()) return false;
-    }
-    return true;
   }
 </script>
 

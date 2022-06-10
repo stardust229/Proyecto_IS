@@ -159,17 +159,17 @@
                         <div class="form-group">
                             <label for="correo">Correo electrónico:</label>
                             <input class="form-control" type="email" id="correo" name="correo"
-                                   placeholder="Correo electrónico" oninput="verificaEmail(this);" required>
+                                   placeholder="Correo electrónico"  required>
                         </div>
                         <div class="form-group">
                             <label for="contrasena">Contraseña:</label>
                             <input class="form-control" type="password" id="contrasena" name="contrasena"
-                                   placeholder="Contraseña" oninput="actualizarBotonSubmit();" required/>
+                                   placeholder="Contraseña" oninput="igualContrasena(this,'confirmarContrasena');" required/>
                         </div>
                         <div class="form-group">
                             <label for="confirmarContrasena">Confirmar contraseña:</label>
                             <input class="form-control" type="password" id="confirmarContrasena"
-                                   placeholder="Confirmar contraseña" oninput="actualizarBotonSubmit();" name="confirmarContrasena" required/>
+                                   placeholder="Confirmar contraseña" oninput="igualContrasena(this,'contrasena');" name="confirmarContrasena" required/>
                         </div>
                         <button class="btn btn-primary" type="submit" id="botonAgregar"
                                 data-mdb-ripple-color="dark">Agregar eventos en los que participa</button>
@@ -187,8 +187,6 @@
 </div>
 
 <script>
-        actualizarBotonSubmit();
-
         const numCuentaInput = document.getElementById('numCuenta');
         numCuentaInput.addEventListener('keydown', filterInputDigits);
 
@@ -204,7 +202,7 @@
         function verifica(textbox) {
             if (textbox.value === '') {
                 textbox.setCustomValidity
-                    ('Inserta un nuevo nombre');
+                    ('Completa este campo');
             } else if (textbox.validity.patternMismatch) {
                 textbox.setCustomValidity
                     ('No debe de tener espacios ni al inicio ni al final. Debe tener un único espacio entre palabras. Solo letras.');
@@ -212,13 +210,12 @@
                 textbox.setCustomValidity('');
             }
             textbox.reportValidity();
-            actualizarBotonSubmit();
         }
 
         function verificaEnteros(textbox) {
             if (textbox.value === '') {
                 textbox.setCustomValidity
-                    ('Inserta un nuevo número de cuenta');
+                    ('Completa este campo');
             } else if (textbox.validity.patternMismatch) {
                 textbox.setCustomValidity
                     ('Sólo puedes ingresar dígitos. No más de 9.');
@@ -226,31 +223,18 @@
                 textbox.setCustomValidity('');
             }
             textbox.reportValidity();
-            actualizarBotonSubmit();
         }
 
-        function verificaEmail(textbox) {
+        function igualContrasena(textbox, element){
+            confirmar = document.getElementById(element);
+            if(!(textbox.value === confirmar.value)){
+                textbox.setCustomValidity("Las contraseñas no coinciden");
+                confirmar.setCustomValidity("Las contraseñas no coinciden");
+            }else{
+                textbox.setCustomValidity('');
+                confirmar.setCustomValidity('');
+            }
             textbox.reportValidity();
-            actualizarBotonSubmit();
-        }
-
-        function actualizarBotonSubmit() {
-            boton = document.getElementById("botonAgregar");
-            if (validarTodo()) {
-                boton.disabled = false;
-            } else {
-                boton.disabled = true;
-            }
-        }
-
-        function validarTodo() {
-            var form, inputs, index;
-            form = document.getElementById('formAgregar');
-            inputs = form.getElementsByTagName('input');
-            for (index = 0; index < inputs.length; ++index) {
-                if (!inputs[index].checkValidity()) return false;
-            }
-            return true;
         }
     </script>
 

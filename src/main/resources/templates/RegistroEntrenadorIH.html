@@ -193,7 +193,7 @@
 
     function igualContrasena(textbox, element){
         confirmar = document.getElementById(element);
-        if(! (textbox.value == confirmar.value)) {
+        if(! (textbox.value === confirmar.value)) {
             textbox.setCustomValidity("Las contraseñas no coinciden");
             confirmar.setCustomValidity("Las contraseñas no coinciden");
         }else{
