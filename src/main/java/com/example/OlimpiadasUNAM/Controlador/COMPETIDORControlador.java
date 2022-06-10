@@ -54,6 +54,7 @@ public class COMPETIDORControlador {
     @GetMapping("/tablaposiciones")
     public String viewHomePage(Model model) {
         List<Competir> liststudent = service.listAll();
+
         model.addAttribute("liststudent", liststudent);
         return "TablaPosicionesIH";
     }
