@@ -123,10 +123,10 @@
                 </div>
                 <div alight="left">
                      <tr>
-                        <label class="form-label">Calificación:</label>
+                        <label for="puntaje">Calificación:</label>
                         	<div class="select">
-                              <select class="form-label" name="puntaje" th:value="${puntaje}" id="format" required>
-                                  <option selected disabled>Elige una calificación</option>
+                              <select class="form-label" name="puntaje" th:value="${puntaje}" id="puntaje" required>
+                                  <option value="">Elige una calificación</option>
                                   <option value="10">10</option>
                                   <option value="20">20</option>
                                   <option value="30">30</option>
@@ -138,7 +138,7 @@
                                   <option value="90">90</option>
                                   <option value="100">100</option>
                               </select>
-                          </div>
+                           </div>
                      </tr>
                 </div>
                 <div alight="left">
