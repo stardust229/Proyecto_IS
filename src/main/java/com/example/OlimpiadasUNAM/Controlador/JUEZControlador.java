@@ -48,8 +48,8 @@ public class JUEZControlador {
 
 	    @GetMapping("/juez/tablaCalificaciones")
 	    public String viewHomePage(Model model) {
-	        List<Competir> liststudent = service.listAll();
-	        model.addAttribute("liststudent", liststudent);
+			List<Competir> boletas = service.getTodosPorDisciplina(juez.getDisciplina());
+			model.addAttribute("liststudent", boletas);
 	        return "TablaCalificacionesIH";
 	    }
 

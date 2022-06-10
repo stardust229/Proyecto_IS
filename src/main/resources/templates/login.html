@@ -15,11 +15,18 @@
         }
 
         .precaucion {
-      padding: 20px;
-      background-color: #ffa92a;
-      color: white;
-      margin-bottom: 15px;
-    }
+            padding: 20px;
+            background-color: #ffa92a;
+            color: white;
+            margin-bottom: 15px;
+        }
+
+        .salida {
+            padding: 20px;
+            background-color: #2ac6ff;
+            color: white;
+            margin-bottom: 15px;
+        }
 
         .row:after {
             content: "";
@@ -104,45 +111,52 @@
 
             <div class="outer">
                 <div class="middle">
-                        <div class="container-fluid h-custom">
+                    <div class="container-fluid h-custom">
 
-                            <div class="precaucion" id="errorInicia" th:if="${errorInicia}"
+                        <div class="precaucion" id="error" th:if="${param.error}"
                             style="margin-left:120px; margin-right:120px;">
                             <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-                            <strong>¡Error!</strong> Revisa tus datos. 
+                            <strong>¡Error!</strong> Revisa tus datos.
+                        </div>
+
+                        <div class="salida" id="logout" th:if="${param.logout}"
+                            style="margin-left:120px; margin-right:120px;">
+                            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                            Saliste correctamente :)
+                        </div>
+
+                        <div class="row d-flex justify-content-center align-items-center h-100">
+                            <div class="col-md-9 col-lg-6 col-xl-5">
+                                <img src="../static/images/inicio.jpg" th:src="@{images/inicio.jpg}"
+                                    class="img-fluid imagen" alt="Deportes UNAM">
                             </div>
 
-                            <div class="row d-flex justify-content-center align-items-center h-100">
-                                <div class="col-md-9 col-lg-6 col-xl-5">
-                                    <img src="../static/images/inicio.jpg" th:src="@{images/inicio.jpg}"
-                                        class="img-fluid imagen" alt="Deportes UNAM">
-                                </div>
-                        
-                        
-                                <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
-                                    <form class="form-signin" method="post" action="/login">
-                                        <h2 class="form-signin-heading">Iniciar Sesión</h2>
-        
-                                        <hr>
-        
-                                        <p>
-                                            <label for="username" class="sr-only">Correo</label>
-                                            <input type="text" id="username" name="username" class="form-control"
-                                                placeholder="Ingresa tu email" required autofocus>
-                                        </p>
-                                        <p>
-                                            <label for="password" class="sr-only">Contraseña</label>
-                                            <input type="password" id="password" name="password" class="form-control"
-                                                placeholder="Ingresa tu contraseña" required>
-                                        </p>
-                                        <button class="btn btn-lg btn-primary btn-block" type="submit">Entrar
-                                        </button>
-                                    </form>
-                                        <p class="small fw-bold mt-2 pt-1 mb-0">¿Eres entrenador?
-                                            <a th:href="@{/registroEntrenador}" class="link-primary">Regístrate</a></p>
-                                </div>
+
+                            <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+                                <form class="form-signin" method="post" action="/login">
+                                    <h2 class="form-signin-heading">Iniciar Sesión</h2>
+
+                                    <hr>
+
+                                    <p>
+                                        <label for="username" class="sr-only">Correo</label>
+                                        <input type="text" id="username" name="username" class="form-control"
+                                            placeholder="Ingresa tu email" required autofocus>
+                                    </p>
+                                    <p>
+                                        <label for="password" class="sr-only">Contraseña</label>
+                                        <input type="password" id="password" name="password" class="form-control"
+                                            placeholder="Ingresa tu contraseña" required>
+                                    </p>
+                                    <button class="btn btn-lg btn-primary btn-block" type="submit">Entrar
+                                    </button>
+                                </form>
+                                <p class="small fw-bold mt-2 pt-1 mb-0">¿Eres entrenador?
+                                    <a th:href="@{/registroEntrenador}" class="link-primary">Regístrate</a>
+                                </p>
                             </div>
                         </div>
+                    </div>
                 </div>
             </div>
 

@@ -104,12 +104,18 @@
     <br>
 
     <div style="text-align: left;">
-
-      <div class="precaucion" id="errorIDNoDisponible" th:if="${flagIDNoDisponible}" style="margin-left:120px; margin-right:120px;">
+      <div class="precaucion" id="busquedaSinNumCuenta" style="margin-left:120px; margin-right:120px; display: none">
         <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-        <strong>¡Error!</strong> Ya existe un competidor con ese número de cuenta.
+        Ingrese un número de cuenta para buscar el competidor a editar.
       </div>
-
+      <div class="precaucion" id="numCuentaNotFound" th:if="${numCuentaNotFound}" style="margin-left:120px; margin-right:120px;">
+        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+        No se encontró un competidor con el número de cuenta dado.
+      </div>
+      <div class="precaucion" id="invalidNumCuenta" th:if="${invalidNumCuenta}" style="margin-left:120px; margin-right:120px;">
+        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+        Este competidor fue registrado por otro entrenador, no puede ser modificado.
+      </div>
       <div class="precaucion" id="errorEmailNoDisponible" th:if="${flagEmailNoDisponible}" style="margin-left:120px; margin-right:120px;">
         <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
         <strong>¡Error!</strong> Ya existe un competidor con ese correo.
@@ -127,24 +133,24 @@
             <div class="form-group">
               <label for="numCuenta">Número de cuenta:</label>
               <input class="form-control" type="text" id="numCuenta" name="numCuenta" th:value="${competidor?.getNumCuenta()}"
-                     placeholder="Número de cuenta" onchange="verificaEnteros(this);" pattern="[0-9]+"
+                     placeholder="Número de cuenta" oninput="verificaEnteros(this);" pattern="[0-9]+"
                      maxlength="9" required>
             </div>
             <div class="form-group">
               <label for="nombre">Nombre:</label>
               <input class="form-control" type="text" id="nombre" name="nombre" placeholder="Nombre" th:value="${competidor?.getNombre()}"
-                     onchange="verifica(this);" pattern="^[A-Za-záéíóúÁÉÍÓÚü]+(\s[A-Za-záéíóúÁÉÍÓÚü]+){0,3}$" required>
+                     oninput="verifica(this);" pattern="^[A-Za-záéíóúÁÉÍÓÚü]+(\s[A-Za-záéíóúÁÉÍÓÚü]+){0,3}$" required>
             </div>
             <div class="form-group">
               <label for="apellidoPaterno">Apellido paterno:</label>
               <input class="form-control" type="text" id="apellidoPaterno" name="apellidoPaterno" th:value="${competidor?.getApellidoPaterno()}"
-                     placeholder="Apellido paterno" onchange="verifica(this);"
+                     placeholder="Apellido paterno" oninput="verifica(this);"
                      pattern="^[A-Za-záéíóúÁÉÍÓÚü]+(\s[A-Za-záéíóúÁÉÍÓÚü]+){0,3}$" required>
             </div>
             <div class="form-group">
               <label for="apellidoMaterno">Apellido materno:</label>
               <input class="form-control" type="text" id="apellidoMaterno" name="apellidoMaterno" th:value="${competidor?.getApellidoMaterno()}"
-                     placeholder="Apellido materno" onchange="verifica(this);"
+                     placeholder="Apellido materno" oninput="verifica(this);"
                      pattern="^[A-Za-záéíóúÁÉÍÓÚü]+(\s[A-Za-záéíóúÁÉÍÓÚü]+){0,3}$" required>
             </div>
           </div>
@@ -152,28 +158,32 @@
             <div class="form-group">
               <label for="facultad">Facultad:</label>
               <input class="form-control" type="text" id="facultad" name="institucion" th:value="${competidor?.getFacultad()}"
-                     placeholder="Facultad" onchange="verifica(this);"
+                     placeholder="Facultad" oninput="verifica(this);"
                      pattern="^[A-Za-záéíóúÁÉÍÓÚü]+(\s[A-Za-záéíóúÁÉÍÓÚü]+){0,3}$" required>
             </div>
             <div class="form-group">
               <label for="correo">Correo electrónico:</label>
               <input class="form-control" type="email" id="correo" name="correo" th:value="${competidor?.getCorreo()}"
-                     placeholder="Correo electrónico" onchange="verificaEmail(this);" required>
+                     placeholder="Correo electrónico" oninput="verificaEmail(this);" required>
             </div>
             <div class="form-group">
               <label for="contrasena">Contraseña:</label>
               <input class="form-control" type="password" id="contrasena" name="contrasena" th:value="${competidor?.getContrasenia()}"
-                     placeholder="Contraseña" onchange="actualizarBotonSubmit();" required/>
+                     placeholder="Contraseña" oninput="actualizarBotonSubmit();" required/>
             </div>
             <div class="form-group">
               <label for="confirmarContrasena">Confirmar contraseña:</label>
               <input class="form-control" type="password" id="confirmarContrasena" th:value="${competidor?.getContrasenia()}"
-                     placeholder="Confirmar contraseña" onchange="actualizarBotonSubmit();" name="confirmarContrasena" required/>
+                     placeholder="Confirmar contraseña" oninput="actualizarBotonSubmit();" name="confirmarContrasena" required/>
             </div>
+            <div style="display: inline-block;" onmouseover="checarBusqueda()">
             <button class="btn btn-secondary" type="submit" id="botonBuscar" name="botonBuscar"
                     data-mdb-ripple-color="dark" formnovalidate>Buscar</button>
+            </div>
+            <div style="display: inline-block">
             <button class="btn btn-primary" type="submit" id="botonEditar" name="botonEditar"
                     data-mdb-ripple-color="dark">Editar</button>
+              </div>
           </div>
         </form>
       </div>
@@ -186,11 +196,33 @@
   </footer>
 </div>
 
-<script>
+<script th:inline="javascript">
+  actualizarBotonBusqueda();
   actualizarBotonSubmit();
-
+  var successfulSearch = [[${searchSuccess}]] == null ? false : [[${searchSuccess}]];
   const numCuentaInput = document.getElementById('numCuenta');
   numCuentaInput.addEventListener('keydown', filterInputDigits);
+  numCuentaInput.addEventListener('input', actualizarBotonBusqueda);
+  numCuentaInput.disabled = successfulSearch;
+
+  function actualizarBotonBusqueda(event){
+    var numCuenta=document.getElementById('numCuenta');
+    var boton = document.getElementById('botonBuscar');
+    if(numCuenta.value === ''){
+      boton.disabled=true;
+    }else{
+      boton.disabled = false;
+    }
+  }
+
+  function checarBusqueda(){
+    var numCuenta = document.getElementById('numCuenta');
+    var errorPopUp = document.getElementById('busquedaSinNumCuenta');
+    var boton = document.getElementById('botonBuscar');
+    if (numCuenta.value === '' && boton.disabled){
+      errorPopUp.style.display="block";
+    }
+  }
 
   /**
    * Sólo permite que en el elemento al que se le asignó este listener se ingresen dígitos.

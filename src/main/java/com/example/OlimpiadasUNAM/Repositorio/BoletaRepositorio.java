@@ -1,6 +1,7 @@
 package com.example.OlimpiadasUNAM.Repositorio;
 
 import com.example.OlimpiadasUNAM.Modelo.Competidor;
+import com.example.OlimpiadasUNAM.Modelo.Disciplina;
 import com.example.OlimpiadasUNAM.Modelo.Evento;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -22,4 +23,5 @@ public interface BoletaRepositorio extends JpaRepository<Competir, Integer> {
     Optional<Competir> findByEventoAndCompetidor(Evento evento, Competidor competidor);
 
     List<Competir> findAllByEventoAndPuntajeIsNull(Evento evento);
+
 }

@@ -116,11 +116,11 @@
                     <h3 hidden th:value="${disciplinaOriginal}" name="disciplinaOriginal"></h3>
                     <input type="text" name="nombre" placeholder="Nombre nuevo :D" th:field="*{nombre}"
                         oninvalid="Verifica(this);" oninput="Verifica(this);" required
-                        pattern="^[A-Za-záéíóú]+(\s[A-Za-záéíóú]+){0,3}$" />
+                        pattern="^[A-Za-záéíóú0-9]+(\s[A-Za-záéíóú0-9]+){0,3}$" />
 
                     <input type="text" name="descripcion" placeholder="Nueva descripción :D" th:field="*{descripcion}"
                         oninvalid="VerificaDesc(this);" oninput="VerificaDesc(this);" required
-                        pattern="\s{0,1}[A-Za-záéíóú]+(\s[A-Za-záéíóú]+){0,3}\s{0,1}" />
+                        pattern="\s{0,1}[A-Za-záéíóú0-9]+(\s[A-Za-záéíóú0-9]+)+\s{0,1}" />
 
                     <input type="text" name="fecha" id="picker" placeholder="Fecha nueva :D" th:field="*{fecha}"
                         oninvalid="VerificaFecha(this);" oninput="VerificaFecha(this);" required
@@ -138,7 +138,7 @@
 
                 <div class="regresar">
                     <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-                    ¿Cancelar? Click <a th:href="@{/disciplinaIH}" style="color:#ffffff;">aquí</a> para regresar sin
+                    ¿Cancelar? Click <a th:href="@{/admin/disciplinaIH/{idEvento}/EventoIH (idEvento=${evento.idEvento})}" style="color:#ffffff;">aquí</a> para regresar sin
                     guardar.
                 </div>
             </div>
