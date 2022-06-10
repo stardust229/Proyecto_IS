@@ -21,16 +21,25 @@
           integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
           crossorigin="anonymous"></script>
   <style>
-    .column {
-      float: left;
-      width: 50%;
-      padding: 20px;
+    .fila:after {
+        content: "";
+        display: table;
+        clear: both;
     }
-
-    .row:after {
-      content: "";
-      display: table;
-      clear: both;
+    .fila {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+    @media screen and (min-width: 900px) {
+        .column {
+            float: left;
+            width: 50%;
+            padding: 20px;
+        }
+      .fila {
+        padding-left: 120px;
+        padding-right: 120px;
+      }
     }
 
     .precaucion {
@@ -123,7 +132,7 @@
         <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
         <strong>¡Éxito!</strong> Competidor eliminado.
       </div>
-      <div class="row" style="margin-left:120px; margin-right:120px;">
+      <div class="fila">
         <form id="formEliminar" th:action="@{/entrenador/eliminarCompetidor}" method="post">
           <div class="form-group">
             <label for="numCuenta">Número de Cuenta</label>

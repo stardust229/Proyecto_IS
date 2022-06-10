@@ -21,16 +21,25 @@
             integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
             crossorigin="anonymous"></script>
     <style>
-        .column {
-            float: left;
-            width: 50%;
-            padding: 20px;
-        }
-
-        .row:after {
+        .fila:after {
             content: "";
             display: table;
             clear: both;
+        }
+        .fila {
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+        @media screen and (min-width: 900px) {
+            .column {
+                float: left;
+                width: 50%;
+                padding: 20px;
+            }
+          .fila {
+            padding-left: 120px;
+            padding-right: 120px;
+          }
         }
 
         .precaucion {
@@ -111,7 +120,7 @@
                 <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
                 <strong>¡Éxito!</strong> Entrenador registrado correctamente.
             </div>
-            <div class="row" style="margin-left:120px; margin-right:120px;">
+            <div class="fila">
                 <form id="registrarEntrenador"  method="post" th:action="@{/registroEntrenador}">
                 <div class="column">
                     <div class="form-group">

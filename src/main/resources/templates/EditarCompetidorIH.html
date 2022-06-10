@@ -21,16 +21,25 @@
           integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
           crossorigin="anonymous"></script>
   <style>
-    .column {
-      float: left;
-      width: 50%;
-      padding: 20px;
+    .fila:after {
+        content: "";
+        display: table;
+        clear: both;
     }
-
-    .row:after {
-      content: "";
-      display: table;
-      clear: both;
+    .fila {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+    @media screen and (min-width: 900px) {
+        .column {
+            float: left;
+            width: 50%;
+            padding: 20px;
+        }
+      .fila {
+        padding-left: 120px;
+        padding-right: 120px;
+      }
     }
 
     .precaucion {
@@ -138,7 +147,7 @@
         <strong>¡Éxito!</strong> Competidor actualizado correctamente.
       </div>
 
-      <div class="row" style="margin-left:120px; margin-right:120px;">
+      <div class="fila">
 
         <form id="formEditar" method="post" th:action="@{/entrenador/editarCompetidor}">
           <div class="column">
