@@ -2,27 +2,31 @@ package com.example.OlimpiadasUNAM.Controlador;
 
 import com.example.OlimpiadasUNAM.Modelo.Competidor;
 import com.example.OlimpiadasUNAM.Modelo.Competir;
-import com.example.OlimpiadasUNAM.Servicio.ServicioBoleta;
-import com.example.OlimpiadasUNAM.Servicio.ServicioCompetidor;
-import com.example.OlimpiadasUNAM.Servicio.ServicioCompetir;
+import com.example.OlimpiadasUNAM.Modelo.Disciplina;
+import com.example.OlimpiadasUNAM.Modelo.Evento;
+import com.example.OlimpiadasUNAM.Servicio.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
 
 @Controller
 public class COMPETIDORControlador {
-     @Autowired 
+    @Autowired
     ServicioBoleta service;
-     @Autowired
-     ServicioCompetidor serv;
-     @Autowired
+    @Autowired
+    DisciplinaServicio disciplinaServicio;
+    @Autowired
+    ServicioEvento servicioEvento;
+    @Autowired
     ServicioCompetir comp;
     @RequestMapping("/CompetidorLandingIH")
     public String landingCompetidor(){
@@ -39,14 +43,56 @@ public class COMPETIDORControlador {
         return "RetroalimentacionIH";
     }
 
-
+    /*
     @GetMapping("/posiciones")
     public String viewHomePage(Model model) {
         List<Competir> liststudent = service.listAll();
         model.addAttribute("liststudent", liststudent);
         return "TablaPosicionesIH";
+    }*/
+
+    @RequestMapping("/competidor/posiciones")
+    public String competidorGetTablaPosicionesIH(Model modelo){
+        List<Disciplina> disciplinas = disciplinaServicio.mostrarDisciplinas(null);
+        modelo.addAttribute("id_disciplinaSeleccionada", 1);
+        modelo.addAttribute("listaDisciplinas", disciplinas);
+        return "TablaPosicionesIH";
     }
 
+    @GetMapping("/competidor/getEventosDeDisciplina")
+    public String competidorGetEventos(Model modelo, @Param("id_disciplina") Integer id_disciplina){
+        if (id_disciplina==null) {
+            List<Disciplina> disciplinas = disciplinaServicio.mostrarDisciplinas(null);
+            modelo.addAttribute("id_disciplinaSeleccionada", 1);
+            modelo.addAttribute("listaDisciplinas", disciplinas);
+            return "TablaPosicionesIH";
+        }
+        Disciplina disc = disciplinaServicio.consultarDisciplina(id_disciplina);
+        List<Evento> listaEventos = servicioEvento.getAllEventos(disc);
+        modelo.addAttribute("id_disciplinaSeleccionada", id_disciplina);
+        modelo.addAttribute("id_eventoSeleccionado",listaEventos.size()>0 ? listaEventos.get(0).getIdEvento(): 0);
+        modelo.addAttribute("listaDisciplinas", disciplinaServicio.mostrarDisciplinas(null));
+        modelo.addAttribute("listaEventos", listaEventos);
+        return "TablaPosicionesIH";
+    }
 
+    @GetMapping("/competidor/consultarCalificaciones")
+    public String competidorListarCalificaciones(Model modelo, @Param("id_evento") Integer id_evento){
+        if (id_evento==null) {
+            List<Disciplina> disciplinas = disciplinaServicio.mostrarDisciplinas(null);
+            modelo.addAttribute("id_disciplinaSeleccionada", 1);
+            modelo.addAttribute("listaDisciplinas", disciplinas);
+            return "TablaPosicionesIH";
+        }
+        Evento evento = servicioEvento.consultarEvento(id_evento);
+        modelo.addAttribute("evento", evento);
+        modelo.addAttribute("id_disciplinaSeleccionada", evento.getDisciplina().getId());
+        modelo.addAttribute("id_eventoSeleccionado",id_evento);
+        modelo.addAttribute("listaDisciplinas", disciplinaServicio.mostrarDisciplinas(null));
+        modelo.addAttribute("listaEventos", servicioEvento.getAllEventos(evento.getDisciplina()));
+        modelo.addAttribute("listaCalificaciones", service.getTodosPorEvento(evento));
+        modelo.addAttribute("hayEventoSeleccionado", true);
+        return "TablaPosicionesIH";
+    }
 
 }

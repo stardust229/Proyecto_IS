@@ -53,6 +53,10 @@
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link"  href="#">Retroalimentación</a>
+                            </li>
+                            <li class="nav-item active">
+                                <a class="nav-link" href="#">Tabla de posiciones</a>
+                            </li>
                         </ul>
                         <a class="btn btn-danger navbar-btn" th:href="@{/logout}">Cerrar sesión</a>
                     </div>
@@ -61,30 +65,64 @@
             <!-- Navbar -->
         </header>
         <br>
+        <div class="row" style="margin-left:120px; margin-right:120px;">
+            <div class="column mb-3">
+                <form th:action="@{/competidor/getEventosDeDisciplina}">
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">Disciplina:</span>
+                        <select class="form-control" name="id_disciplina">
+                            <option th:each="disc : ${listaDisciplinas}" th:value="${disc.id}" th:text="${disc.nombre}" th:selected="${disc.id==id_disciplinaSeleccionada}"/>
+                        </select>
+                        <button class="btn btn-primary" type="submit" data-mdb-ripple-color="dark">
+                            Mostrar eventos
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="row" style="margin-left:120px; margin-right:120px;">
+            <div class="column mb-3">
+                <form th:action="@{/competidor/consultarCalificaciones}">
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">Evento:</span>
+                        <select class="form-control" name="id_evento">
+                            <option th:each="eve : ${listaEventos}" th:value="${eve.idEvento}" th:text="${eve.nombre}" th:selected="${eve.idEvento==id_eventoSeleccionado}"/>
+                        </select>
+                        <button class="btn btn-primary" type="submit" data-mdb-ripple-color="dark">
+                            Mostrar posiciones
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
 
-
-            <div class="row" style="margin-left: 120px;margin-right: 120px;">
+        <div class="row" style="margin-left: 120px;margin-right: 120px;">
+                <div th:if="${hayEventoSeleccionado}">
+                    <h1 th:text="${evento.disciplina.nombre}"></h1>
+                    <h2>Tabla de posiciones del evento <span th:text="${evento.nombre}"></span></h2>
+                </div>
                 <table id="tablaCompetidores" class="table table-striped table-bordered table-hover">
                     <thead class="table-dark">
                     <tr>
-                        <th>Id</th>
                         <th>Evento</th>
-                        <th>Competidor</th>
+                        <th colspan="3">Competidor</th>
+                        <th>Facultad</th>
                         <th>Puntaje</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="liststudent : ${liststudent}">
-                        <td th:text="${liststudent.idCompetir}">Id</td>
-                        <td th:text="${liststudent.evento.nombre}">Evento</td>
-                        <td th:text="${liststudent.competidor.nombre}">Competidor</td>
-                        <td th:text="${liststudent.puntaje}">Puntaje</td>
+                    <tr th:each="boleta : ${listaCalificaciones}">
+                        <td th:text="${boleta.evento.nombre}">Evento</td>
+                        <td th:text="${boleta.competidor.nombre}">Competidor</td>
+                        <td th:text="${boleta.competidor.apellidoPaterno}"></td>
+                        <td th:text="${boleta.competidor.apellidoMaterno}"></td>
+                        <td th:text="${boleta.competidor.facultad}">Facultad</td>
+                        <td th:text="${boleta.puntaje}">Puntaje</td>
                     </tr>
                     </tbody>
                 </table>
             </div>
 
-        </div>
     </div>
     <footer class="bg-dark text-center text-white">
         <div class="footer">
