@@ -90,7 +90,7 @@ public class COMPETIDORControlador {
         modelo.addAttribute("id_eventoSeleccionado",id_evento);
         modelo.addAttribute("listaDisciplinas", disciplinaServicio.mostrarDisciplinas(null));
         modelo.addAttribute("listaEventos", servicioEvento.getAllEventos(evento.getDisciplina()));
-        modelo.addAttribute("listaCalificaciones", service.getTodosPorEvento(evento));
+        modelo.addAttribute("listaCalificaciones", service.getTodosPorEventoOrdenDescendiente(evento));
         modelo.addAttribute("hayEventoSeleccionado", true);
         return "TablaPosicionesIH";
     }

@@ -58,4 +58,14 @@ public class ServicioBoleta {
         List<Competir> a = repo.findAllByEventoAndPuntajeIsNull(evento);
         return a;
     }
+
+    public List<Competir> getTodosPorEventoOrdenDescendiente(Evento evento) {
+        List<Competir> boletas = repo.findAllByEventoOrderByPuntajeDesc(evento);
+        ArrayList<Competir> boletasSinNull = new ArrayList<Competir>();
+
+        for (Competir boleta: boletas) {
+            if (boleta.getPuntaje() != null) boletasSinNull.add(boleta);
+        }
+        return boletasSinNull;
+    }
 }
