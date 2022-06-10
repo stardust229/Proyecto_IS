@@ -46,6 +46,7 @@ public class ServicioCompetidor {
         }
     }
 
+
     public boolean actualizarCompetidor(Entrenador entrenador,int numCuenta, String nombre, String apellidoP, String apellidoM, String institucion,
                                      String correo, String contrasena){
         Competidor competidor = buscarCompetidor(numCuenta);
