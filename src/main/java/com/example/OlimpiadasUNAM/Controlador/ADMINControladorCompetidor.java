@@ -14,12 +14,12 @@ public class ADMINControladorCompetidor {
     @Autowired
     private ServicioCompetidorAdmi servicioCompetidor;
 
-    @RequestMapping("/consultarCompetidoresAdmi")
+    @RequestMapping("/admin/consultarCompetidoresAdmi")
     public String consultarCompetidor(){
         return "ConsultarCompetidoresAdmi";
     }
 
-    @GetMapping({"/consultarCompetidoresAdmi","/consultarCompetidorAdmi"})
+    @GetMapping({"/admin/consultarCompetidoresAdmi","/admin/consultarCompetidorAdmi"})
     public String listarentrenadores(Model modelo, @Param("busqueda") String busqueda){
         modelo.addAttribute("competidores", getCompetidoresAMostrar(busqueda));
         return "ConsultarCompetidoresAdmi";

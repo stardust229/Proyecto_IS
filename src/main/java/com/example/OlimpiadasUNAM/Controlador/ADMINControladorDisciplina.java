@@ -98,7 +98,7 @@ public class ADMINControladorDisciplina {
 
     //Métodos para menús
 
-    @RequestMapping("/AdministradorLandingIH")
+    @RequestMapping("/admin/AdministradorLandingIH")
     public String landingAdmin(){
         return "AdministradorLandingIH";
     }

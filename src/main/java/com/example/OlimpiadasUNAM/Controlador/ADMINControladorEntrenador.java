@@ -14,12 +14,12 @@ public class ADMINControladorEntrenador {
     @Autowired
     private ServicioEntrenadorAdmi servicioEntrenador;
 
-    @RequestMapping("/consultarEntrendoresAdmi")
+    @RequestMapping("/admin/consultarEntrendoresAdmi")
     public String consultarEntrenador(){
         return "ConsultarEntrenadoresAdmi";
     }
 
-    @GetMapping({"/consultarEntrenadoresAdmi","/consultarEntrenadorAdmi"})
+    @GetMapping({"/admin/consultarEntrenadoresAdmi","/admin/consultarEntrenadorAdmi"})
     public String listarentrenadores(Model modelo, @Param("busqueda") String busqueda){
         modelo.addAttribute("entrenadores", getEntrenadoresAMostrar(busqueda));
         return "ConsultarEntrenadoresAdmi";

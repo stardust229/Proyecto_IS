@@ -29,13 +29,13 @@ public class ADMINControladorJuez {
     @Autowired
     private ServicioUsuarios servicioUsuarios;
 
-    @RequestMapping("/agregarJuezIH")
+    @RequestMapping("/admin/agregarJuezIH")
     public String agregarJuezIH(Model model){
         model.addAttribute("disciplinas", disciplinaServicio.mostrarDisciplinas(""));
         return "AgregarJuezIH";
     }
 
-    @RequestMapping("/consultarJuezIH")
+    @RequestMapping("/admin/consultarJuezIH")
     public String consultarJuezIH(){
         return "ConsultarJuezIH";
     }
@@ -44,7 +44,7 @@ public class ADMINControladorJuez {
      * en el modelo que regresa, flagIDNoDisponible es true si ya había un juez
      * con el número de cuenta que se ingresó, false si no.
      */
-    @PostMapping("/agregarJuez")
+    @PostMapping("/admin/agregarJuez")
     public String agregar(HttpServletRequest request, Model model) {
         int numCuenta = Integer.parseInt(request.getParameter("numCuenta"));
         String nombre = request.getParameter("nombre");
@@ -82,7 +82,7 @@ public class ADMINControladorJuez {
         return "AgregarJuezIH";
     }
 
-    @GetMapping("/editarJuez/{id}")
+    @GetMapping("/admin/editarJuez/{id}")
     public String editar(@PathVariable("id") Integer id, Model model){
         model.addAttribute("disciplinas", disciplinaServicio.mostrarDisciplinas(""));
         Juez juez = servicioJuez.buscarPorCuenta(id).get();
@@ -93,7 +93,7 @@ public class ADMINControladorJuez {
         return "EditarJuezIH";
     }
 
-    @PostMapping("/actualizarJuez")
+    @PostMapping("/admin/actualizarJuez")
     public String actualizarJuez(@ModelAttribute JuezBuilder juezBuilder, Model modelo) {
         int numCuenta = juezBuilder.getNumCuenta();
         String nombre = juezBuilder.getNombre();
@@ -139,13 +139,13 @@ public class ADMINControladorJuez {
         return "EditarJuezIH";
     }
 
-    @GetMapping("/eliminarJuez/{id}")
+    @GetMapping("/admin/eliminarJuez/{id}")
     public String eliminar(@PathVariable("id") Integer id, Model model){
         servicioJuez.eliminar(id);
         return "redirect:/consultarJuezIH";
     }
 
-    @GetMapping({"/consultarJuezIH","/consultarJuez"})
+    @GetMapping({"/admin/consultarJuezIH","/consultarJuez"})
     public String listarJueces(Model modelo, @Param("busqueda") String busqueda){
         modelo.addAttribute("jueces", getJuecesAMostrar(busqueda));
         return "ConsultarJuezIH";
