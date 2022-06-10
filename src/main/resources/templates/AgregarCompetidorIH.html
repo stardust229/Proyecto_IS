@@ -128,24 +128,24 @@
                         <div class="form-group">
                             <label for="numCuenta">Número de cuenta:</label>
                             <input class="form-control" type="text" id="numCuenta" name="numCuenta"
-                                   placeholder="Número de cuenta" onchange="verificaEnteros(this);" pattern="[0-9]+"
+                                   placeholder="Número de cuenta" oninput="verificaEnteros(this);" pattern="[0-9]+"
                                    maxlength="9" required>
                         </div>
                         <div class="form-group">
                             <label for="nombre">Nombre:</label>
                             <input class="form-control" type="text" id="nombre" name="nombre" placeholder="Nombre"
-                                   onchange="verifica(this);" pattern="^[A-Za-záéíóúÁÉÍÓÚü]+(\s[A-Za-záéíóúÁÉÍÓÚü]+){0,3}$" required>
+                                   oninput="verifica(this);" pattern="^[A-Za-záéíóúÁÉÍÓÚü]+(\s[A-Za-záéíóúÁÉÍÓÚü]+){0,3}$" required>
                         </div>
                         <div class="form-group">
                             <label for="apellidoPaterno">Apellido paterno:</label>
                             <input class="form-control" type="text" id="apellidoPaterno" name="apellidoPaterno"
-                                   placeholder="Apellido paterno" onchange="verifica(this);"
+                                   placeholder="Apellido paterno" oninput="verifica(this);"
                                    pattern="^[A-Za-záéíóúÁÉÍÓÚü]+(\s[A-Za-záéíóúÁÉÍÓÚü]+){0,3}$" required>
                         </div>
                         <div class="form-group">
                             <label for="apellidoMaterno">Apellido materno:</label>
                             <input class="form-control" type="text" id="apellidoMaterno" name="apellidoMaterno"
-                                   placeholder="Apellido materno" onchange="verifica(this);"
+                                   placeholder="Apellido materno" oninput="verifica(this);"
                                    pattern="^[A-Za-záéíóúÁÉÍÓÚü]+(\s[A-Za-záéíóúÁÉÍÓÚü]+){0,3}$" required>
                         </div>
                     </div>
@@ -153,23 +153,23 @@
                         <div class="form-group">
                             <label for="facultad">Facultad:</label>
                             <input class="form-control" type="text" id="facultad" name="institucion"
-                                   placeholder="Facultad" onchange="verifica(this);"
+                                   placeholder="Facultad" oninput="verifica(this);"
                                    pattern="^[A-Za-záéíóúÁÉÍÓÚü]+(\s[A-Za-záéíóúÁÉÍÓÚü]+){0,3}$" required>
                         </div>
                         <div class="form-group">
                             <label for="correo">Correo electrónico:</label>
                             <input class="form-control" type="email" id="correo" name="correo"
-                                   placeholder="Correo electrónico" onchange="verificaEmail(this);" required>
+                                   placeholder="Correo electrónico" oninput="verificaEmail(this);" required>
                         </div>
                         <div class="form-group">
                             <label for="contrasena">Contraseña:</label>
                             <input class="form-control" type="password" id="contrasena" name="contrasena"
-                                   placeholder="Contraseña" onchange="actualizarBotonSubmit();" required/>
+                                   placeholder="Contraseña" oninput="actualizarBotonSubmit();" required/>
                         </div>
                         <div class="form-group">
                             <label for="confirmarContrasena">Confirmar contraseña:</label>
                             <input class="form-control" type="password" id="confirmarContrasena"
-                                   placeholder="Confirmar contraseña" onchange="actualizarBotonSubmit();" name="confirmarContrasena" required/>
+                                   placeholder="Confirmar contraseña" oninput="actualizarBotonSubmit();" name="confirmarContrasena" required/>
                         </div>
                         <button class="btn btn-primary" type="submit" id="botonAgregar"
                                 data-mdb-ripple-color="dark">Agregar eventos en los que participa</button>
