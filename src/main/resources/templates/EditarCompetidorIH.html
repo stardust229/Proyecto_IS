@@ -104,6 +104,10 @@
     <br>
 
     <div style="text-align: left;">
+      <div class="precaucion" id="editarSinBusqueda" style="margin-left:120px; margin-right:120px; display: none">
+        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+        Busque a un competidor para editarlo.
+      </div>
       <div class="precaucion" id="busquedaSinNumCuenta" style="margin-left:120px; margin-right:120px; display: none">
         <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
         Ingrese un número de cuenta para buscar el competidor a editar.
@@ -180,9 +184,9 @@
             <button class="btn btn-secondary" type="submit" id="botonBuscar" name="botonBuscar"
                     data-mdb-ripple-color="dark" formnovalidate>Buscar</button>
             </div>
-            <div style="display: inline-block">
+            <div style="display: inline-block" onmouseover="yaBusco()">
             <button class="btn btn-primary" type="submit" id="botonEditar" name="botonEditar"
-                    data-mdb-ripple-color="dark">Editar</button>
+                    data-mdb-ripple-color="dark" onclick="reactivarNumCuenta()">Editar</button>
               </div>
           </div>
         </form>
@@ -205,6 +209,11 @@
   numCuentaInput.addEventListener('input', actualizarBotonBusqueda);
   numCuentaInput.disabled = successfulSearch;
 
+  function reactivarNumCuenta(){
+    var numCuentaInput = document.getElementById('numCuenta');
+    numCuentaInput.disabled = false;
+  }
+
   function actualizarBotonBusqueda(event){
     var numCuenta=document.getElementById('numCuenta');
     var boton = document.getElementById('botonBuscar');
@@ -213,6 +222,11 @@
     }else{
       boton.disabled = false;
     }
+  }
+
+  function yaBusco(){
+    var errorPopUp = document.getElementById('editarSinBusqueda');
+    if (![[${searchSuccess}]]) errorPopUp.style.display="block";
   }
 
   function checarBusqueda(){
@@ -268,7 +282,7 @@
 
   function actualizarBotonSubmit() {
     boton = document.getElementById("botonEditar");
-    if (validarTodo()) {
+    if (validarTodo() && [[${searchSuccess}]]) {
       boton.disabled = false;
     } else {
       boton.disabled = true;
@@ -285,6 +299,7 @@
     return true;
   }
 </script>
+
 
 </body>
 

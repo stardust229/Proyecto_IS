@@ -104,22 +104,14 @@
     <br>
 
     <div style="text-align: left;">
-
-      <div class="precaucion" id="errorIDNoDisponible" th:if="${flagIDNoDisponible}" style="margin-left:120px; margin-right:120px;">
+      <div class="precaucion" id="numCuentaNotFound" th:if="${numCuentaNotFound}" style="margin-left:120px; margin-right:120px;">
         <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-        <strong>¡Error!</strong> Ya existe un competidor con ese número de cuenta.
+        No se encontró un competidor con el número de cuenta dado.
       </div>
-
-      <div class="precaucion" id="errorEmailNoDisponible" th:if="${flagEmailNoDisponible}" style="margin-left:120px; margin-right:120px;">
+      <div class="precaucion" id="invalidNumCuenta" th:if="${invalidNumCuenta}" style="margin-left:120px; margin-right:120px;">
         <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-        <strong>¡Error!</strong> Ya existe un competidor con ese correo.
+        Este competidor fue registrado por otro entrenador, no puede ser eliminado.
       </div>
-
-      <div class="exito" id="exitoAgrega" th:if="${exitoAgrega}" style="margin-left:120px; margin-right:120px;">
-        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-        <strong>¡Éxito!</strong> Competidor agregado correctamente.
-      </div>
-
       <div class="row" style="margin-left:120px; margin-right:120px;">
         <form id="formEliminar" th:action="@{/entrenador/eliminarCompetidor}" method="post">
           <div class="form-group">
