@@ -11,10 +11,12 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class ENTRENADORControlador {
@@ -136,10 +138,21 @@ public class ENTRENADORControlador {
     @RequestMapping(value="/entrenador/editarCompetidor",method= RequestMethod.POST, params="botonBuscar")
     public String buscarEditar(HttpServletRequest request, Model model){
         Integer numCuenta = Integer.parseInt(request.getParameter("numCuenta"));
-        Competidor competidor = serv.buscarCompetidor(numCuenta);
-        model.addAttribute("competidor", competidor);
+        if (serv.existeCompetidor(numCuenta)){
+            Competidor competidor = serv.buscarCompetidor(numCuenta);
+            System.out.println("HEREeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
+            System.out.println(competidor.getEntrenador().getNombre()+" "+entrenador.getNombre());
+            if(!competidor.getEntrenador().equals(entrenador)){
+                model.addAttribute("invalidNumCuenta",true);
+                return "EditarCompetidorIH";
+            }
+            model.addAttribute("competidor",competidor);
+            model.addAttribute("searchSuccess",true);
+        }else{
+            model.addAttribute("numCuentaNotFound",true);
+        }
         return "EditarCompetidorIH";
-    }
+        }
 
     @RequestMapping(value="/entrenador/editarCompetidor",method=RequestMethod.POST, params="botonEditar")
     public String Editar(HttpServletRequest request){

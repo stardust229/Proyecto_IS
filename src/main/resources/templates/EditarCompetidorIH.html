@@ -106,13 +106,16 @@
     <div style="text-align: left;">
       <div class="precaucion" id="busquedaSinNumCuenta" style="margin-left:120px; margin-right:120px; display: none">
         <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-        Ingrese un número de cuenta para buscar el competidor a editar
+        Ingrese un número de cuenta para buscar el competidor a editar.
       </div>
-      <div class="precaucion" id="errorIDNoDisponible" th:if="${flagIDNoDisponible}" style="margin-left:120px; margin-right:120px;">
+      <div class="precaucion" id="numCuentaNotFound" th:if="${numCuentaNotFound}" style="margin-left:120px; margin-right:120px;">
         <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-        <strong>¡Error!</strong> Ya existe un competidor con ese número de cuenta.
+        No se encontró un competidor con el número de cuenta dado.
       </div>
-
+      <div class="precaucion" id="invalidNumCuenta" th:if="${invalidNumCuenta}" style="margin-left:120px; margin-right:120px;">
+        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+        Este competidor fue registrado por otro entrenador, no puede ser modificado.
+      </div>
       <div class="precaucion" id="errorEmailNoDisponible" th:if="${flagEmailNoDisponible}" style="margin-left:120px; margin-right:120px;">
         <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
         <strong>¡Error!</strong> Ya existe un competidor con ese correo.
@@ -193,22 +196,22 @@
   </footer>
 </div>
 
-<script>
+<script th:inline="javascript">
   actualizarBotonBusqueda();
   actualizarBotonSubmit();
+  var successfulSearch = [[${searchSuccess}]] == null ? false : [[${searchSuccess}]];
   const numCuentaInput = document.getElementById('numCuenta');
   numCuentaInput.addEventListener('keydown', filterInputDigits);
   numCuentaInput.addEventListener('input', actualizarBotonBusqueda);
+  numCuentaInput.disabled = successfulSearch;
 
   function actualizarBotonBusqueda(event){
     var numCuenta=document.getElementById('numCuenta');
     var boton = document.getElementById('botonBuscar');
     if(numCuenta.value === ''){
       boton.disabled=true;
-      boton.ariaDisabled=true;
     }else{
       boton.disabled = false;
-      boton.ariaDisabled=true;
     }
   }
 

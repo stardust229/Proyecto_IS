@@ -12,6 +12,7 @@ public interface CompetidorRepositorio extends CrudRepository<Competidor, Intege
     public List<Competidor> findByDisciplina(String disciplina);
 
     public Competidor findBynumCuenta(int numCuenta);
+    public boolean existsBynumCuenta(int numCuenta);
 
     public List<Competidor> findByEntrenador(Entrenador entrenador);
 
