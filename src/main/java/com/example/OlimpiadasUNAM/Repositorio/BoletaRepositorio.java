@@ -24,4 +24,5 @@ public interface BoletaRepositorio extends JpaRepository<Competir, Integer> {
 
     List<Competir> findAllByEventoAndPuntajeIsNull(Evento evento);
 
+    List<Competir> findAllByEventoOrderByPuntajeDesc(Evento evento);
 }
