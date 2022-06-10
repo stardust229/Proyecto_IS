@@ -107,12 +107,12 @@
 
                 <div class="precaucion" id="errorIDNoDisponible" th:if="${flagIDNoDisponible}" style="margin-left:120px; margin-right:120px;">
                     <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-                    <strong>¡Error!</strong> Ya existe un juez con ese número de cuenta.
+                    <strong>¡Error!</strong> Ya existe un usuario con ese número de cuenta.
                 </div>
 
                 <div class="precaucion" id="errorEmailNoDisponible" th:if="${flagEmailNoDisponible}" style="margin-left:120px; margin-right:120px;">
                     <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-                    <strong>¡Error!</strong> Ya existe un juez con ese correo.
+                    <strong>¡Error!</strong> Ya existe un usuario con ese correo.
                 </div>
 
                 <div class="precaucion" id="errorDisciplinaNoExiste" th:if="${flagDisciplinaNoExiste}" style="margin-left:120px; margin-right:120px;">
@@ -132,24 +132,24 @@
                             <div class="form-group">
                                 <label for="numCuenta">Número de cuenta:</label>
                                 <input class="form-control" type="text" id="numCuenta" name="numCuenta"
-                                    placeholder="Número de cuenta" onchange="verificaEnteros(this);" pattern="[0-9]+"
+                                    placeholder="Número de cuenta" oninput="verificaEnteros(this);" pattern="[0-9]+"
                                     maxlength="9" required>
                             </div>
                             <div class="form-group">
                                 <label for="nombre">Nombre:</label>
                                 <input class="form-control" type="text" id="nombre" name="nombre" placeholder="Nombre"
-                                    onchange="verifica(this);" pattern="^[A-Za-záéíóúÁÉÍÓÚü]+(\s[A-Za-záéíóúÁÉÍÓÚü]+){0,3}$" required>
+                                    oninput="verifica(this);" pattern="^[A-Za-záéíóúÁÉÍÓÚü]+(\s[A-Za-záéíóúÁÉÍÓÚü]+){0,3}$" required>
                             </div>
                             <div class="form-group">
                                 <label for="apellidoPaterno">Apellido paterno:</label>
                                 <input class="form-control" type="text" id="apellidoPaterno" name="apellidoPaterno"
-                                    placeholder="Apellido paterno" onchange="verifica(this);"
+                                    placeholder="Apellido paterno" oninput="verifica(this);"
                                     pattern="^[A-Za-záéíóúÁÉÍÓÚü]+(\s[A-Za-záéíóúÁÉÍÓÚü]+){0,3}$" required>
                             </div>
                             <div class="form-group">
                                 <label for="apellidoMaterno">Apellido materno:</label>
                                 <input class="form-control" type="text" id="apellidoMaterno" name="apellidoMaterno"
-                                    placeholder="Apellido materno" onchange="verifica(this);"
+                                    placeholder="Apellido materno" oninput="verifica(this);"
                                     pattern="^[A-Za-záéíóúÁÉÍÓÚü]+(\s[A-Za-záéíóúÁÉÍÓÚü]+){0,3}$" required>
                             </div>
                         </div>
@@ -157,20 +157,22 @@
                             <div class="form-group">
                                 <label for="facultad">Facultad:</label>
                                 <input class="form-control" type="text" id="facultad" name="facultad"
-                                    placeholder="Facultad" onchange="verifica(this);"
+                                    placeholder="Facultad" oninput="verifica(this);"
                                     pattern="^[A-Za-záéíóúÁÉÍÓÚü]+(\s[A-Za-záéíóúÁÉÍÓÚü]+){0,3}$" required>
                             </div>
                             <div class="form-group">
                                 <label for="correo">Correo electrónico:</label>
                                 <input class="form-control" type="email" id="correo" name="correo"
-                                    placeholder="Correo electrónico" onchange="verificaEmail(this);" required>
+                                    placeholder="Correo electrónico" oninput="verificaEmail(this);" required>
                             </div>
                             <div class="form-group">
                                 <label for="disciplina">Disciplina:</label>
-                                <input class="form-control" type="text" id="disciplina" name="disciplina"
-                                    placeholder="Disciplina" onchange="verifica(this);"
-                                    pattern="^[A-Za-záéíóúÁÉÍÓÚü]+(\s[A-Za-záéíóúÁÉÍÓÚü]+){0,3}$" required>
+                                <select class="form-control" id="disciplina" name="disciplina" required>
+                                    <!--<option value="-1" selected disabled>Elige la disciplina</option> SI le das enter manda La primera de la lista pero sin seleccionar visualmente nada. Preferí que seleccionara x defaul la primera-->
+                                    <option th:each="disciplina : ${disciplinas}" th:value="${disciplina.getNombre()}" th:text="${disciplina.getNombre()}"></option>
+                                </select>
                             </div>
+
                             <button class="btn btn-primary" type="submit" id="botonAgregar"
                                 data-mdb-ripple-color="dark">Agregar</button>
                         </div>

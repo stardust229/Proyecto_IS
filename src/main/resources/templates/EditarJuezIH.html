@@ -112,7 +112,7 @@
 
                 <div class="precaucion" id="errorEmailNoDisponible" th:if="${flagEmailNoDisponible}" style="margin-left:120px; margin-right:120px;">
                     <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-                    <strong>¡Error!</strong> Ya existe un juez con ese correo.
+                    <strong>¡Error!</strong> Ya existe un usuario con ese correo.
                 </div>
 
                 <div class="precaucion" id="errorDisciplinaNoExiste" th:if="${flagDisciplinaNoExiste}" style="margin-left:120px; margin-right:120px;">
@@ -136,18 +136,18 @@
                             <div class="form-group">
                                 <label for="nombre">Nombre:</label>
                                 <input class="form-control" type="text" id="nombre" name="nombre" th:field="*{nombre}" placeholder="Nombre"
-                                    onchange="verifica(this);" pattern="^[A-Za-záéíóúÁÉÍÓÚü]+(\s[A-Za-záéíóúÁÉÍÓÚü]+){0,3}$" required>
+                                    oninput="verifica(this);" pattern="^[A-Za-záéíóúÁÉÍÓÚü]+(\s[A-Za-záéíóúÁÉÍÓÚü]+){0,3}$" required>
                             </div>
                             <div class="form-group">
                                 <label for="apellidoPaterno">Apellido paterno:</label>
                                 <input class="form-control" type="text" id="apellidoPaterno" name="apellidoPaterno" th:field="*{apellidoPaterno}"
-                                    placeholder="Apellido paterno" onchange="verifica(this);"
+                                    placeholder="Apellido paterno" oninput="verifica(this);"
                                     pattern="^[A-Za-záéíóúÁÉÍÓÚü]+(\s[A-Za-záéíóúÁÉÍÓÚü]+){0,3}$" required>
                             </div>
                             <div class="form-group">
                                 <label for="apellidoMaterno">Apellido materno:</label>
                                 <input class="form-control" type="text" id="apellidoMaterno" name="apellidoMaterno" th:field="*{apellidoMaterno}"
-                                    placeholder="Apellido materno" onchange="verifica(this);"
+                                    placeholder="Apellido materno" oninput="verifica(this);"
                                     pattern="^[A-Za-záéíóúÁÉÍÓÚü]+(\s[A-Za-záéíóúÁÉÍÓÚü]+){0,3}$" required>
                             </div>
                         </div>
@@ -155,19 +155,19 @@
                             <div class="form-group">
                                 <label for="facultad">Facultad:</label>
                                 <input class="form-control" type="text" id="facultad" name="facultad" th:field="*{facultad}"
-                                    placeholder="Facultad" onchange="verifica(this);"
+                                    placeholder="Facultad" oninput="verifica(this);"
                                     pattern="^[A-Za-záéíóúÁÉÍÓÚü]+(\s[A-Za-záéíóúÁÉÍÓÚü]+){0,3}$" required>
                             </div>
                             <div class="form-group">
                                 <label for="correo">Correo electrónico:</label>
                                 <input class="form-control" type="email" id="correo" name="correo" th:field="*{correo}"
-                                    placeholder="Correo electrónico" onchange="verificaEmail(this);" required>
+                                    placeholder="Correo electrónico" oninput="verificaEmail(this);" required>
                             </div>
                             <div class="form-group">
                                 <label for="disciplina">Disciplina:</label>
-                                <input class="form-control" type="text" id="disciplina" name="disciplina" th:field="*{disciplina}"
-                                    placeholder="Disciplina" onchange="verifica(this);"
-                                    pattern="^[A-Za-záéíóúÁÉÍÓÚü]+(\s[A-Za-záéíóúÁÉÍÓÚü]+){0,3}$" required>
+                                <select class="form-control" id="disciplina" name="disciplina" required>
+                                    <option th:each="disciplina : ${disciplinas}" th:field="*{disciplina}" th:value="${disciplina.getNombre()}" th:text="${disciplina.getNombre()}"></option>
+                                </select>
                             </div>
                             <button class="btn btn-primary" type="submit" id="botonActualizar"
                                 data-mdb-ripple-color="dark">Actualizar</button>
