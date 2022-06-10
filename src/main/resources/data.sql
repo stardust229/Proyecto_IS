@@ -1,8 +1,8 @@
-insert into disciplina (nombre) values ('Atletismo');
-insert into disciplina (nombre) values ('Natación');
-insert into disciplina (nombre) values ('Gimnasia');
-insert into disciplina (nombre) values ('Taekwondo');
-insert into disciplina (nombre) values ('Tiro con arco');
+insert into disciplina (nombre) values ('atletismo');
+insert into disciplina (nombre) values ('natación');
+insert into disciplina (nombre) values ('gimnasia');
+insert into disciplina (nombre) values ('taekwondo');
+insert into disciplina (nombre) values ('tiro con arco');
 
 /* Ingresamos eventos */
 insert into evento (descripcion, fecha, nombre, disciplina_id) values ('Prueba combinada de atletismo que comprende diez pruebas (cuatro carreras, tres lanzamientos y tres saltos)','2022-06-20','Decatlón',1);
