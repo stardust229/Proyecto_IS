@@ -1,13 +1,15 @@
 package com.example.OlimpiadasUNAM.Modelo;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table
 public class Competidor extends Usuario{
-    @ManyToOne
+    
+    @ManyToOne(fetch = FetchType.LAZY)
     private Disciplina disciplina;
 
     @ManyToOne

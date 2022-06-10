@@ -1,11 +1,12 @@
 package com.example.OlimpiadasUNAM.Modelo;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 
 @Entity
 public class Entrenador extends Usuario{
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Disciplina disciplina;
 
     public Entrenador(){}

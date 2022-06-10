@@ -11,8 +11,10 @@ public class Competir {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer idCompetir;
-	@ManyToOne
+
+	@ManyToOne(fetch = FetchType.LAZY)
 	private Evento evento;
+	
 	@ManyToOne
 	private Competidor competidor;
 
