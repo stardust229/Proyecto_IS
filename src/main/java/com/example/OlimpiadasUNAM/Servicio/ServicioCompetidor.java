@@ -30,6 +30,10 @@ public class ServicioCompetidor {
         return repositorioCompetidor.findBynumCuenta(numCuenta);
     }
 
+    public boolean existeCompetidor(int numCuenta){
+        return repositorioCompetidor.existsBynumCuenta(numCuenta);
+    }
+
     public Competidor buscarCompetidor(String correo){ return repositorioCompetidor.findByCorreo(correo); }
 
     public boolean eliminarCompetidor(Entrenador entrenador, int numCuenta){
@@ -41,6 +45,7 @@ public class ServicioCompetidor {
             return false;
         }
     }
+
 
     public boolean actualizarCompetidor(Entrenador entrenador,int numCuenta, String nombre, String apellidoP, String apellidoM, String institucion,
                                      String correo, String contrasena){

@@ -11,10 +11,12 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class ENTRENADORControlador {
@@ -28,6 +30,8 @@ public class ENTRENADORControlador {
     ServicioBoleta servicioBoleta;
     @Autowired
     ServicioUsuarios servicioUsuarios;
+    @Autowired
+    ServicioCompetir servicioCompetir;
     Entrenador entrenador;
 
     @RequestMapping("/entrenador/dashboard")
@@ -127,22 +131,44 @@ public class ENTRENADORControlador {
     }
 
     @PostMapping("/entrenador/eliminarCompetidor")
-    public String eliminar(HttpServletRequest request){
+    public String eliminar(HttpServletRequest request, Model model){
         Integer numCuenta = Integer.parseInt(request.getParameter("numCuenta"));
-        serv.eliminarCompetidor(entrenador, numCuenta);
+        if (serv.existeCompetidor(numCuenta)){
+            Competidor competidor = serv.buscarCompetidor(numCuenta);
+            if (!competidor.getEntrenador().equals(entrenador)){
+                model.addAttribute("invalidNumCuenta",true);
+                return "EliminarCompetidorIH";
+            }
+            List<Competir> dependencias = servicioCompetir.findAllByCompetidor(competidor);
+            for(Competir x : dependencias){
+                servicioCompetir.eliminarCompetir(x);
+            }
+            serv.eliminarCompetidor(entrenador, numCuenta);
+        }else{
+            model.addAttribute("numCuentaNotFound",true);
+        }
         return "EliminarCompetidorIH";
     }
 
     @RequestMapping(value="/entrenador/editarCompetidor",method= RequestMethod.POST, params="botonBuscar")
     public String buscarEditar(HttpServletRequest request, Model model){
         Integer numCuenta = Integer.parseInt(request.getParameter("numCuenta"));
-        Competidor competidor = serv.buscarCompetidor(numCuenta);
-        model.addAttribute("competidor", competidor);
+        if (serv.existeCompetidor(numCuenta)){
+            Competidor competidor = serv.buscarCompetidor(numCuenta);
+            if(!competidor.getEntrenador().equals(entrenador)){
+                model.addAttribute("invalidNumCuenta",true);
+                return "EditarCompetidorIH";
+            }
+            model.addAttribute("competidor",competidor);
+            model.addAttribute("searchSuccess",true);
+        }else{
+            model.addAttribute("numCuentaNotFound",true);
+        }
         return "EditarCompetidorIH";
-    }
+        }
 
     @RequestMapping(value="/entrenador/editarCompetidor",method=RequestMethod.POST, params="botonEditar")
-    public String Editar(HttpServletRequest request){
+    public String Editar(HttpServletRequest request, Model model){
         Integer numCuenta = Integer.parseInt(request.getParameter("numCuenta"));
         String nombre = request.getParameter("nombre");
         String apellidoP = request.getParameter("apellidoPaterno");
@@ -150,7 +176,12 @@ public class ENTRENADORControlador {
         String institucion = request.getParameter("institucion");
         String correo = request.getParameter("correo");
         String contrasena = request.getParameter("contrasena");
-        serv.actualizarCompetidor(entrenador, numCuenta, nombre, apellidoP, apellidoM, institucion, correo, contrasena);
+        Competidor comp = serv.buscarCompetidor(correo);
+        if (comp != null && !(comp.getNumCuenta() == numCuenta)){
+            model.addAttribute("flagEmailNoDisponible",true);
+        }else {
+            serv.actualizarCompetidor(entrenador, numCuenta, nombre, apellidoP, apellidoM, institucion, correo, contrasena);
+        }
         return "EditarCompetidorIH";
     }
 

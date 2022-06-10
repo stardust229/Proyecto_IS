@@ -62,10 +62,6 @@ public class ControladorLogin {
         return "AdministradorLandingIH";
     }
 
-    @RequestMapping("/competidor/dashboard")
-    public String getCompetidorDashboard() {
-        return "CompetidorLandingIH";
-    }
 
     @RequestMapping("/registroEntrenador")
     public String getRegisterPage(Model model) {

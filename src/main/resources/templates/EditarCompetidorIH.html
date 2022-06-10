@@ -92,7 +92,7 @@
                 <a class="nav-link" th:href="@{/entrenador/eliminarCompetidor}">Eliminar Competidor</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Calificaciones</a>
+                <a class="nav-link" th:href="@{/entrenador/calificacionesEntrenador}">Calificaciones</a>
               </li>
             </ul>
             <a class="btn btn-danger navbar-btn" th:href="@{/logout}">Cerrar sesión</a>
@@ -104,15 +104,22 @@
     <br>
 
     <div style="text-align: left;">
+      <div class="precaucion" id="editarSinBusqueda" style="margin-left:120px; margin-right:120px; display: none">
+        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+        Busque a un competidor para editarlo.
+      </div>
       <div class="precaucion" id="busquedaSinNumCuenta" style="margin-left:120px; margin-right:120px; display: none">
         <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-        Ingrese un número de cuenta para buscar el competidor a editar
+        Ingrese un número de cuenta para buscar el competidor a editar.
       </div>
-      <div class="precaucion" id="errorIDNoDisponible" th:if="${flagIDNoDisponible}" style="margin-left:120px; margin-right:120px;">
+      <div class="precaucion" id="numCuentaNotFound" th:if="${numCuentaNotFound}" style="margin-left:120px; margin-right:120px;">
         <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-        <strong>¡Error!</strong> Ya existe un competidor con ese número de cuenta.
+        No se encontró un competidor con el número de cuenta dado.
       </div>
-
+      <div class="precaucion" id="invalidNumCuenta" th:if="${invalidNumCuenta}" style="margin-left:120px; margin-right:120px;">
+        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+        Este competidor fue registrado por otro entrenador, no puede ser modificado.
+      </div>
       <div class="precaucion" id="errorEmailNoDisponible" th:if="${flagEmailNoDisponible}" style="margin-left:120px; margin-right:120px;">
         <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
         <strong>¡Error!</strong> Ya existe un competidor con ese correo.
@@ -177,10 +184,14 @@
             <button class="btn btn-secondary" type="submit" id="botonBuscar" name="botonBuscar"
                     data-mdb-ripple-color="dark" formnovalidate>Buscar</button>
             </div>
-            <div style="display: inline-block">
+            <div style="display: inline-block" onmouseover="yaBusco()">
             <button class="btn btn-primary" type="submit" id="botonEditar" name="botonEditar"
-                    data-mdb-ripple-color="dark">Editar</button>
+                    data-mdb-ripple-color="dark" onclick="reactivarNumCuenta()">Editar</button>
               </div>
+            <div style="display: inline-block">
+              <button class="btn btn-danger" type="submit" id="botonCancelar" name="botonCancelar"
+                      data-mdb-ripple-color="dark" th:href="@{/entrenador/editarCompetidor}" formnovalidate>Cancelar</button>
+            </div>
           </div>
         </form>
       </div>
@@ -193,30 +204,42 @@
   </footer>
 </div>
 
-<script>
+<script th:inline="javascript">
   actualizarBotonBusqueda();
   actualizarBotonSubmit();
+  var successfulSearch = [[${searchSuccess}]] == null ? false : [[${searchSuccess}]];
+  var botonBuscar = document.getElementById('botonBuscar');
   const numCuentaInput = document.getElementById('numCuenta');
   numCuentaInput.addEventListener('keydown', filterInputDigits);
   numCuentaInput.addEventListener('input', actualizarBotonBusqueda);
+  numCuentaInput.disabled = successfulSearch;
+  botonBuscar.disabled = successfulSearch;
+
+  function reactivarNumCuenta(){
+    var numCuentaInput = document.getElementById('numCuenta');
+    numCuentaInput.disabled = false;
+  }
 
   function actualizarBotonBusqueda(event){
     var numCuenta=document.getElementById('numCuenta');
     var boton = document.getElementById('botonBuscar');
     if(numCuenta.value === ''){
       boton.disabled=true;
-      boton.ariaDisabled=true;
     }else{
       boton.disabled = false;
-      boton.ariaDisabled=true;
     }
+  }
+
+  function yaBusco(){
+    var errorPopUp = document.getElementById('editarSinBusqueda');
+    if (![[${searchSuccess}]]) errorPopUp.style.display="block";
   }
 
   function checarBusqueda(){
     var numCuenta = document.getElementById('numCuenta');
     var errorPopUp = document.getElementById('busquedaSinNumCuenta');
     var boton = document.getElementById('botonBuscar');
-    if (numCuenta.value === '' && boton.disabled){
+    if (numCuenta.value === '' && boton.disabled && !successfulSearch){
       errorPopUp.style.display="block";
     }
   }
@@ -265,7 +288,7 @@
 
   function actualizarBotonSubmit() {
     boton = document.getElementById("botonEditar");
-    if (validarTodo()) {
+    if (validarTodo() && [[${searchSuccess}]]) {
       boton.disabled = false;
     } else {
       boton.disabled = true;
@@ -282,6 +305,7 @@
     return true;
   }
 </script>
+
 
 </body>
 
