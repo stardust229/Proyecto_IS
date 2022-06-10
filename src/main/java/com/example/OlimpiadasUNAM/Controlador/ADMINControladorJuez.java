@@ -30,7 +30,8 @@ public class ADMINControladorJuez {
     private ServicioUsuarios servicioUsuarios;
 
     @RequestMapping("/agregarJuezIH")
-    public String agregarJuezIH(){
+    public String agregarJuezIH(Model model){
+        model.addAttribute("disciplinas", disciplinaServicio.mostrarDisciplinas(""));
         return "AgregarJuezIH";
     }
 
@@ -72,6 +73,7 @@ public class ADMINControladorJuez {
                     facultad,correo,contrasenia,disciplina);
             try {
                 servicioJuez.agregar(juez);
+                model.addAttribute("disciplinas", disciplinaServicio.mostrarDisciplinas(""));
                 model.addAttribute("exitoAgrega", true);
             } catch (IDNodisponibleExcepcion e) {
                 model.addAttribute("flagIDNoDisponible", true);
@@ -82,6 +84,7 @@ public class ADMINControladorJuez {
 
     @GetMapping("/editarJuez/{id}")
     public String editar(@PathVariable("id") Integer id, Model model){
+        model.addAttribute("disciplinas", disciplinaServicio.mostrarDisciplinas(""));
         Juez juez = servicioJuez.buscarPorCuenta(id).get();
         JuezBuilder juezBuilder = new JuezBuilder(juez.getDisciplina().getNombre(),
                 juez.getNumCuenta(), juez.getNombre(), juez.getApellidoPaterno(), juez.getApellidoMaterno(),
@@ -125,6 +128,7 @@ public class ADMINControladorJuez {
                 juez.setDisciplina(disciplina);
                 try {
                     servicioJuez.editar(juez);
+                    modelo.addAttribute("disciplinas", disciplinaServicio.mostrarDisciplinas(""));
                     modelo.addAttribute("exitoActualiza", true);
                     return "EditarJuezIH";
                 }catch(Exception e){
