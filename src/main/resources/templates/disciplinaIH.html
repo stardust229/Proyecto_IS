@@ -121,33 +121,33 @@
           </div>
         </nav>
         <!-- Navbar -->
+
       </header>
       <br>
 
       <div style="text-align: center;">
 
-        <div class="precaucion" id="error" th:if="${error}" style="margin-left:120px; margin-right:120px;">
+        <div class="precaucion" id="error" th:if="${error}" style="margin-left:5vw; margin-right:5vw;">
           <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
           <strong>¡Error!</strong> Ya existe esa disciplina.
         </div>
 
-        <div class="precaucion" id="errorElimina" th:if="${errorElimina}"
-          style="margin-left:120px; margin-right:120px;">
+        <div class="precaucion" id="errorElimina" th:if="${errorElimina}" style="margin-left:5vw; margin-right:5vw;">
           <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
           <strong>¡Error!</strong> La disciplina a eliminar no existe.
         </div>
 
-        <div class="exito" id="exitoAgrega" th:if="${exitoAgrega}" style="margin-left:120px; margin-right:120px;">
+        <div class="exito" id="exitoAgrega" th:if="${exitoAgrega}" style="margin-left:5vw; margin-right:5vw;">
           <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
           <strong>¡Éxito!</strong> Disciplina agregada correctamente.
         </div>
 
-        <div class="exito" id="exitoActualiza" th:if="${exitoActualiza}" style="margin-left:120px; margin-right:120px;">
+        <div class="exito" id="exitoActualiza" th:if="${exitoActualiza}" style="margin-left:5vw; margin-right:5vw;">
           <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
           <strong>¡Éxito!</strong> Disciplina actualizada correctamente.
         </div>
 
-        <div class="exito" id="exitoElimina" th:if="${exitoElimina}" style="margin-left:120px; margin-right:120px;">
+        <div class="exito" id="exitoElimina" th:if="${exitoElimina}" style="margin-left:5vw; margin-right:5vw;">
           <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
           <strong>¡Éxito!</strong> Disciplina eliminada correctamente.
         </div>
@@ -176,10 +176,12 @@
                   Buscar
                 </button>
               </div>
+            </form>
           </div>
         </div>
 
         <div class="fila">
+        <div class="table-responsive">
           <table id="tablaUsuarios" class="table table-striped table-bordered table-hover">
             <thead class="table-dark">
               <tr>
@@ -190,22 +192,24 @@
             <tbody>
               <tr th:each="disciplina : ${disciplina}">
                 <td th:text="${#strings.capitalize(disciplina.nombre)}">Nombre</td>
+                  <td>
+                    <a th:href="@{/admin/disciplinaIH/editar/} + ${disciplina.id}" class="btn btn-success">Editar</a>
+                  </td>
 
-                <td>
-                  <a th:href="@{/admin/disciplinaIH/editar/} + ${disciplina.id}" class="btn btn-success">Editar</a>
-                </td>
 
+                  <td>
+                    <a th:href="@{/admin/disciplinaIH/} + ${disciplina.id}" class="btn btn-danger">Eliminar</a>
+                  </td>
 
-                <td>
-                  <a th:href="@{/admin/disciplinaIH/} + ${disciplina.id}" class="btn btn-danger">Eliminar</a>
-                </td>
-
-                <td>
-                  <a th:href="@{/admin/disciplinaIH/{id}/EventoIH (id=${disciplina.id})}" class="btn btn-info">Detalles</a>
-                </td>
-              </tr>  
-            </tbody>
-          </table>
+                  <td>
+                    <a th:href="@{/admin/disciplinaIH/{id}/EventoIH (id=${disciplina.id})}"
+                      class="btn btn-info">Detalles</a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+        </div>
+        </div>
         </div>
 
       </div>

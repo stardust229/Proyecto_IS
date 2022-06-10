@@ -19,7 +19,6 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
           integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
           crossorigin="anonymous"></script>
-
   <style>
     .fila:after {
         content: "";
@@ -136,6 +135,7 @@
           </div>
         </nav>
         <!-- Navbar -->
+
       </header>
 
 
@@ -146,28 +146,27 @@
 
       <div style="text-align: center;">
 
-        <div class="precaucion" id="error" th:if="${error}" style="margin-left:120px; margin-right:120px;">
+        <div class="precaucion" id="error" th:if="${error}" style="margin-left:5vw; margin-right:5vw;">
           <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
           <strong>¡Error!</strong> Ya existe ese evento.
         </div>
 
-        <div class="precaucion" id="errorElimina" th:if="${errorElimina}"
-          style="margin-left:120px; margin-right:120px;">
+        <div class="precaucion" id="errorElimina" th:if="${errorElimina}" style="margin-left:5vw; margin-right:5vw;">
           <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
           <strong>¡Error!</strong> El evento a eliminar no existe.
         </div>
 
-        <div class="exito" id="exitoAgrega" th:if="${exitoAgrega}" style="margin-left:120px; margin-right:120px;">
+        <div class="exito" id="exitoAgrega" th:if="${exitoAgrega}" style="margin-left:5vw; margin-right:5vw;">
           <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
           <strong>¡Éxito!</strong> Evento agregado correctamente.
         </div>
 
-        <div class="exito" id="exitoActualiza" th:if="${exitoActualiza}" style="margin-left:120px; margin-right:120px;">
+        <div class="exito" id="exitoActualiza" th:if="${exitoActualiza}" style="margin-left:5vw; margin-right:5vw;">
           <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
           <strong>¡Éxito!</strong> Evento actualizado correctamente.
         </div>
 
-        <div class="exito" id="exitoElimina" th:if="${exitoElimina}" style="margin-left:120px; margin-right:120px;">
+        <div class="exito" id="exitoElimina" th:if="${exitoElimina}" style="margin-left:5vw; margin-right:5vw;">
           <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
           <strong>¡Éxito!</strong> Evento eliminado correctamente.
         </div>
@@ -189,14 +188,14 @@
                 <td th:text="${#strings.capitalize(evento.nombre)}">Nombre</td>
                 <h3 hidden th:text="${disciplinaOriginal}"></h3>
 
-                <td th:text="${#dates.format(evento.fecha, 'dd-MM-yyyy')}">Fecha</td>
+                  <td th:text="${#dates.format(evento.fecha, 'dd-MM-yyyy')}">Fecha</td>
 
-                <td th:text="${#strings.capitalize(evento.descripcion)}">Descripción</td>
+                  <td th:text="${#strings.capitalize(evento.descripcion)}">Descripción</td>
 
-                <td>
-                  <a th:href="@{/admin/disciplinaIH/{id}/EventoIH/editar/{idEvento} (id=${disciplinaOriginal}, idEvento=${evento.idEvento})}"
-                    class="btn btn-success">Editar</a>
-                </td>
+                  <td>
+                    <a th:href="@{/admin/disciplinaIH/{id}/EventoIH/editar/{idEvento} (id=${disciplinaOriginal}, idEvento=${evento.idEvento})}"
+                      class="btn btn-success">Editar</a>
+                  </td>
 
                 <td>
                   <a th:href="@{/admin/disciplinaIH/{id}/EventoIH/{idEvento} (id=${disciplinaOriginal}, idEvento= ${evento.idEvento})}"
@@ -249,9 +248,9 @@
                 <div class="form-group row">
                   <label for="inputFecha" class="col-sm-2 col-form-label">Fecha:</label>
                   <div class="col-sm-10">
-                    <input type="text" class="form-control" value="2022-01-01" name="fecha" id="picker" oninvalid="VerificaFecha(this);"
-                      oninput="VerificaFecha(this);" placeholder="Fecha del evento" required pattern="\d{4}-\d{1,2}-\d{1,2}"
-                       readonly> 
+                    <input type="text" class="form-control" value="2022-01-01" name="fecha" id="picker"
+                      oninvalid="VerificaFecha(this);" oninput="VerificaFecha(this);" placeholder="Fecha del evento"
+                      required pattern="\d{4}-\d{1,2}-\d{1,2}" readonly>
                   </div>
                 </div>
                 <!--Form -->
