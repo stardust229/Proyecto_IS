@@ -52,7 +52,11 @@
                                 <a class="nav-link" th:href="@{/CompetidorLandingIH}">Menú</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link"  href="#">Retroalimentación</a>
+                                <a class="nav-link"  th:href="@{/retroalimentacion}">Retroalimentación</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link"  th:href="@{/tablaposiciones}">Tabla de posiciones</a>
+                            </li>
                         </ul>
                         <a class="btn btn-danger navbar-btn" th:href="@{/logout}">Cerrar sesión</a>
                     </div>
@@ -69,7 +73,10 @@
                     <tr>
                         <th>Id</th>
                         <th>Evento</th>
-                        <th>Competidor</th>
+                        <th>Disciplina</th>
+                        <th>Nombre</th>
+                        <th>Apellido Materno</th>
+                        <th>Apellido Paterno</th>
                         <th>Puntaje</th>
                     </tr>
                     </thead>
@@ -77,7 +84,10 @@
                     <tr th:each="liststudent : ${liststudent}">
                         <td th:text="${liststudent.idCompetir}">Id</td>
                         <td th:text="${liststudent.evento.nombre}">Evento</td>
-                        <td th:text="${liststudent.competidor.nombre}">Competidor</td>
+                        <td th:text="${liststudent.competidor.disciplina.nombre}">Disciplina</td>
+                        <td th:text="${liststudent.competidor.nombre}">Nombre</td>
+                        <td th:text="${liststudent.competidor.apellidoMaterno}">Apellido Materno</td>
+                        <td th:text="${liststudent.competidor.apellidoPaterno}">Apellido Paterno</td>
                         <td th:text="${liststudent.puntaje}">Puntaje</td>
                     </tr>
                     </tbody>

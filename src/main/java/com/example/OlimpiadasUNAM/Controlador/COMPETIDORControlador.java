@@ -24,23 +24,34 @@ public class COMPETIDORControlador {
      ServicioCompetidor serv;
      @Autowired
     ServicioCompetir comp;
+
+     Competidor competidor;
     @RequestMapping("/CompetidorLandingIH")
     public String landingCompetidor(){
 
         return "CompetidorLandingIH";
     }
+    @RequestMapping("/competidor/dashboard")
+    public String getCompetidorDashboard() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String correo = auth.getName();
+        this.competidor = serv.buscarCompetidor(correo);
+        return "CompetidorLandingIH";
+
+    }
 
     @GetMapping("/retroalimentacion")
     public String retroalimentacion(Model model){
-        Authentication auth =SecurityContextHolder.getContext().getAuthentication();
-        Competidor competidor = (Competidor)auth.getPrincipal();
-        int numcuenta = competidor.getNumCuenta();
-         model.addAttribute("liststudent",comp.obtenerCompetencias(numcuenta));
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String correo = auth.getName();
+        this.competidor = serv.buscarCompetidor(correo);
+        int numCuenta = competidor.getNumCuenta();
+        model.addAttribute("competencias",comp.obtenerCompetencias(numCuenta));
         return "RetroalimentacionIH";
     }
 
 
-    @GetMapping("/posiciones")
+    @GetMapping("/tablaposiciones")
     public String viewHomePage(Model model) {
         List<Competir> liststudent = service.listAll();
         model.addAttribute("liststudent", liststudent);

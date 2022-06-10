@@ -11,7 +11,8 @@ public class ServicioCompetir {
     @Autowired
     CompetirRepositorio repo;
 
-    public List<Competir> obtenerCompetencias(int id){
-        return repo.obtenerCompetencias(id);
+    public List<Competir> obtenerCompetencias(Integer numCuenta){
+
+        return repo.obtenerCompetencias(numCuenta);
     }
 }

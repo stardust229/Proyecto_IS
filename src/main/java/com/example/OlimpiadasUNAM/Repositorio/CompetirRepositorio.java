@@ -7,6 +7,6 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.List;
 
 public interface CompetirRepositorio extends CrudRepository<Competir,Integer> {
-    @Query(value="SELECT * FROM competir c WHERE c.num_cuenta=:id",nativeQuery = true)
-    public  List<Competir> obtenerCompetencias(Integer id);
+    @Query(value="SELECT * FROM competir c WHERE c.competidor_num_cuenta=:numCuenta",nativeQuery = true)
+    public  List<Competir> obtenerCompetencias(Integer numCuenta);
 }

@@ -69,10 +69,10 @@
                                     <a class="nav-link" aria-current="page" href="#">Menú</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">Retroalimentación</a>
+                                    <a class="nav-link" th:href="@{/retroalimentación}">Retroalimentación</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" th:href=@{/tablaCalificaciones}>Tabla de posiciones</a>
+                                    <a class="nav-link" th:href=@{/tablaposiciones}>Tabla de posiciones</a>
                                 </li>
                             </ul>
                             <a class="btn btn-danger navbar-btn" th:href="@{/logout}">Cerrar sesión</a>
@@ -84,7 +84,7 @@
 
             <div style="margin-left:20px; margin-right:20px">
                 <div class="jumbotron">
-                    <h1 class="display-4">Hola, *usuario</h1>
+                    <h1 class="display-4">Hola, competidor</h1>
                     <p class="lead">¿Qué deseas hacer hoy?</p>
                 </div>
 
@@ -103,7 +103,7 @@
                             <div class="card-body">
                                 <h5 class="card-title">Tabla de posiciones</h5>
                                 <p class="card-text">Puedes consultar la tabla general de calificaciones.</p>
-                                <a th:href="@{/posiciones}" class="btn btn-primary">Posiciones</a>
+                                <a th:href="@{/tablaposiciones}" class="btn btn-primary">Posiciones</a>
                             </div>
                         </div>
                     </div>
