@@ -176,9 +176,8 @@ public class ENTRENADORControlador {
         String institucion = request.getParameter("institucion");
         String correo = request.getParameter("correo");
         String contrasena = request.getParameter("contrasena");
-        Competidor comp = new Competidor(numCuenta, nombre, apellidoP, apellidoM, institucion, correo, contrasena,entrenador.getDisciplina(), entrenador);
-        Competidor comp2 = serv.buscarCompetidor(correo);
-        if (!comp.equals(comp2)){
+        Competidor comp = serv.buscarCompetidor(correo);
+        if (comp != null && !(comp.getNumCuenta() == numCuenta)){
             model.addAttribute("flagEmailNoDisponible",true);
         }else {
             serv.actualizarCompetidor(entrenador, numCuenta, nombre, apellidoP, apellidoM, institucion, correo, contrasena);

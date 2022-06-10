@@ -188,6 +188,10 @@
             <button class="btn btn-primary" type="submit" id="botonEditar" name="botonEditar"
                     data-mdb-ripple-color="dark" onclick="reactivarNumCuenta()">Editar</button>
               </div>
+            <div style="display: inline-block">
+              <button class="btn btn-danger" type="submit" id="botonCancelar" name="botonCancelar"
+                      data-mdb-ripple-color="dark" th:href="@{/entrenador/editarCompetidor}" formnovalidate>Cancelar</button>
+            </div>
           </div>
         </form>
       </div>
@@ -204,10 +208,12 @@
   actualizarBotonBusqueda();
   actualizarBotonSubmit();
   var successfulSearch = [[${searchSuccess}]] == null ? false : [[${searchSuccess}]];
+  var botonBuscar = document.getElementById('botonBuscar');
   const numCuentaInput = document.getElementById('numCuenta');
   numCuentaInput.addEventListener('keydown', filterInputDigits);
   numCuentaInput.addEventListener('input', actualizarBotonBusqueda);
   numCuentaInput.disabled = successfulSearch;
+  botonBuscar.disabled = successfulSearch;
 
   function reactivarNumCuenta(){
     var numCuentaInput = document.getElementById('numCuenta');
@@ -233,7 +239,7 @@
     var numCuenta = document.getElementById('numCuenta');
     var errorPopUp = document.getElementById('busquedaSinNumCuenta');
     var boton = document.getElementById('botonBuscar');
-    if (numCuenta.value === '' && boton.disabled){
+    if (numCuenta.value === '' && boton.disabled && !successfulSearch){
       errorPopUp.style.display="block";
     }
   }
