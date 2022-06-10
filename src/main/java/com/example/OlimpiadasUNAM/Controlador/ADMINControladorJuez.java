@@ -142,10 +142,10 @@ public class ADMINControladorJuez {
     @GetMapping("/admin/eliminarJuez/{id}")
     public String eliminar(@PathVariable("id") Integer id, Model model){
         servicioJuez.eliminar(id);
-        return "redirect:/consultarJuezIH";
+        return "redirect:/admin/consultarJuezIH";
     }
 
-    @GetMapping({"/admin/consultarJuezIH","/consultarJuez"})
+    @GetMapping({"/admin/consultarJuezIH","/admin/consultarJuez"})
     public String listarJueces(Model modelo, @Param("busqueda") String busqueda){
         modelo.addAttribute("jueces", getJuecesAMostrar(busqueda));
         return "ConsultarJuezIH";
