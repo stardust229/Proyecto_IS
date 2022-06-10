@@ -38,7 +38,7 @@ public class ADMINControladorDisciplina {
     @PostMapping("/admin/agregar")
     public String procesa(HttpServletRequest request, Model modelo, RedirectAttributes redirectAttributes) {
         Disciplina disciplina = new Disciplina();
-        String nombreD = request.getParameter("disciplina".toLowerCase());
+        String nombreD = request.getParameter("disciplina").toLowerCase();
         disciplina.setNombre(nombreD);
         if (disciplinaServicio.existeDisciplina(disciplina.getNombre())) {
             redirectAttributes.addFlashAttribute("error", true);
