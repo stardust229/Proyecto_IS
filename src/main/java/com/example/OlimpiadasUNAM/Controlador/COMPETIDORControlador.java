@@ -32,11 +32,11 @@ public class COMPETIDORControlador {
     ServicioCompetir comp;
 
      Competidor competidor;
-    @RequestMapping("/CompetidorLandingIH")
+    /* @RequestMapping("/CompetidorLandingIH")
     public String landingCompetidor(){
 
         return "CompetidorLandingIH";
-    }
+    }*/
     @RequestMapping("/competidor/dashboard")
     public String getCompetidorDashboard() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -46,7 +46,7 @@ public class COMPETIDORControlador {
 
     }
 
-    @GetMapping("/retroalimentacion")
+    @GetMapping("/competidor/retroalimentacion")
     public String retroalimentacion(Model model){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String correo = auth.getName();
